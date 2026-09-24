@@ -5,44 +5,27 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        Intent ejemplo = new Intent(this, MainActivity2.class);
-        ActivityResultLauncher<Intent> intentResult;
-        intentResult = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult o) {
-                        if(o.getResultCode() == RESULT_OK){
-                            if(o.getData() != null && o.getData().getExtras() != null){
-                                Log.wtf("@string/ECO_MAIN_ACTIVITY", o.getData().getStringExtra("Resultado"));
-                            }
-                        }
-                    }
-                }
-        );
-        intentResult.launch(ejemplo);
+        Intent intent = new Intent();
+        intent.putExtra("Resultado", "TODO OK");
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override
@@ -74,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d("@string/ECO_MAIN_ACTIVITY", "Estoy en onDestroy");
     }
-
-
     @Override
     protected void onRestart() {
         super.onRestart();
