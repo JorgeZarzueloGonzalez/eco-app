@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Eco</string>
+    <string name="createdBy">Creado por Jorge Zarzuelo Gonzalez</string>
+    <string name="ECO_MAIN_ACTIVITY">Eco.MainActivity</string>
+</resources>
