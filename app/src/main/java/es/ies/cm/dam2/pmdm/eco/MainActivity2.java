@@ -1,6 +1,7 @@
 package es.ies.cm.dam2.pmdm.eco;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -56,6 +57,11 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("@string/ECO_MAIN_ACTIVITY", "Estoy en onDestroy");
+
+        Intent ejemplo2 = new Intent(Intent.ACTION_VIEW);
+        ejemplo2.setData(Uri.parse("https://jorgezarzuelo.es/"));
+        startActivity(ejemplo2);
+        Log.wtf("@string/ECO_MAIN_ACTIVITY", "Despues de la actividad");
     }
     @Override
     protected void onRestart() {
