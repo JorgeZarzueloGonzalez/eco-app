@@ -1,15 +1,13 @@
 package es.ies.cm.dam2.pmdm.eco;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -28,23 +26,13 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Intent ejemplo = new Intent(this, MainActivity2.class);
-        ActivityResultLauncher<Intent> intentResult;
-        intentResult = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult o) {
-                        if(o.getResultCode() == RESULT_OK){
-                            if(o.getData() != null && o.getData().getExtras() != null){
-                                Log.wtf("@string/ECO_MAIN_ACTIVITY", o.getData().getStringExtra("Resultado"));
-                            }
-                        }
-                    }
-                }
-        );
-        intentResult.launch(ejemplo);
+        TextView texto = findViewById(R.id.Created);
+        texto.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity2.class);
+            startActivity(intent);
+        });
     }
+
 
     @Override
     protected void onStart() {
@@ -82,4 +70,5 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         Log.d("@string/ECO_MAIN_ACTIVITY", "Estoy en onRestart");
     }
+
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +24,6 @@ public class MainActivity2 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Intent intent = new Intent();
-        intent.putExtra("Resultado", "TODO OK");
-        setResult(RESULT_OK, intent);
-        finish();
     }
 
     @Override
@@ -58,11 +55,8 @@ public class MainActivity2 extends AppCompatActivity {
         super.onDestroy();
         Log.d("@string/ECO_MAIN_ACTIVITY", "Estoy en onDestroy");
 
-        Intent ejemplo2 = new Intent(Intent.ACTION_VIEW);
-        ejemplo2.setData(Uri.parse("https://jorgezarzuelo.es/"));
-        startActivity(ejemplo2);
-        Log.wtf("@string/ECO_MAIN_ACTIVITY", "Despues de la actividad");
     }
+
     @Override
     protected void onRestart() {
         super.onRestart();

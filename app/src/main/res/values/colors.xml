@@ -2,9 +2,25 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#2196F3</color>
-    <color name="primaryDark">#1F2E83</color>
-    <color name="accent">#A161CCC1</color>
-    <color name="text">#AC1212</color>
-    <color name="lime">#A8E829</color>
+
+    <!-- Marca -->
+    <color name="primary">#4338CA</color>
+    <color name="primaryDark">#312E81</color>
+    <color name="primaryLight">#4F46E5</color>
+
+    <!-- Acento (lima) -->
+    <color name="accent">#C6F135</color>
+    <color name="accentDark">#9BC426</color>
+
+    <!-- Superficies -->
+    <color name="background">#05050D</color>
+    <color name="surface">#101026</color>
+    <color name="surface_highlight">#181836</color>
+    <color name="divider">#22224A</color>
+
+    <!-- Texto -->
+    <color name="text">#EDEDF5</color>
+    <color name="text_secondary">#8888B0</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_accent">#0B0B0B</color>
 </resources>
