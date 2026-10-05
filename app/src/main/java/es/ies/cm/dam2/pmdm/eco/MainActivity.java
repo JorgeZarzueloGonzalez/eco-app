@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    int counterValue = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,16 +26,23 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        TextView counter = findViewById(R.id.counter);
+        counter.setText(String.valueOf(counterValue));
+
         Button checkButton = findViewById(R.id.checkButton);
         checkButton.setOnClickListener(v -> {
-            TextView counter = findViewById(R.id.counter);
-            counter.setText(String.valueOf(Integer.parseInt(counter.getText().toString()) + 1));
+            counterValue += 1;
+            counter.setText(String.valueOf(counterValue));
+            if(counterValue == 10){
+                Intent intent = new Intent(this, AltaCancionActivity.class);
+                startActivity(intent);
+            }
         });
 
         Button resetButton = findViewById(R.id.resetButton);
         resetButton.setOnClickListener(v -> {
-            TextView counter = findViewById(R.id.counter);
-            counter.setText("0");
+            counterValue = 0;
+            counter.setText(String.valueOf(counterValue));
         });
 
         TextView texto = findViewById(R.id.Created);
@@ -42,37 +51,4 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
 }

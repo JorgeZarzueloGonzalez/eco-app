@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Eco</string>
     <string name="createdBy">Creado por Jorge Zarzuelo Gonzalez</string>
+    <string name="numbers_of_artist">Numero de artistas: %1$d</string>
+    <string name="write_here">Escribe aqui</string>
+    <string name="acept">Aceptar</string>
+    <string name="name">Nombre</string>
+    <string name="puss_button">Pulsa el boton</string>
+    <string name="button_pussed">Boton pulsado</string>
 </resources>
