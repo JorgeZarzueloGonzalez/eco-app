@@ -44,11 +44,11 @@ public class AltaCancionActivity extends AppCompatActivity {
 
         addButton.setOnClickListener(v -> {
             artistNumberValue += 1;
-            if (artistNumberValue == 4){
-                Toast.makeText( AltaCancionActivity.this, "Maximo numero de artistas", Toast.LENGTH_SHORT).show();
+            if (artistNumberValue == 4) {
+                Toast.makeText(AltaCancionActivity.this, "Maximo numero de artistas", Toast.LENGTH_SHORT).show();
                 addButton.setEnabled(false);
-            }else {
-                if(!resButton.isEnabled()) {
+            } else {
+                if (!resButton.isEnabled()) {
                     resButton.setEnabled(true);
                 }
             }
@@ -57,11 +57,11 @@ public class AltaCancionActivity extends AppCompatActivity {
 
         resButton.setOnClickListener(v -> {
             artistNumberValue -= 1;
-            if (artistNumberValue == 1){
-                Toast.makeText( AltaCancionActivity.this, "Minimo numero de artistas", Toast.LENGTH_SHORT).show();
+            if (artistNumberValue == 1) {
+                Toast.makeText(AltaCancionActivity.this, "Minimo numero de artistas", Toast.LENGTH_SHORT).show();
                 resButton.setEnabled(false);
-            }else {
-                if(!addButton.isEnabled()){
+            } else {
+                if (!addButton.isEnabled()) {
                     addButton.setEnabled(true);
                 }
             }
@@ -75,9 +75,9 @@ public class AltaCancionActivity extends AppCompatActivity {
 
 
         checkBoxBiblioteca.setOnCheckedChangeListener((v, isChecked) -> {
-            if(checkBoxBiblioteca.isChecked()){
+            if (checkBoxBiblioteca.isChecked()) {
                 boxButton.setEnabled(false);
-            }else{
+            } else {
                 boxButton.setEnabled(true);
             }
         });
