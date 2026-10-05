@@ -2,10 +2,8 @@ package es.ies.cm.dam2.pmdm.eco;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,9 +24,21 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        Button checkButton = findViewById(R.id.checkButton);
+        checkButton.setOnClickListener(v -> {
+            TextView counter = findViewById(R.id.counter);
+            counter.setText(String.valueOf(Integer.parseInt(counter.getText().toString()) + 1));
+        });
+
+        Button resetButton = findViewById(R.id.resetButton);
+        resetButton.setOnClickListener(v -> {
+            TextView counter = findViewById(R.id.counter);
+            counter.setText("0");
+        });
+
         TextView texto = findViewById(R.id.Created);
         texto.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity2.class);
+            Intent intent = new Intent(this, PaletaActivity.class);
             startActivity(intent);
         });
     }
@@ -37,38 +47,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(getString(R.string.ECO_MAIN_ACTIVITY), "Estoy en onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(getString(R.string.ECO_MAIN_ACTIVITY), "Estoy en onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(getString(R.string.ECO_MAIN_ACTIVITY), "Estoy en onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("@string/ECO_MAIN_ACTIVITY", "Estoy en onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("@string/ECO_MAIN_ACTIVITY", "Estoy en onDestroy");
     }
 
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d("@string/ECO_MAIN_ACTIVITY", "Estoy en onRestart");
     }
 
 }
