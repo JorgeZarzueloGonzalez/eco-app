@@ -1,5 +1,6 @@
 package es.ies.cm.dam2.pmdm.eco;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -41,6 +42,7 @@ public class AltaCancionActivity extends AppCompatActivity {
         Button nameButton = findViewById(R.id.nameButton);
         CheckBox checkBoxBiblioteca = findViewById(R.id.checkBoxBiblioteca);
         Button boxButton = findViewById(R.id.boxButton);
+        Button nextActivityButton = findViewById(R.id.nextActivityButton);
 
         addButton.setOnClickListener(v -> {
             artistNumberValue += 1;
@@ -84,6 +86,11 @@ public class AltaCancionActivity extends AppCompatActivity {
 
         boxButton.setOnClickListener(v -> {
             puss.setText(getString(R.string.button_pussed));
+        });
+
+        nextActivityButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AltaCancion2Activity.class);
+            startActivity(intent);
         });
 
     }

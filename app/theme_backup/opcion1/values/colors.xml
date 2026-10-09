@@ -11,16 +11,12 @@
     <color name="accentDark">#416000</color>
     <!-- Relleno de lima brillante: para fondos/chips/barra (NUNCA para texto) -->
     <color name="accent_fill">#C6F135</color>
-    <!-- Lima de ACCIÓN (botones primarios, checkbox, progreso) en tema claro:
-         lima oscurecida para cumplir 3:1 vs fondo; texto negro encima = 5,57:1 (AA) -->
-    <color name="action">#719400</color>
 
     <!-- ===== CONTENEDORES (CLARO) ===== -->
-    <!-- El primario es la lima de acción => contenedor lima; el secundario es el índigo -->
-    <color name="primary_container">#CCF07B</color>
-    <color name="on_primary_container">#2E4300</color>
-    <color name="secondary_container">#E0E7FF</color>
-    <color name="on_secondary_container">#312E81</color>
+    <color name="primary_container">#E0E7FF</color>
+    <color name="on_primary_container">#312E81</color>
+    <color name="secondary_container">#CCF07B</color>
+    <color name="on_secondary_container">#2E4300</color>
 
     <!-- ===== SUPERFICIES (CLARO) ===== -->
     <color name="background">#F4F4FB</color>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- ===== MARCA (igual en ambos temas) ===== -->
+    <color name="primary">#4338CA</color>
+    <color name="primaryDark">#312E81</color>
+    <color name="primaryLight">#4F46E5</color>
+    <color name="accent">#C6F135</color>
+    <color name="accentDark">#9BC426</color>
+
+    <!-- ===== SUPERFICIES (CLARO) ===== -->
+    <color name="background">#F7F7FB</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_highlight">#ECECF5</color>
+    <color name="divider">#D8D8E4</color>
+
+    <!-- ===== TEXTO (CLARO) ===== -->
+    <color name="text">#14141F</color>
+    <color name="text_secondary">#5A5A75</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_accent">#0B0B0B</color>
+</resources>

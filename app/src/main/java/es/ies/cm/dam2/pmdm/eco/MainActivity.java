@@ -50,5 +50,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, PaletaActivity.class);
             startActivity(intent);
         });
+
+        TextView appName = findViewById(R.id.appName);
+        appName.setOnClickListener(v -> {
+            Intent intent = new Intent(this, PreubaActivity.class);
+            startActivity(intent);
+        });
     }
 }

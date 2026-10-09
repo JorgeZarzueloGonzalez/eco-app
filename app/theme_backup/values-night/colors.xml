@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Superficies (OSCURO) -->
+    <color name="background">#05050D</color>
+    <color name="surface">#101026</color>
+    <color name="surface_highlight">#181836</color>
+    <color name="divider">#22224A</color>
+
+    <!-- Texto (OSCURO) -->
+    <color name="text">#EDEDF5</color>
+    <color name="text_secondary">#8888B0</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_accent">#0B0B0B</color>
+</resources>

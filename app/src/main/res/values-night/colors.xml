@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== MARCA (igual en ambos temas) ===== -->
+    <color name="primary">#4338CA</color>
+    <color name="primaryDark">#312E81</color>
+    <color name="primaryLight">#4F46E5</color>
+    <color name="accent">#C6F135</color>
+    <color name="accentDark">#9BC426</color>
+    <!-- Relleno de lima brillante: para fondos/chips/barra (NUNCA para texto) -->
+    <color name="accent_fill">#C6F135</color>
+    <!-- Lima de ACCIÓN (botones primarios, checkbox, progreso) en tema oscuro:
+         lima brillante; texto negro encima = 15:1, vs fondo = 15,5:1 -->
+    <color name="action">#C6F135</color>
+
+    <!-- ===== CONTENEDORES (OSCURO) ===== -->
+    <!-- El primario es la lima de acción => contenedor lima; el secundario es el índigo -->
+    <color name="primary_container">#4A5A0A</color>
+    <color name="on_primary_container">#D9F78E</color>
+    <color name="secondary_container">#312E81</color>
+    <color name="on_secondary_container">#DCD9FF</color>
+
+    <!-- ===== SUPERFICIES (OSCURO) ===== -->
+    <color name="background">#05050D</color>
+    <color name="surface">#101026</color>
+    <color name="surface_container_low">#12122C</color>
+    <color name="surface_container">#151531</color>
+    <color name="surface_container_high">#1B1B3C</color>
+    <color name="surface_container_highest">#212147</color>
+    <color name="surface_highlight">#26330A</color>
+    <color name="divider">#2A2A57</color>
+    <color name="outline">#4A4A7B</color>
+
+    <!-- ===== TEXTO (OSCURO) ===== -->
+    <color name="text">#EDEDF5</color>
+    <color name="text_secondary">#A3A3C8</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_accent">#0B0B0B</color>
+</resources>

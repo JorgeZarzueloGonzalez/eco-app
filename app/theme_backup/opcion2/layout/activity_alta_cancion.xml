@@ -10,7 +10,6 @@
 
     <Button
         android:id="@+id/addButton"
-        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+"
@@ -21,7 +20,6 @@
 
     <Button
         android:id="@+id/resButton"
-        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="-"
@@ -58,7 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/name"
-        android:textColor="@color/accent"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/songNameEdit"
         app:layout_constraintEnd_toEndOf="parent"
