@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
         buscarButton.setOnClickListener(v ->
                 startActivity(new Intent(this, BuscarActivity.class)));
 
+        // ===================== P8 La biblioteca =====================
+        Button bibliotecaButton = findViewById(R.id.bibliotecaButton);
+        bibliotecaButton.setOnClickListener(v ->
+                startActivity(new Intent(this, BibliotecaActivity.class)));
+
         // ===================== P6.3 Drag &amp; Drop hasta la zona de destino =====================
         TextView dragSource = findViewById(R.id.dragSource);
         TextView dropTarget = findViewById(R.id.dropTarget);

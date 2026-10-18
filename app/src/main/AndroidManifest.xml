@@ -52,6 +52,9 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".BibliotecaActivity"
+            android:exported="false" />
+        <activity
             android:name=".PreubaActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

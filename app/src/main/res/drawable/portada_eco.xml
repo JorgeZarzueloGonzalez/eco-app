@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portada por defecto (género desconocido) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+    <path
+        android:fillColor="@color/surface_container"
+        android:pathData="M0,0h64v64h-64z" />
+    <path
+        android:fillColor="@color/text_secondary"
+        android:pathData="M32,14 A18,18 0 1 1 31.99,14 Z" />
+    <path
+        android:fillColor="@color/surface_container"
+        android:pathData="M32,28 A4,4 0 1 1 31.99,28 Z" />
+</vector>

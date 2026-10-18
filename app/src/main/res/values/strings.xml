@@ -115,4 +115,15 @@
     <string name="mostrar">Mostrar</string>
     <string name="buscar_toast">Género: %1$s · Canción: %2$s · Ubicación: %3$s</string>
     <string name="main_buscar">Buscar</string>
+
+    <!-- ===== Práctica 8: la biblioteca (colección) ===== -->
+    <string name="biblioteca_titulo">Mi biblioteca</string>
+    <string name="anadir_cancion">Añadir canción</string>
+    <string name="mostrar_canciones">Mostrar canciones</string>
+    <string name="portada">Portada</string>
+    <string name="item_interpretes">Intérpretes: %1$s</string>
+    <string name="biblioteca_anadida">Añadida: %1$s</string>
+    <string name="biblioteca_vacia">Todavía no hay canciones: pulsa Añadir canción</string>
+    <string name="catalogo_toast">%1$s · %2$s</string>
+    <string name="main_biblioteca">Biblioteca</string>
 </resources>

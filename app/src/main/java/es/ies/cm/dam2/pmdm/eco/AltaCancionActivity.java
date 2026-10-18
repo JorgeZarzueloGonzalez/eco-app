@@ -220,6 +220,10 @@ public class AltaCancionActivity extends AppCompatActivity {
 
         Button sendButton = findViewById(R.id.sendButton);
         sendButton.setOnClickListener(v -> enviarFormulario());
+
+        // P8: Aceptar devuelve la canción (para la biblioteca).
+        Button aceptarFormButton = findViewById(R.id.aceptarFormButton);
+        aceptarFormButton.setOnClickListener(v -> aceptarFormulario());
     }
 
     /** Comprueba que el texto del campo de popularidad es un entero entre 1 y 10. */
@@ -248,6 +252,37 @@ public class AltaCancionActivity extends AppCompatActivity {
     }
 
     private void enviarFormulario() {
+        Cancion cancion = validarFormulario();
+        if (cancion == null) {
+            return;
+        }
+
+        Intent intent = new Intent(this, FichaCancionActivity.class);
+        intent.putExtra(EXTRA_NOMBRE, cancion.getNombre());
+        intent.putExtra(EXTRA_GENERO, cancion.getGenero());
+        intent.putExtra(EXTRA_SELLO, cancion.getSello());
+        intent.putExtra(EXTRA_INTERPRETES_MIN, cancion.getInterpretesMin());
+        intent.putExtra(EXTRA_INTERPRETES_MAX, cancion.getInterpretesMax());
+        intent.putExtra(EXTRA_ANIO, cancion.getAnio());
+        intent.putExtra(EXTRA_DURACION, cancion.getDuracion());
+        intent.putExtra(EXTRA_POPULARIDAD, cancion.getPopularidad());
+        startActivity(intent);
+    }
+
+    /** P8: ACEPTAR devuelve la canción a la pantalla que la haya pedido (la biblioteca). */
+    private void aceptarFormulario() {
+        Cancion cancion = validarFormulario();
+        if (cancion == null) {
+            return;
+        }
+        Intent respuesta = new Intent();
+        respuesta.putExtra(BibliotecaActivity.EXTRA_CANCION, cancion);
+        setResult(RESULT_OK, respuesta);
+        finish();
+    }
+
+    /** Valida el formulario: devuelve la canción, o {@code null} (con su Toast) si algo está mal. */
+    private Cancion validarFormulario() {
         String nombre = leerNombre();
         String genero = generoSpinner.getSelectedItemPosition() > 0
                 ? generoSpinner.getSelectedItem().toString()
@@ -267,21 +302,11 @@ public class AltaCancionActivity extends AppCompatActivity {
 
         if (!todoRelleno || !interpretesOk || !anioOk || !popularidadOk) {
             Toast.makeText(this, R.string.wrong_data, Toast.LENGTH_SHORT).show();
-            return;
+            return null;
         }
 
         int popularidad = Integer.parseInt(popularityEdit.getText().toString().trim());
-
-        Intent intent = new Intent(this, FichaCancionActivity.class);
-        intent.putExtra(EXTRA_NOMBRE, nombre);
-        intent.putExtra(EXTRA_GENERO, genero);
-        intent.putExtra(EXTRA_SELLO, sello);
-        intent.putExtra(EXTRA_INTERPRETES_MIN, minimo);
-        intent.putExtra(EXTRA_INTERPRETES_MAX, maximo);
-        intent.putExtra(EXTRA_ANIO, anio);
-        intent.putExtra(EXTRA_DURACION, duracion);
-        intent.putExtra(EXTRA_POPULARIDAD, popularidad);
-        startActivity(intent);
+        return new Cancion(nombre, genero, sello, minimo, maximo, anio, popularidad, duracion);
     }
 
     private void limpiarFormulario() {
