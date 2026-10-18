@@ -45,6 +45,18 @@ public class MainActivity extends AppCompatActivity {
             counter.setText(getString(R.string.reproductions, counterValue));
         });
 
+        Button altaButton = findViewById(R.id.altaButton);
+        altaButton.setOnClickListener(v ->
+                startActivity(new Intent(this, AltaCancionActivity.class)));
+
+        Button oyenteButton = findViewById(R.id.oyenteButton);
+        oyenteButton.setOnClickListener(v ->
+                startActivity(new Intent(this, OyenteActivity.class)));
+
+        Button invitarButton = findViewById(R.id.invitarButton);
+        invitarButton.setOnClickListener(v ->
+                startActivity(new Intent(this, InvitarCorreoActivity.class)));
+
         TextView texto = findViewById(R.id.Created);
         texto.setOnClickListener(v -> {
             Intent intent = new Intent(this, PaletaActivity.class);

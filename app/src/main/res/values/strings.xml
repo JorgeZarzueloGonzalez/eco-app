@@ -67,4 +67,29 @@
     <string name="ficha_anio">Año de publicación: %1$d</string>
     <string name="ficha_duracion">Duración: %1$d min</string>
     <string name="ficha_popularidad">Popularidad: %1$d</string>
+
+    <!-- ===== Práctica 5: asistencia a la Noche de Eco ===== -->
+    <string name="oyente_nombre">Tu nombre</string>
+    <string name="continuar">Continuar</string>
+    <string name="asistencia_titulo">Noche de Eco</string>
+    <string name="asistencia_pregunta">¿Asistes a la Noche de Eco del sábado? Pulsa Aceptar o Cancelar.</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptado">ACEPTADO</string>
+    <string name="cancelado">CANCELADO</string>
+    <string name="mensaje_asistencia">De acuerdo %1$s, usted ha %2$s la asistencia a la noche de Eco</string>
+    <string name="falta_nombre">Escribe tu nombre</string>
+
+    <!-- ===== Práctica 5: invitación por correo ===== -->
+    <string name="destinatario">Destinatario</string>
+    <string name="asunto">Asunto</string>
+    <string name="texto_correo">Texto del correo</string>
+    <string name="enviar">Enviar</string>
+    <string name="invitacion_defecto">¡Hola!\nTe invito a la Noche de Eco del sábado a las 20:00 en la sala principal. ¡Trae tus auriculares!</string>
+    <string name="sin_apps_correo">No hay ninguna aplicación de correo instalada</string>
+
+    <!-- ===== Menú principal ===== -->
+    <string name="main_alta">Alta de canción</string>
+    <string name="main_oyente">Asistencia a la Noche de Eco</string>
+    <string name="main_invitar">Invitar por correo</string>
 </resources>
