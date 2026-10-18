@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- La única vista de esta pantalla: el texto del propietario. -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/autor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/accent_fill"
+    android:gravity="center"
+    android:padding="24dp"
+    android:text="@string/acerca_autor"
+    android:textColor="@color/text_on_accent"
+    android:textSize="28sp"
+    android:textStyle="bold"
+    tools:context=".AcercaDeActivity" />

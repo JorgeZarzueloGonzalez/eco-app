@@ -92,4 +92,18 @@
     <string name="main_alta">Alta de canción</string>
     <string name="main_oyente">Asistencia a la Noche de Eco</string>
     <string name="main_invitar">Invitar por correo</string>
+    <string name="main_web">Web de Eco</string>
+    <string name="main_compartir">Compartir canción</string>
+    <string name="web_eco" translatable="false">https://open.spotify.com</string>
+
+    <!-- ===== Práctica 6: compartir por WhatsApp ===== -->
+    <string name="compartir_titulo">Compartir canción</string>
+    <string name="compartir_hint">Nombre de la canción</string>
+    <string name="sin_whatsapp">No se pudo abrir la tienda de aplicaciones</string>
+    <string name="sin_navegador">No hay ningún navegador instalado</string>
+
+    <!-- ===== Práctica 6: acerca de Eco (Drag &amp; Drop) ===== -->
+    <string name="acerca_autor">Eco · creada por Jorge</string>
+    <string name="drag_source">Arrastra Eco</string>
+    <string name="drop_target">…y suéltalo aquí para conocer la app</string>
 </resources>
