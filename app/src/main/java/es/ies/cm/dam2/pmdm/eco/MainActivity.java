@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
         compartirButton.setOnClickListener(v ->
                 startActivity(new Intent(this, CompartirActivity.class)));
 
+        // ===================== P7 Buscar canción =====================
+        Button buscarButton = findViewById(R.id.buscarButton);
+        buscarButton.setOnClickListener(v ->
+                startActivity(new Intent(this, BuscarActivity.class)));
+
         // ===================== P6.3 Drag &amp; Drop hasta la zona de destino =====================
         TextView dragSource = findViewById(R.id.dragSource);
         TextView dropTarget = findViewById(R.id.dropTarget);

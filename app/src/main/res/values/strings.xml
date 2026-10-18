@@ -106,4 +106,13 @@
     <string name="acerca_autor">Eco · creada por Jorge</string>
     <string name="drag_source">Arrastra Eco</string>
     <string name="drop_target">…y suéltalo aquí para conocer la app</string>
+
+    <!-- ===== Práctica 7: buscar canción ===== -->
+    <string name="buscar_titulo">Buscar canción</string>
+    <string name="buscar_genero">Género</string>
+    <string name="buscar_cancion">Canción</string>
+    <string name="buscar_ubicacion">Ubicación</string>
+    <string name="mostrar">Mostrar</string>
+    <string name="buscar_toast">Género: %1$s · Canción: %2$s · Ubicación: %3$s</string>
+    <string name="main_buscar">Buscar</string>
 </resources>

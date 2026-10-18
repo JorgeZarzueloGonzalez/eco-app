@@ -50,4 +50,8 @@
     <color name="estado_favorito">#C6F135</color>
     <!-- Texto de los RadioButton sobre esos fondos -->
     <color name="estado_texto">#14141F</color>
+
+    <!-- ===== PRÁCTICA 7: un color de texto distinto para cada Spinner ===== -->
+    <color name="spinner_genero">#567A00</color>
+    <color name="spinner_cancion">#4F46E5</color>
 </resources>

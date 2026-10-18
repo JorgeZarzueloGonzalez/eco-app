@@ -43,4 +43,8 @@
     <!-- En tema oscuro el fondo neutro es la superficie (en claro es blanco) -->
     <color name="estado_neutro">#101026</color>
     <color name="estado_texto">#EDEDF5</color>
+
+    <!-- ===== PRÁCTICA 7: un color de texto distinto para cada Spinner ===== -->
+    <color name="spinner_genero">#C6F135</color>
+    <color name="spinner_cancion">#9FA8FF</color>
 </resources>

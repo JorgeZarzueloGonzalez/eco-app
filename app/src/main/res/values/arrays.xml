@@ -8,4 +8,13 @@
         <item>Pop</item>
         <item>Electrónica</item>
     </string-array>
+
+    <!-- Práctica 7: las 5 ubicaciones donde puede estar una canción -->
+    <string-array name="ubicaciones">
+        <item>Biblioteca</item>
+        <item>Descargadas</item>
+        <item>Playlist "Noche de Eco"</item>
+        <item>Prestadas</item>
+        <item>En la nube</item>
+    </string-array>
 </resources>

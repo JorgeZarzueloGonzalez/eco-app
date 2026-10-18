@@ -48,6 +48,10 @@
             android:name=".AcercaDeActivity"
             android:exported="false" />
         <activity
+            android:name=".BuscarActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".PreubaActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
