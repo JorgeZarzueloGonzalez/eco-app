@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="TelcaPuntuacion">
+    <!-- Estilo ÚNICO compartido por los 9 botones del teclado de puntuación (P3.1).
+         En el layout se aplica con style="@style/TeclaPuntuacion" (SIN "android:"). -->
+    <style name="TeclaPuntuacion">
+        <!-- Obligatorios del enunciado -->
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">@color/black</item>"
+        <item name="android:textColor">@color/text_on_accent</item>
+        <item name="android:backgroundTint">@color/action</item>
+        <!-- Característica investigada 1: número en negrita -->
+        <item name="android:textStyle">bold</item>
+        <!-- Característica investigada 2: separación entre las letras -->
+        <item name="android:letterSpacing">0.1</item>
     </style>
 </resources>

@@ -1,10 +1,51 @@
 <resources>
     <string name="app_name">Eco</string>
     <string name="createdBy">Creado por Jorge Zarzuelo Gonzalez</string>
-    <string name="numbers_of_artist">Numero de artistas: %1$d</string>
-    <string name="write_here">Escribe aqui</string>
+
+    <!-- ===== Práctica 1b: contador ===== -->
+    <string name="check">Check</string>
+    <string name="reset">Reset</string>
+    <string name="reproductions">Reproducciones: %1$d</string>
+
+    <!-- ===== Práctica 2: controles básicos ===== -->
+    <string name="numbers_of_artist">Intérpretes: %1$d</string>
+    <string name="artist_info">Botón pulsado: %1$s · Intérpretes: %2$d</string>
+    <string name="max_artists">Máximo número de intérpretes</string>
+    <string name="min_artists">Mínimo número de intérpretes</string>
+    <string name="add_artist">+</string>
+    <string name="remove_artist">−</string>
+    <string name="write_here">Escribe aquí</string>
+    <string name="write_a_name">Escribe un nombre</string>
     <string name="acept">Aceptar</string>
     <string name="name">Nombre</string>
-    <string name="puss_button">Pulsa el boton</string>
-    <string name="button_pussed">Boton pulsado</string>
+    <string name="checkbox_library">En mi biblioteca</string>
+    <string name="puss_button">Pulsa el botón</string>
+    <string name="button_pussed">Botón pulsado</string>
+    <string name="box_button">Button</string>
+    <string name="next_symbol">›</string>
+
+    <!-- ===== Práctica 3: teclado de puntuación ===== -->
+    <string name="keypad_title">Teclado de puntuación</string>
+    <string name="score">Puntuación: %1$d</string>
+    <string name="key_1">1</string>
+    <string name="key_2">2</string>
+    <string name="key_3">3</string>
+    <string name="key_4">4</string>
+    <string name="key_5">5</string>
+    <string name="key_6">6</string>
+    <string name="key_7">7</string>
+    <string name="key_8">8</string>
+    <string name="key_9">9</string>
+
+    <!-- ===== Práctica 3: validación de la popularidad ===== -->
+    <string name="popularity_label">Popularidad (1-10)</string>
+    <string name="popularity_hint">1 - 10</string>
+    <string name="popularity_error">Popularidad incorrecta</string>
+
+    <!-- ===== Práctica 3: estado de la canción ===== -->
+    <string name="song_state">Estado de la canción</string>
+    <string name="state_new">Nuevo</string>
+    <string name="state_listened">Escuchado</string>
+    <string name="state_favorite">Favorito</string>
+    <string name="clear">Limpiar</string>
 </resources>

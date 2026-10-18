@@ -35,4 +35,12 @@
     <color name="text_secondary">#A3A3C8</color>
     <color name="text_on_primary">#FFFFFF</color>
     <color name="text_on_accent">#0B0B0B</color>
+
+    <!-- ===== ERRORES ===== -->
+    <color name="error">#F2B8B5</color>
+
+    <!-- ===== ESTADO DE LA CANCIÓN (P3.3) ===== -->
+    <!-- En tema oscuro el fondo neutro es la superficie (en claro es blanco) -->
+    <color name="estado_neutro">#101026</color>
+    <color name="estado_texto">#EDEDF5</color>
 </resources>

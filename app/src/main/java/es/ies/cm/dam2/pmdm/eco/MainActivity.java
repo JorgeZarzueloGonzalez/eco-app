@@ -27,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         TextView counter = findViewById(R.id.counter);
-        counter.setText(String.valueOf(counterValue));
+        counter.setText(getString(R.string.reproductions, counterValue));
 
         Button checkButton = findViewById(R.id.checkButton);
         checkButton.setOnClickListener(v -> {
             counterValue += 1;
-            counter.setText(String.valueOf(counterValue));
+            counter.setText(getString(R.string.reproductions, counterValue));
             if(counterValue == 10){
                 Intent intent = new Intent(this, AltaCancionActivity.class);
                 startActivity(intent);
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Button resetButton = findViewById(R.id.resetButton);
         resetButton.setOnClickListener(v -> {
             counterValue = 0;
-            counter.setText(String.valueOf(counterValue));
+            counter.setText(getString(R.string.reproductions, counterValue));
         });
 
         TextView texto = findViewById(R.id.Created);

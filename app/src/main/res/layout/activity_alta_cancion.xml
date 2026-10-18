@@ -1,116 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/estado_neutro"
+    android:fillViewport="true"
     tools:context=".AltaCancionActivity">
 
-    <Button
-        android:id="@+id/addButton"
-        style="@style/Widget.Material3.Button.TonalButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/resButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <Button
-        android:id="@+id/resButton"
-        style="@style/Widget.Material3.Button.TonalButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="-"
-        android:enabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/addButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!-- ================= P2.2 Nombre de la canción ================= -->
+        <TextView
+            android:id="@+id/songName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textColor="@color/accent"
+            android:textSize="34sp" />
 
-    <TextView
-        android:id="@+id/artistNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/numbers_of_artist"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addButton" />
+        <EditText
+            android:id="@+id/songNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/write_here"
+            android:importantForAutofill="no"
+            android:inputType="text" />
 
-    <EditText
-        android:id="@+id/songNameEdit"
-        android:layout_width="183dp"
-        android:layout_height="47dp"
-        android:ems="10"
-        android:hint="@string/write_here"
-        android:inputType="text"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/addButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/nameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/acept" />
 
-    <TextView
-        android:id="@+id/songName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:textColor="@color/accent"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/songNameEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <!-- ================= P2.1 Contadores de intérpretes ================= -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/nameButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/acept"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/songNameEdit" />
+            <Button
+                android:id="@+id/resButton"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/remove_artist" />
 
-    <TextView
-        android:id="@+id/puss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/puss_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/checkBoxBiblioteca"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addButton" />
+            <Button
+                android:id="@+id/addButton"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/add_artist" />
+        </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/checkBoxBiblioteca"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CheckBox"
-        android:checked="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/puss"
-        app:layout_constraintTop_toBottomOf="@+id/resButton" />
+        <TextView
+            android:id="@+id/artistNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/numbers_of_artist" />
 
-    <Button
-        android:id="@+id/boxButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:enabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxBiblioteca" />
+        <!-- ================= P2.3 ¿En tu biblioteca? ================= -->
+        <CheckBox
+            android:id="@+id/checkBoxBiblioteca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:checked="true"
+            android:text="@string/checkbox_library" />
 
-    <Button
-        android:id="@+id/nextActivityButton"
-        android:layout_width="62dp"
-        android:layout_height="51dp"
-        android:text=">"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/boxButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/box_button" />
+
+            <TextView
+                android:id="@+id/puss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/puss_button" />
+        </LinearLayout>
+
+        <!-- ================= P3.2 Validación de la popularidad ================= -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/popularity_label"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/popularityEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/popularity_hint"
+            android:importantForAutofill="no"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/popularityError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/error"
+            android:textStyle="bold" />
+
+        <!-- ================= P3.3 Estado de la canción ================= -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/song_state"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/state_new"
+                android:textColor="@color/estado_texto" />
+
+            <RadioButton
+                android:id="@+id/radioListened"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/state_listened"
+                android:textColor="@color/estado_texto" />
+
+            <RadioButton
+                android:id="@+id/radioFavorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/state_favorite"
+                android:textColor="@color/estado_texto" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear" />
+
+        <!-- ================= Navegación al teclado de puntuación ================= -->
+        <Button
+            android:id="@+id/nextActivityButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/keypad_title" />
+
+    </LinearLayout>
+</ScrollView>
