@@ -30,12 +30,14 @@
         android:layout_marginTop="8dp"
         android:text="@string/mostrar_canciones" />
 
-    <!-- Ocupa todo el espacio que queda -->
-    <ListView
-        android:id="@+id/bibliotecaList"
+    <!-- P9: la colección, en tarjetas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bibliotecaRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp" />
 
 </LinearLayout>

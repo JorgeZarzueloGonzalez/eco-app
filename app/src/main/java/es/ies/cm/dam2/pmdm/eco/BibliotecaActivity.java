@@ -2,9 +2,7 @@ package es.ies.cm.dam2.pmdm.eco;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,43 +12,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 /**
- * P8 La biblioteca de Eco: lista de canciones y alta de canciones nuevas.
+ * P8/P9 La biblioteca de Eco: la colección de canciones.
  * <p>
- * Al abrir se ve el catálogo (géneros y canciones de la P7) con un adaptador de
- * fábrica; "Mostrar canciones" pinta la colección con el adaptador propio
- * (portada + nombre + intérpretes).
+ * En la P8 se pintaba con un {@code ListView}; en la P9 pasa a un
+ * {@link RecyclerView} con tarjetas. La colección se carga estáticamente en el
+ * {@code onCreate} (más de 20 canciones) y el botón Añadir mete las que devuelve
+ * el formulario de alta.
  */
-public class BibliotecaActivity extends AppCompatActivity {
+public class BibliotecaActivity extends AppCompatActivity
+        implements AdaptadorCancionRecycler.OyenteCancion {
 
-    /** Clave del extra con el objeto {@link Cancion} que devuelve el alta. */
+    /** Clave del extra con el objeto {@link Cancion}: lo usan el alta (devuelve) y la ficha (recibe). */
     public static final String EXTRA_CANCION = "extra_cancion";
-
-    /** El catálogo: los mismos géneros y canciones de la P7. */
-    private static final String[][] CATALOGO = {
-            {"Rock", "Luna de cobre"},
-            {"Rock", "Tormenta"},
-            {"Rock", "Camino al sur"},
-            {"Pop", "Neón"},
-            {"Pop", "Mariposa"},
-            {"Pop", "Ciudad dormida"},
-            {"Electrónica", "Pulso"},
-            {"Electrónica", "Circuito"},
-            {"Electrónica", "Amanecer binario"}
-    };
 
     /** LA COLECCIÓN: atributo de clase, la biblioteca de la app. */
     private final ArrayList<Cancion> coleccion = new ArrayList<>();
 
-    /** true cuando la lista está mostrando la colección (y no el catálogo). */
-    private boolean mostrandoColeccion = false;
+    private AdaptadorCancionRecycler adaptador;
+    private LinearLayoutManager disposicion;
 
-    private ListView bibliotecaList;
-
-    /** El lanzador se registra como atributo: recibe la canción del alta. */
+    /** El lanzador se registra como atributo: recibe la canción del alta (P8). */
     private final ActivityResultLauncher<Intent> lanzadorAlta =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), respuesta -> {
                 if (respuesta.getResultCode() == RESULT_OK && respuesta.getData() != null) {
@@ -58,6 +45,7 @@ public class BibliotecaActivity extends AppCompatActivity {
                     Cancion nueva = (Cancion) respuesta.getData().getSerializableExtra(EXTRA_CANCION);
                     if (nueva != null) {
                         coleccion.add(nueva);
+                        adaptador.notifyItemInserted(coleccion.size() - 1);
                         Toast.makeText(this, getString(R.string.biblioteca_anadida, nueva.getNombre()),
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -75,28 +63,19 @@ public class BibliotecaActivity extends AppCompatActivity {
             return insets;
         });
 
-        bibliotecaList = findViewById(R.id.bibliotecaList);
+        // 1. La colección (carga estática: mínimo 20 canciones)
+        cargarColeccion();
 
-        // Primera versión de la lista: el catálogo, con adaptador de fábrica.
-        ArrayList<String> textosCatalogo = new ArrayList<>();
-        for (String[] fila : CATALOGO) {
-            textosCatalogo.add(getString(R.string.catalogo_toast, fila[0], fila[1]));
-        }
-        ArrayAdapter<String> adaptadorCatalogo = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, textosCatalogo);
-        bibliotecaList.setAdapter(adaptadorCatalogo);
+        // 2. El RecyclerView con su LayoutManager (sin él no se pinta NADA)
+        RecyclerView bibliotecaRecycler = findViewById(R.id.bibliotecaRecycler);
+        disposicion = new LinearLayoutManager(this);   // una sola columna
+        bibliotecaRecycler.setLayoutManager(disposicion);
 
-        // Clic en una fila: Toast con lo que hay en esa posición.
-        bibliotecaList.setOnItemClickListener((parent, view, position, id) -> {
-            if (mostrandoColeccion) {
-                Toast.makeText(this, coleccion.get(position).toString(), Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this,
-                        getString(R.string.catalogo_toast, CATALOGO[position][0], CATALOGO[position][1]),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        // 3. El adaptador (this = esta activity escucha los clics)
+        adaptador = new AdaptadorCancionRecycler(coleccion, this);
+        bibliotecaRecycler.setAdapter(adaptador);
 
+        // 4. Los botones de siempre
         Button anadirButton = findViewById(R.id.anadirButton);
         anadirButton.setOnClickListener(v ->
                 // Se lanza CON EL LANZADOR para recibir la canción de vuelta.
@@ -106,12 +85,57 @@ public class BibliotecaActivity extends AppCompatActivity {
         mostrarButton.setOnClickListener(v -> mostrarColeccion());
     }
 
-    /** Pinta la colección con el adaptador propio (portadas y tonos alternos). */
+    /** P9: la colección se rellena a mano aquí, sin base de datos ni ficheros. */
+    private void cargarColeccion() {
+        coleccion.add(new Cancion("Luna de cobre", "Rock", "Eco Records", 2, 5, 2024, 8, 180, 7));
+        coleccion.add(new Cancion("Tormenta", "Rock", "Eco Records", 3, 4, 2021, 7, 205, 6));
+        coleccion.add(new Cancion("Camino al sur", "Rock", "Sur Records", 1, 3, 2019, 6, 165, 5));
+        coleccion.add(new Cancion("Viento norte", "Rock", "Sur Records", 4, 6, 2023, 9, 190, 8));
+        coleccion.add(new Cancion("Semilla", "Rock", "Eco Records", 2, 2, 2020, 5, 150, 4));
+        coleccion.add(new Cancion("Fuego lento", "Rock", "Sur Records", 2, 4, 2022, 8, 175, 7));
+        coleccion.add(new Cancion("Arena", "Rock", "Eco Records", 3, 5, 2018, 6, 200, 6));
+
+        coleccion.add(new Cancion("Neón", "Pop", "Luces Records", 1, 2, 2025, 9, 210, 9));
+        coleccion.add(new Cancion("Mariposa", "Pop", "Luces Records", 1, 1, 2023, 8, 195, 7));
+        coleccion.add(new Cancion("Ciudad dormida", "Pop", "Luces Records", 2, 3, 2022, 7, 185, 6));
+        coleccion.add(new Cancion("Azúcar", "Pop", "Sol Records", 1, 2, 2024, 9, 200, 8));
+        coleccion.add(new Cancion("Ventana", "Pop", "Sol Records", 2, 2, 2021, 6, 170, 5));
+        coleccion.add(new Cancion("Domingo", "Pop", "Luces Records", 1, 3, 2020, 7, 160, 6));
+        coleccion.add(new Cancion("Papel de plata", "Pop", "Sol Records", 2, 4, 2019, 5, 155, 4));
+
+        coleccion.add(new Cancion("Pulso", "Electrónica", "Circuito Records", 1, 1, 2025, 9, 240, 9));
+        coleccion.add(new Cancion("Circuito", "Electrónica", "Circuito Records", 2, 2, 2024, 8, 225, 8));
+        coleccion.add(new Cancion("Amanecer binario", "Electrónica", "Nébula Records", 1, 3, 2023, 7, 210, 7));
+        coleccion.add(new Cancion("Órbita", "Electrónica", "Nébula Records", 2, 3, 2022, 8, 235, 8));
+        coleccion.add(new Cancion("Señal", "Electrónica", "Circuito Records", 1, 1, 2021, 6, 205, 5));
+        coleccion.add(new Cancion("Bitácora", "Electrónica", "Nébula Records", 3, 4, 2020, 7, 220, 6));
+        coleccion.add(new Cancion("Nébula", "Electrónica", "Nébula Records", 1, 2, 2019, 6, 215, 5));
+    }
+
+    /** El botón Mostrar vuelve al principio de la lista y la repinta. */
     private void mostrarColeccion() {
         if (coleccion.isEmpty()) {
             Toast.makeText(this, R.string.biblioteca_vacia, Toast.LENGTH_SHORT).show();
+            return;
         }
-        bibliotecaList.setAdapter(new AdaptadorCancion(this, coleccion));
-        mostrandoColeccion = true;
+        adaptador.notifyDataSetChanged();
+        disposicion.scrollToPosition(0);
+    }
+
+    /** Clic corto: se abre la ficha con la canción completa (objeto Serializable). */
+    @Override
+    public void alHacerClicCorto(int posicion) {
+        Cancion cancion = coleccion.get(posicion);
+        Intent intent = new Intent(this, FichaCancionActivity.class);
+        intent.putExtra(EXTRA_CANCION, cancion);
+        startActivity(intent);
+    }
+
+    /** Clic largo: se borra la canción de la colección y se avisa. */
+    @Override
+    public void alHacerClicLargo(int posicion) {
+        coleccion.remove(posicion);
+        adaptador.notifyItemRemoved(posicion);
+        Toast.makeText(this, R.string.cancion_borrada, Toast.LENGTH_SHORT).show();
     }
 }

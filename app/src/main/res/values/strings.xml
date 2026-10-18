@@ -126,4 +126,8 @@
     <string name="biblioteca_vacia">Todavía no hay canciones: pulsa Añadir canción</string>
     <string name="catalogo_toast">%1$s · %2$s</string>
     <string name="main_biblioteca">Biblioteca</string>
+
+    <!-- ===== Práctica 9: RecyclerView y ficha ampliada ===== -->
+    <string name="cancion_borrada">Canción borrada</string>
+    <string name="ficha_valoracion">Valoración: %1$d / 9</string>
 </resources>

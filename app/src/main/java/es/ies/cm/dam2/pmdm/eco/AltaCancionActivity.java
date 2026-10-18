@@ -43,6 +43,7 @@ public class AltaCancionActivity extends AppCompatActivity {
     public static final String EXTRA_ANIO = "extra_anio";
     public static final String EXTRA_DURACION = "extra_duracion";
     public static final String EXTRA_POPULARIDAD = "extra_popularidad";
+    public static final String EXTRA_VALORACION = "extra_valoracion";
 
     /** Máximo de intérpretes que permite el contador de la P2. */
     private static final int MAX_ARTISTAS = 4;
@@ -59,6 +60,9 @@ public class AltaCancionActivity extends AppCompatActivity {
 
     /** Último nombre aceptado con el botón de la P2.2 (por si el EditText se vació). */
     private String nombreAceptado = "";
+
+    /** Valoración elegida en el teclado de la P3 (0 = ninguna). */
+    private int valoracionSeleccionada = 0;
 
     private View raiz;
     private TextView songName;
@@ -186,7 +190,10 @@ public class AltaCancionActivity extends AppCompatActivity {
         for (int i = 0; i < TECLAS.length; i++) {
             final int numero = i + 1;
             Button tecla = findViewById(TECLAS[i]);
-            tecla.setOnClickListener(v -> scoreResult.setText(getString(R.string.score, numero)));
+            tecla.setOnClickListener(v -> {
+                valoracionSeleccionada = numero;
+                scoreResult.setText(getString(R.string.score, numero));
+            });
         }
 
         // ===================== P3.3 Estado de la canción =====================
@@ -266,6 +273,7 @@ public class AltaCancionActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_ANIO, cancion.getAnio());
         intent.putExtra(EXTRA_DURACION, cancion.getDuracion());
         intent.putExtra(EXTRA_POPULARIDAD, cancion.getPopularidad());
+        intent.putExtra(EXTRA_VALORACION, cancion.getValoracion());
         startActivity(intent);
     }
 
@@ -306,7 +314,8 @@ public class AltaCancionActivity extends AppCompatActivity {
         }
 
         int popularidad = Integer.parseInt(popularityEdit.getText().toString().trim());
-        return new Cancion(nombre, genero, sello, minimo, maximo, anio, popularidad, duracion);
+        return new Cancion(nombre, genero, sello, minimo, maximo, anio, popularidad, duracion,
+                valoracionSeleccionada);
     }
 
     private void limpiarFormulario() {
@@ -324,6 +333,7 @@ public class AltaCancionActivity extends AppCompatActivity {
         popularityError.setText("");
 
         scoreResult.setText("");
+        valoracionSeleccionada = 0;
         radioGroupState.clearCheck();
         raiz.setBackgroundColor(ContextCompat.getColor(this, R.color.estado_neutro));
     }

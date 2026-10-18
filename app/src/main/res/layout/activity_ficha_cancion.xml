@@ -13,10 +13,19 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+        <!-- P9: la portada, más grande que en la lista -->
+        <ImageView
+            android:id="@+id/fichaPortada"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/portada" />
+
         <TextView
             android:id="@+id/fichaNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/ficha_title"
             android:textColor="@color/accent"
             android:textSize="28sp" />
@@ -62,6 +71,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="18sp" />
+
+        <!-- P9: la valoración con estrellas (9 estrellas = escala del teclado de la P3) -->
+        <TextView
+            android:id="@+id/fichaValoracion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp" />
+
+        <RatingBar
+            android:id="@+id/fichaRatingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:isIndicator="true"
+            android:numStars="9"
+            android:rating="0"
+            android:stepSize="1" />
 
     </LinearLayout>
 </ScrollView>

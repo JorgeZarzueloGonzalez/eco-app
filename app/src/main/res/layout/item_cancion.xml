@@ -1,41 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Fila de la lista de canciones: portada + nombre + intérpretes.
-     El fondo lo pinta el adaptador (tonos alternos), por eso el color del texto
-     es fijo (se lee sobre los dos índigos). -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- P9 Fila de la colección: una tarjeta (CardView) con portada + nombre + intérpretes.
+     El color del texto es fijo porque la tarjeta lleva su propio fondo. -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="12dp">
-
-    <ImageView
-        android:id="@+id/portadaCancion"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:contentDescription="@string/portada" />
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/surface_container"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp">
 
-        <TextView
-            android:id="@+id/nombreCancionFila"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/portadaCancion"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:contentDescription="@string/portada" />
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_on_primary"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/interpretesCancionFila"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_on_primary"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/nombreCancionFila"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/interpretesCancionFila"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</androidx.cardview.widget.CardView>

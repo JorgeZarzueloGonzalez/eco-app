@@ -3,7 +3,7 @@ package es.ies.cm.dam2.pmdm.eco;
 import java.io.Serializable;
 
 /**
- * P8 Los datos de una canción de la biblioteca.
+ * P8/P9 Los datos de una canción de la biblioteca.
  * <p>
  * {@code implements Serializable} es la etiqueta que permite meter el objeto
  * dentro de un Intent (extra). Sin ella salta {@code NotSerializableException}.
@@ -23,9 +23,12 @@ public class Cancion implements Serializable {
     private final int popularidad;
     private final int duracion;
 
+    /** Valoración del teclado de puntuación de la P3 (de 1 a 9; 0 = sin valorar). */
+    private final int valoracion;
+
     public Cancion(String nombre, String genero, String sello,
                    int interpretesMin, int interpretesMax,
-                   int anio, int popularidad, int duracion) {
+                   int anio, int popularidad, int duracion, int valoracion) {
         this.nombre = nombre;
         this.genero = genero;
         this.sello = sello;
@@ -34,6 +37,7 @@ public class Cancion implements Serializable {
         this.anio = anio;
         this.popularidad = popularidad;
         this.duracion = duracion;
+        this.valoracion = valoracion;
     }
 
     public String getNombre() {
@@ -68,6 +72,10 @@ public class Cancion implements Serializable {
         return duracion;
     }
 
+    public int getValoracion() {
+        return valoracion;
+    }
+
     /** Texto de intérpretes para las filas de la lista. */
     public String getInterpretesTexto() {
         return interpretesMin + " - " + interpretesMax;
@@ -79,6 +87,7 @@ public class Cancion implements Serializable {
                 + " · Intérpretes: " + getInterpretesTexto()
                 + " · Año: " + anio
                 + " · Popularidad: " + popularidad
+                + " · Valoración: " + valoracion
                 + " · Duración: " + duracion + " min";
     }
 }
