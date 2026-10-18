@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Géneros musicales de Eco (P4 y P8: el Spinner los carga de este recurso).
+         El primer ítem es el aviso: sirve para saber si el usuario no ha elegido nada. -->
+    <string-array name="generos">
+        <item>Selecciona un género</item>
+        <item>Rock</item>
+        <item>Pop</item>
+        <item>Electrónica</item>
+    </string-array>
+</resources>

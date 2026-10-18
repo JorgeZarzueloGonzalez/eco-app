@@ -48,4 +48,23 @@
     <string name="state_listened">Escuchado</string>
     <string name="state_favorite">Favorito</string>
     <string name="clear">Limpiar</string>
+
+    <!-- ===== Práctica 4: formulario completo y ficha ===== -->
+    <string name="genero">Género</string>
+    <string name="sello">Sello discográfico</string>
+    <string name="interpretes_min">Intérpretes (mínimo)</string>
+    <string name="interpretes_max">Intérpretes (máximo)</string>
+    <string name="anio">Año de publicación</string>
+    <string name="duracion">Duración (minutos)</string>
+    <string name="send">Enviar</string>
+    <string name="wrong_data">Datos incorrectos</string>
+    <string name="sin_datos">Sin datos</string>
+    <string name="ficha_title">Ficha de la canción</string>
+    <string name="ficha_nombre">Nombre: %1$s</string>
+    <string name="ficha_genero">Género: %1$s</string>
+    <string name="ficha_sello">Sello discográfico: %1$s</string>
+    <string name="ficha_interpretes">Intérpretes: %1$d - %2$d</string>
+    <string name="ficha_anio">Año de publicación: %1$d</string>
+    <string name="ficha_duracion">Duración: %1$d min</string>
+    <string name="ficha_popularidad">Popularidad: %1$d</string>
 </resources>

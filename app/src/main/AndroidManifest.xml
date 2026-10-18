@@ -27,9 +27,8 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".AltaCancion2Activity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:name=".FichaCancionActivity"
+            android:exported="false" />
         <activity
             android:name=".PreubaActivity"
             android:exported="false"

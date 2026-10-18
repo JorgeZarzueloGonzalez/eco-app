@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- ================= P2.2 Nombre de la canción ================= -->
+        <!-- ===================== P2.2 Nombre de la canción ===================== -->
         <TextView
             android:id="@+id/songName"
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="@string/acept" />
 
-        <!-- ================= P2.1 Contadores de intérpretes ================= -->
+        <!-- ===================== P2.1 Contador de intérpretes ===================== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             android:gravity="center"
             android:text="@string/numbers_of_artist" />
 
-        <!-- ================= P2.3 ¿En tu biblioteca? ================= -->
+        <!-- ===================== P2.3 ¿En mi biblioteca? ===================== -->
         <CheckBox
             android:id="@+id/checkBoxBiblioteca"
             android:layout_width="wrap_content"
@@ -100,11 +100,94 @@
                 android:text="@string/puss_button" />
         </LinearLayout>
 
-        <!-- ================= P3.2 Validación de la popularidad ================= -->
+        <!-- ===================== P4 Formulario completo ===================== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:text="@string/genero"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/generoSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/sello"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/selloEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/interpretes_min"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/minEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/interpretes_max"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/maxEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/anio"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/yearEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/duracion"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/durationEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="number" />
+
+        <!-- ===================== P3.2 Validación de la popularidad ===================== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/popularity_label"
             android:textStyle="bold" />
 
@@ -123,7 +206,136 @@
             android:textColor="@color/error"
             android:textStyle="bold" />
 
-        <!-- ================= P3.3 Estado de la canción ================= -->
+        <!-- ===================== P4 RESET y ENVIAR ===================== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/resetFormButton"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reset" />
+
+            <Button
+                android:id="@+id/sendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/send" />
+        </LinearLayout>
+
+        <!-- ===================== P3.1 Teclado de puntuación (1-9) ===================== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/keypad_title"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn1"
+                style="@style/TeclaPuntuacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/key_1" />
+
+            <Button
+                android:id="@+id/btn2"
+                style="@style/TeclaPuntuacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/key_2" />
+
+            <Button
+                android:id="@+id/btn3"
+                style="@style/TeclaPuntuacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/key_3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn4"
+                style="@style/TeclaPuntuacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/key_4" />
+
+            <Button
+                android:id="@+id/btn5"
+                style="@style/TeclaPuntuacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/key_5" />
+
+            <Button
+                android:id="@+id/btn6"
+                style="@style/TeclaPuntuacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/key_6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn7"
+                style="@style/TeclaPuntuacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/key_7" />
+
+            <Button
+                android:id="@+id/btn8"
+                style="@style/TeclaPuntuacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/key_8" />
+
+            <Button
+                android:id="@+id/btn9"
+                style="@style/TeclaPuntuacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/key_9" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/scoreResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <!-- ===================== P3.3 Estado de la canción ===================== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -164,14 +376,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/clear" />
-
-        <!-- ================= Navegación al teclado de puntuación ================= -->
-        <Button
-            android:id="@+id/nextActivityButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/keypad_title" />
 
     </LinearLayout>
 </ScrollView>

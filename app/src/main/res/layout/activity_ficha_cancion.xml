@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".FichaCancionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/fichaNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ficha_title"
+            android:textColor="@color/accent"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/fichaGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/fichaSello"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/fichaInterpretes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/fichaAnio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/fichaDuracion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/fichaPopularidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</ScrollView>
