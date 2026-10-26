@@ -3,15 +3,15 @@
     <string name="createdBy">Creado por Jorge Zarzuelo Gonzalez</string>
 
     <!-- ===== Práctica 1b: contador ===== -->
-    <string name="check">Check</string>
-    <string name="reset">Reset</string>
+    <string name="check" translatable="false">Check</string>
+    <string name="reset" translatable="false">Reset</string>
     <string name="reproductions">Reproducciones: %1$d</string>
 
     <!-- ===== Práctica 2: controles básicos ===== -->
     <string name="numbers_of_artist">Intérpretes: %1$d</string>
     <string name="artist_info">Botón pulsado: %1$s · Intérpretes: %2$d</string>
-    <string name="max_artists">Máximo número de intérpretes</string>
-    <string name="min_artists">Mínimo número de intérpretes</string>
+    <string name="max_artists">Ya no se pueden añadir más intérpretes</string>
+    <string name="min_artists">Ya no se pueden quitar más intérpretes</string>
     <string name="add_artist">+</string>
     <string name="remove_artist">−</string>
     <string name="write_here">Escribe aquí</string>
@@ -22,24 +22,24 @@
     <string name="puss_button">Pulsa el botón</string>
     <string name="button_pussed">Botón pulsado</string>
     <string name="box_button">Button</string>
-    <string name="next_symbol">›</string>
+    <string name="next_symbol" translatable="false">›</string>
 
     <!-- ===== Práctica 3: teclado de puntuación ===== -->
     <string name="keypad_title">Teclado de puntuación</string>
     <string name="score">Puntuación: %1$d</string>
-    <string name="key_1">1</string>
-    <string name="key_2">2</string>
-    <string name="key_3">3</string>
-    <string name="key_4">4</string>
-    <string name="key_5">5</string>
-    <string name="key_6">6</string>
-    <string name="key_7">7</string>
-    <string name="key_8">8</string>
-    <string name="key_9">9</string>
+    <string name="key_1" translatable="false">1</string>
+    <string name="key_2" translatable="false">2</string>
+    <string name="key_3" translatable="false">3</string>
+    <string name="key_4" translatable="false">4</string>
+    <string name="key_5" translatable="false">5</string>
+    <string name="key_6" translatable="false">6</string>
+    <string name="key_7" translatable="false">7</string>
+    <string name="key_8" translatable="false">8</string>
+    <string name="key_9" translatable="false">9</string>
 
     <!-- ===== Práctica 3: validación de la popularidad ===== -->
     <string name="popularity_label">Popularidad (1-10)</string>
-    <string name="popularity_hint">1 - 10</string>
+    <string name="popularity_hint" translatable="false">1 - 10</string>
     <string name="popularity_error">Popularidad incorrecta</string>
 
     <!-- ===== Práctica 3: estado de la canción ===== -->
@@ -52,8 +52,6 @@
     <!-- ===== Práctica 4: formulario completo y ficha ===== -->
     <string name="genero">Género</string>
     <string name="sello">Sello discográfico</string>
-    <string name="interpretes_min">Intérpretes (mínimo)</string>
-    <string name="interpretes_max">Intérpretes (máximo)</string>
     <string name="anio">Año de publicación</string>
     <string name="duracion">Duración (minutos)</string>
     <string name="send">Enviar</string>
@@ -124,7 +122,6 @@
     <string name="item_interpretes">Intérpretes: %1$s</string>
     <string name="biblioteca_anadida">Añadida: %1$s</string>
     <string name="biblioteca_vacia">Todavía no hay canciones: pulsa Añadir canción</string>
-    <string name="catalogo_toast">%1$s · %2$s</string>
     <string name="main_biblioteca">Biblioteca</string>
 
     <!-- ===== Práctica 9: RecyclerView y ficha ampliada ===== -->

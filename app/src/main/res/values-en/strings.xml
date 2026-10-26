@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ===== General ===== -->
+    <string name="createdBy">Created by Jorge Zarzuelo Gonzalez</string>
+    <string name="reproductions">Plays: %1$d</string>
+
+    <!-- ===== Practice 2: basic controls ===== -->
+    <string name="numbers_of_artist">Performers: %1$d</string>
+    <string name="artist_info">Button pressed: %1$s · Performers: %2$d</string>
+    <string name="max_artists">No more performers can be added</string>
+    <string name="min_artists">No more performers can be removed</string>
+    <string name="add_artist">+</string>
+    <string name="remove_artist">−</string>
+    <string name="write_here">Type here</string>
+    <string name="write_a_name">Type a name</string>
+    <string name="acept">Accept</string>
+    <string name="name">Name</string>
+    <string name="checkbox_library">In my library</string>
+    <string name="puss_button">Press the button</string>
+    <string name="button_pussed">Button pressed</string>
+    <string name="box_button">Button</string>
+
+
+    <!-- ===== Practice 3: rating keypad ===== -->
+    <string name="keypad_title">Score keypad</string>
+    <string name="score">Score: %1$d</string>
+
+    <!-- ===== Practice 3: popularity validation ===== -->
+    <string name="popularity_label">Popularity (1-10)</string>
+    <string name="popularity_error">Invalid popularity</string>
+
+    <!-- ===== Practice 3: song status ===== -->
+    <string name="song_state">Song status</string>
+    <string name="state_new">New</string>
+    <string name="state_listened">Listened</string>
+    <string name="state_favorite">Favourite</string>
+    <string name="clear">Clear</string>
+
+    <!-- ===== Practice 4: full form and details ===== -->
+    <string name="genero">Genre</string>
+    <string name="sello">Record label</string>
+    <string name="anio">Release year</string>
+    <string name="duracion">Duration (minutes)</string>
+    <string name="send">Send</string>
+    <string name="wrong_data">Incorrect data</string>
+    <string name="sin_datos">No data</string>
+    <string name="ficha_title">Song details</string>
+    <string name="ficha_nombre">Name: %1$s</string>
+    <string name="ficha_genero">Genre: %1$s</string>
+    <string name="ficha_sello">Record label: %1$s</string>
+    <string name="ficha_interpretes">Performers: %1$d</string>
+    <string name="ficha_anio">Release year: %1$d</string>
+    <string name="ficha_duracion">Duration: %1$d min</string>
+    <string name="ficha_popularidad">Popularity: %1$d</string>
+
+    <!-- ===== Practice 5: Eco Night attendance ===== -->
+    <string name="oyente_nombre">Your name</string>
+    <string name="continuar">Continue</string>
+    <string name="asistencia_titulo">Eco Night</string>
+    <string name="asistencia_pregunta">Are you coming to Saturday\'s Eco Night? Press Accept or Cancel.</string>
+    <string name="aceptar">Accept</string>
+    <string name="cancelar">Cancel</string>
+    <string name="aceptado">ACCEPTED</string>
+    <string name="cancelado">CANCELLED</string>
+    <string name="mensaje_asistencia">Alright %1$s, you have %2$s your attendance at Eco Night</string>
+    <string name="falta_nombre">Type your name</string>
+
+    <!-- ===== Practice 5: email invitation ===== -->
+    <string name="destinatario">Recipient</string>
+    <string name="asunto">Subject</string>
+    <string name="texto_correo">Email body</string>
+    <string name="enviar">Send</string>
+    <string name="invitacion_defecto">Hi!\nI invite you to Eco Night on Saturday at 20:00 in the main room. Bring your headphones!</string>
+    <string name="sin_apps_correo">No email app is installed</string>
+
+    <!-- ===== Main menu ===== -->
+    <string name="main_alta">Add song</string>
+    <string name="main_oyente">Eco Night attendance</string>
+    <string name="main_invitar">Invite by email</string>
+    <string name="main_web">Eco website</string>
+    <string name="main_compartir">Share song</string>
+
+    <!-- ===== Practice 6: share via WhatsApp ===== -->
+    <string name="compartir_titulo">Share song</string>
+    <string name="compartir_hint">Song name</string>
+    <string name="sin_whatsapp">Could not open the app store</string>
+    <string name="sin_navegador">No browser is installed</string>
+
+    <!-- ===== Practice 6: about Eco (Drag & Drop) ===== -->
+    <string name="acerca_autor">Eco · created by Jorge</string>
+    <string name="drag_source">Drag Eco</string>
+    <string name="drop_target">…and drop it here to learn about the app</string>
+
+    <!-- ===== Practice 7: search song ===== -->
+    <string name="buscar_titulo">Search song</string>
+    <string name="buscar_genero">Genre</string>
+    <string name="buscar_cancion">Song</string>
+    <string name="buscar_ubicacion">Location</string>
+    <string name="mostrar">Show</string>
+    <string name="buscar_toast">Genre: %1$s · Song: %2$s · Location: %3$s</string>
+    <string name="main_buscar">Search</string>
+
+    <!-- ===== Practice 8: the library (collection) ===== -->
+    <string name="biblioteca_titulo">My library</string>
+    <string name="anadir_cancion">Add song</string>
+    <string name="mostrar_canciones">Show songs</string>
+    <string name="portada">Cover</string>
+    <string name="item_interpretes">Performers: %1$s</string>
+    <string name="biblioteca_anadida">Added: %1$s</string>
+    <string name="biblioteca_vacia">No songs yet: press Add song</string>
+    <string name="main_biblioteca">Library</string>
+
+    <!-- ===== Practice 9: RecyclerView and expanded details ===== -->
+    <string name="cancion_borrada">Song deleted</string>
+    <string name="ficha_valoracion">Rating: %1$d / 9</string>
+</resources>

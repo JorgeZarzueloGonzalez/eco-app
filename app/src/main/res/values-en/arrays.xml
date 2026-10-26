@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Music genres in Eco (P4 and P8: the Spinner loads them from this resource).
+         The first item is the hint: it tells us whether the user has chosen nothing. -->
+    <string-array name="generos">
+        <item>Select a genre</item>
+        <item>Rock</item>
+        <item>Pop</item>
+        <item>Electrónica</item>
+    </string-array>
+
+    <!-- Practice 7: the 5 places where a song can be -->
+    <string-array name="ubicaciones">
+        <item>Library</item>
+        <item>Downloaded</item>
+        <item>Eco Night playlist</item>
+        <item>Lent</item>
+        <item>In the cloud</item>
+    </string-array>
+</resources>
