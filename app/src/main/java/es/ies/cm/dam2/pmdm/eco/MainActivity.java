@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
         checkButton.setOnClickListener(v -> {
             counterValue += 1;
             counter.setText(getString(R.string.reproductions, counterValue));
-            if(counterValue == 10){
-                Intent intent = new Intent(this, AltaCancionActivity.class);
-                startActivity(intent);
-            }
         });
 
         Button resetButton = findViewById(R.id.resetButton);
@@ -132,12 +128,6 @@ public class MainActivity extends AppCompatActivity {
         TextView texto = findViewById(R.id.Created);
         texto.setOnClickListener(v -> {
             Intent intent = new Intent(this, PaletaActivity.class);
-            startActivity(intent);
-        });
-
-        TextView appName = findViewById(R.id.appName);
-        appName.setOnClickListener(v -> {
-            Intent intent = new Intent(this, PreubaActivity.class);
             startActivity(intent);
         });
     }

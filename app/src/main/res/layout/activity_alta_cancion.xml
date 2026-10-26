@@ -126,35 +126,6 @@
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/interpretes_min"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/minEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="number" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/interpretes_max"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/maxEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="number" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

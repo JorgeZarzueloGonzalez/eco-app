@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eco</string>
+    <string name="app_name" translatable="false">Eco</string>
     <string name="createdBy">Creado por Jorge Zarzuelo Gonzalez</string>
 
     <!-- ===== Práctica 1b: contador ===== -->
@@ -63,7 +63,7 @@
     <string name="ficha_nombre">Nombre: %1$s</string>
     <string name="ficha_genero">Género: %1$s</string>
     <string name="ficha_sello">Sello discográfico: %1$s</string>
-    <string name="ficha_interpretes">Intérpretes: %1$d - %2$d</string>
+    <string name="ficha_interpretes">Intérpretes: %1$d</string>
     <string name="ficha_anio">Año de publicación: %1$d</string>
     <string name="ficha_duracion">Duración: %1$d min</string>
     <string name="ficha_popularidad">Popularidad: %1$d</string>

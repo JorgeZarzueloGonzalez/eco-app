@@ -65,7 +65,7 @@ public class AdaptadorCancionRecycler
         holder.portada.setImageResource(Portadas.de(cancion.getGenero()));
         holder.nombre.setText(cancion.getNombre());
         holder.interpretes.setText(holder.itemView.getContext()
-                .getString(R.string.item_interpretes, cancion.getInterpretesTexto()));
+                .getString(R.string.ficha_interpretes, cancion.getInterpretes()));
 
         // Los dos clics van en la tarjeta (la vista de la fila), no en el RecyclerView.
         holder.itemView.setOnClickListener(v -> {

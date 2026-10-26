@@ -51,8 +51,7 @@ public class FichaCancionActivity extends AppCompatActivity {
         fichaNombre.setText(getString(R.string.ficha_nombre, cancion.getNombre()));
         fichaGenero.setText(getString(R.string.ficha_genero, cancion.getGenero()));
         fichaSello.setText(getString(R.string.ficha_sello, cancion.getSello()));
-        fichaInterpretes.setText(getString(R.string.ficha_interpretes,
-                cancion.getInterpretesMin(), cancion.getInterpretesMax()));
+        fichaInterpretes.setText(getString(R.string.ficha_interpretes, cancion.getInterpretes()));
         fichaAnio.setText(getString(R.string.ficha_anio, cancion.getAnio()));
         fichaDuracion.setText(getString(R.string.ficha_duracion, cancion.getDuracion()));
         fichaPopularidad.setText(getString(R.string.ficha_popularidad, cancion.getPopularidad()));
@@ -73,8 +72,7 @@ public class FichaCancionActivity extends AppCompatActivity {
                 texto(intent.getStringExtra(AltaCancionActivity.EXTRA_NOMBRE)),
                 texto(intent.getStringExtra(AltaCancionActivity.EXTRA_GENERO)),
                 texto(intent.getStringExtra(AltaCancionActivity.EXTRA_SELLO)),
-                intent.getIntExtra(AltaCancionActivity.EXTRA_INTERPRETES_MIN, 0),
-                intent.getIntExtra(AltaCancionActivity.EXTRA_INTERPRETES_MAX, 0),
+                intent.getIntExtra(AltaCancionActivity.EXTRA_INTERPRETES, 0),
                 intent.getIntExtra(AltaCancionActivity.EXTRA_ANIO, 0),
                 intent.getIntExtra(AltaCancionActivity.EXTRA_POPULARIDAD, 0),
                 intent.getIntExtra(AltaCancionActivity.EXTRA_DURACION, 0),

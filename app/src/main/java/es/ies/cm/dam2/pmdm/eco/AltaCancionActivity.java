@@ -38,8 +38,7 @@ public class AltaCancionActivity extends AppCompatActivity {
     public static final String EXTRA_NOMBRE = "extra_nombre";
     public static final String EXTRA_GENERO = "extra_genero";
     public static final String EXTRA_SELLO = "extra_sello";
-    public static final String EXTRA_INTERPRETES_MIN = "extra_interpretes_min";
-    public static final String EXTRA_INTERPRETES_MAX = "extra_interpretes_max";
+    public static final String EXTRA_INTERPRETES = "extra_interpretes";
     public static final String EXTRA_ANIO = "extra_anio";
     public static final String EXTRA_DURACION = "extra_duracion";
     public static final String EXTRA_POPULARIDAD = "extra_popularidad";
@@ -69,8 +68,6 @@ public class AltaCancionActivity extends AppCompatActivity {
     private EditText songNameEdit;
     private Spinner generoSpinner;
     private EditText selloEdit;
-    private EditText minEdit;
-    private EditText maxEdit;
     private EditText yearEdit;
     private EditText durationEdit;
     private EditText popularityEdit;
@@ -148,8 +145,6 @@ public class AltaCancionActivity extends AppCompatActivity {
         // ===================== P4 Campos del formulario =====================
         generoSpinner = findViewById(R.id.generoSpinner);
         selloEdit = findViewById(R.id.selloEdit);
-        minEdit = findViewById(R.id.minEdit);
-        maxEdit = findViewById(R.id.maxEdit);
         yearEdit = findViewById(R.id.yearEdit);
         durationEdit = findViewById(R.id.durationEdit);
         popularityEdit = findViewById(R.id.popularityEdit);
@@ -268,8 +263,7 @@ public class AltaCancionActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_NOMBRE, cancion.getNombre());
         intent.putExtra(EXTRA_GENERO, cancion.getGenero());
         intent.putExtra(EXTRA_SELLO, cancion.getSello());
-        intent.putExtra(EXTRA_INTERPRETES_MIN, cancion.getInterpretesMin());
-        intent.putExtra(EXTRA_INTERPRETES_MAX, cancion.getInterpretesMax());
+        intent.putExtra(EXTRA_INTERPRETES, cancion.getInterpretes());
         intent.putExtra(EXTRA_ANIO, cancion.getAnio());
         intent.putExtra(EXTRA_DURACION, cancion.getDuracion());
         intent.putExtra(EXTRA_POPULARIDAD, cancion.getPopularidad());
@@ -296,16 +290,15 @@ public class AltaCancionActivity extends AppCompatActivity {
                 ? generoSpinner.getSelectedItem().toString()
                 : "";
         String sello = selloEdit.getText().toString().trim();
-        int minimo = leerEntero(minEdit);
-        int maximo = leerEntero(maxEdit);
+        int interpretes = artistNumberValue;
         int anio = leerEntero(yearEdit);
         int duracion = leerEntero(durationEdit);
         int anioActual = Calendar.getInstance().get(Calendar.YEAR);
         boolean popularidadOk = esPopularidadValida(popularityEdit.getText().toString().trim());
 
         boolean todoRelleno = !nombre.isEmpty() && !genero.isEmpty() && !sello.isEmpty()
-                && minimo > 0 && maximo > 0 && anio > 0 && duracion > 0;
-        boolean interpretesOk = todoRelleno && minimo <= maximo;
+                && artistNumberValue > 0 && anio > 0 && duracion > 0;
+        boolean interpretesOk = todoRelleno && artistNumberValue <= 4;
         boolean anioOk = interpretesOk && anio >= 1900 && anio <= anioActual;
 
         if (!todoRelleno || !interpretesOk || !anioOk || !popularidadOk) {
@@ -314,7 +307,7 @@ public class AltaCancionActivity extends AppCompatActivity {
         }
 
         int popularidad = Integer.parseInt(popularityEdit.getText().toString().trim());
-        return new Cancion(nombre, genero, sello, minimo, maximo, anio, popularidad, duracion,
+        return new Cancion(nombre, genero, sello, artistNumberValue, anio, popularidad, duracion,
                 valoracionSeleccionada);
     }
 
@@ -325,8 +318,6 @@ public class AltaCancionActivity extends AppCompatActivity {
 
         generoSpinner.setSelection(0);
         selloEdit.setText("");
-        minEdit.setText("");
-        maxEdit.setText("");
         yearEdit.setText("");
         durationEdit.setText("");
         popularityEdit.setText("");

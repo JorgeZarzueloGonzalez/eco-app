@@ -13,7 +13,7 @@
     <color name="accent_fill">#C6F135</color>
     <!-- Lima de ACCIÓN (botones primarios, checkbox, progreso) en tema claro:
          lima oscurecida para cumplir 3:1 vs fondo; texto negro encima = 5,57:1 (AA) -->
-    <color name="action">#719400</color>
+    <color name="action">#C6F135</color>
 
     <!-- ===== CONTENEDORES (CLARO) ===== -->
     <!-- El primario es la lima de acción => contenedor lima; el secundario es el índigo -->

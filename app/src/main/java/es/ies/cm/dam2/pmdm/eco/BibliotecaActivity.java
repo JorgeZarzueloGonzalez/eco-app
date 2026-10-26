@@ -21,23 +21,29 @@ import java.util.ArrayList;
  * P8/P9 La biblioteca de Eco: la colección de canciones.
  * <p>
  * En la P8 se pintaba con un {@code ListView}; en la P9 pasa a un
- * {@link RecyclerView} con tarjetas. La colección se carga estáticamente en el
+ * {@link RecyclerView} con tarjetas. La colección se carga estáticamente en él
  * {@code onCreate} (más de 20 canciones) y el botón Añadir mete las que devuelve
  * el formulario de alta.
  */
 public class BibliotecaActivity extends AppCompatActivity
         implements AdaptadorCancionRecycler.OyenteCancion {
 
-    /** Clave del extra con el objeto {@link Cancion}: lo usan el alta (devuelve) y la ficha (recibe). */
+    /**
+     * Clave del extra con el objeto {@link Cancion}: lo usan el alta (devuelve) y la ficha (recibe).
+     */
     public static final String EXTRA_CANCION = "extra_cancion";
 
-    /** LA COLECCIÓN: atributo de clase, la biblioteca de la app. */
+    /**
+     * LA COLECCIÓN: atributo de clase, la biblioteca de la app.
+     */
     private final ArrayList<Cancion> coleccion = new ArrayList<>();
 
     private AdaptadorCancionRecycler adaptador;
     private LinearLayoutManager disposicion;
 
-    /** El lanzador se registra como atributo: recibe la canción del alta (P8). */
+    /**
+     * El lanzador se registra como atributo: recibe la canción del alta (P8).
+     */
     private final ActivityResultLauncher<Intent> lanzadorAlta =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), respuesta -> {
                 if (respuesta.getResultCode() == RESULT_OK && respuesta.getData() != null) {
@@ -85,34 +91,38 @@ public class BibliotecaActivity extends AppCompatActivity
         mostrarButton.setOnClickListener(v -> mostrarColeccion());
     }
 
-    /** P9: la colección se rellena a mano aquí, sin base de datos ni ficheros. */
+    /**
+     * P9: la colección se rellena a mano aquí, sin base de datos ni ficheros.
+     */
     private void cargarColeccion() {
-        coleccion.add(new Cancion("Luna de cobre", "Rock", "Eco Records", 2, 5, 2024, 8, 180, 7));
-        coleccion.add(new Cancion("Tormenta", "Rock", "Eco Records", 3, 4, 2021, 7, 205, 6));
-        coleccion.add(new Cancion("Camino al sur", "Rock", "Sur Records", 1, 3, 2019, 6, 165, 5));
-        coleccion.add(new Cancion("Viento norte", "Rock", "Sur Records", 4, 6, 2023, 9, 190, 8));
-        coleccion.add(new Cancion("Semilla", "Rock", "Eco Records", 2, 2, 2020, 5, 150, 4));
-        coleccion.add(new Cancion("Fuego lento", "Rock", "Sur Records", 2, 4, 2022, 8, 175, 7));
-        coleccion.add(new Cancion("Arena", "Rock", "Eco Records", 3, 5, 2018, 6, 200, 6));
+        coleccion.add(new Cancion("Luna de cobre", "Rock", "Eco Records", 2, 2024, 8, 180, 7));
+        coleccion.add(new Cancion("Tormenta", "Rock", "Eco Records", 3, 2021, 7, 205, 6));
+        coleccion.add(new Cancion("Camino al sur", "Rock", "Sur Records", 1, 2019, 6, 165, 5));
+        coleccion.add(new Cancion("Viento norte", "Rock", "Sur Records", 4, 2023, 9, 190, 8));
+        coleccion.add(new Cancion("Semilla", "Rock", "Eco Records", 2, 2020, 5, 150, 4));
+        coleccion.add(new Cancion("Fuego lento", "Rock", "Sur Records", 2, 2022, 8, 175, 7));
+        coleccion.add(new Cancion("Arena", "Rock", "Eco Records", 3, 2018, 6, 200, 6));
 
-        coleccion.add(new Cancion("Neón", "Pop", "Luces Records", 1, 2, 2025, 9, 210, 9));
-        coleccion.add(new Cancion("Mariposa", "Pop", "Luces Records", 1, 1, 2023, 8, 195, 7));
-        coleccion.add(new Cancion("Ciudad dormida", "Pop", "Luces Records", 2, 3, 2022, 7, 185, 6));
-        coleccion.add(new Cancion("Azúcar", "Pop", "Sol Records", 1, 2, 2024, 9, 200, 8));
-        coleccion.add(new Cancion("Ventana", "Pop", "Sol Records", 2, 2, 2021, 6, 170, 5));
-        coleccion.add(new Cancion("Domingo", "Pop", "Luces Records", 1, 3, 2020, 7, 160, 6));
-        coleccion.add(new Cancion("Papel de plata", "Pop", "Sol Records", 2, 4, 2019, 5, 155, 4));
+        coleccion.add(new Cancion("Neón", "Pop", "Luces Records", 1, 2025, 9, 210, 9));
+        coleccion.add(new Cancion("Mariposa", "Pop", "Luces Records", 1, 2023, 8, 195, 7));
+        coleccion.add(new Cancion("Ciudad dormida", "Pop", "Luces Records", 2, 2022, 7, 185, 6));
+        coleccion.add(new Cancion("Azúcar", "Pop", "Sol Records", 1, 2024, 9, 200, 8));
+        coleccion.add(new Cancion("Ventana", "Pop", "Sol Records", 2, 2021, 6, 170, 5));
+        coleccion.add(new Cancion("Domingo", "Pop", "Luces Records", 1, 2020, 7, 160, 6));
+        coleccion.add(new Cancion("Papel de plata", "Pop", "Sol Records", 4, 2019, 5, 155, 4));
 
-        coleccion.add(new Cancion("Pulso", "Electrónica", "Circuito Records", 1, 1, 2025, 9, 240, 9));
-        coleccion.add(new Cancion("Circuito", "Electrónica", "Circuito Records", 2, 2, 2024, 8, 225, 8));
-        coleccion.add(new Cancion("Amanecer binario", "Electrónica", "Nébula Records", 1, 3, 2023, 7, 210, 7));
-        coleccion.add(new Cancion("Órbita", "Electrónica", "Nébula Records", 2, 3, 2022, 8, 235, 8));
-        coleccion.add(new Cancion("Señal", "Electrónica", "Circuito Records", 1, 1, 2021, 6, 205, 5));
-        coleccion.add(new Cancion("Bitácora", "Electrónica", "Nébula Records", 3, 4, 2020, 7, 220, 6));
-        coleccion.add(new Cancion("Nébula", "Electrónica", "Nébula Records", 1, 2, 2019, 6, 215, 5));
+        coleccion.add(new Cancion("Pulso", "Electrónica", "Circuito Records", 1, 2025, 9, 240, 9));
+        coleccion.add(new Cancion("Circuito", "Electrónica", "Circuito Records", 2, 2024, 8, 225, 8));
+        coleccion.add(new Cancion("Amanecer binario", "Electrónica", "Nébula Records", 3, 2023, 7, 210, 7));
+        coleccion.add(new Cancion("Órbita", "Electrónica", "Nébula Records", 2, 2022, 8, 235, 8));
+        coleccion.add(new Cancion("Señal", "Electrónica", "Circuito Records", 1, 2021, 6, 205, 5));
+        coleccion.add(new Cancion("Bitácora", "Electrónica", "Nébula Records", 3, 2020, 7, 220, 6));
+        coleccion.add(new Cancion("Nébula", "Electrónica", "Nébula Records", 1, 2019, 6, 215, 5));
     }
 
-    /** El botón Mostrar vuelve al principio de la lista y la repinta. */
+    /**
+     * El botón Mostrar vuelve al principio de la lista y la repinta.
+     */
     private void mostrarColeccion() {
         if (coleccion.isEmpty()) {
             Toast.makeText(this, R.string.biblioteca_vacia, Toast.LENGTH_SHORT).show();
@@ -122,7 +132,9 @@ public class BibliotecaActivity extends AppCompatActivity
         disposicion.scrollToPosition(0);
     }
 
-    /** Clic corto: se abre la ficha con la canción completa (objeto Serializable). */
+    /**
+     * Clic corto: se abre la ficha con la canción completa (objeto Serializable).
+     */
     @Override
     public void alHacerClicCorto(int posicion) {
         Cancion cancion = coleccion.get(posicion);
@@ -131,7 +143,9 @@ public class BibliotecaActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    /** Clic largo: se borra la canción de la colección y se avisa. */
+    /**
+     * Clic largo: se borra la canción de la colección y se avisa.
+     */
     @Override
     public void alHacerClicLargo(int posicion) {
         coleccion.remove(posicion);

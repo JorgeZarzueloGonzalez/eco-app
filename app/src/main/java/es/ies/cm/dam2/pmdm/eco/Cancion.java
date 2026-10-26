@@ -17,8 +17,7 @@ public class Cancion implements Serializable {
     private final String nombre;
     private final String genero;
     private final String sello;
-    private final int interpretesMin;
-    private final int interpretesMax;
+    private final int interpretes;
     private final int anio;
     private final int popularidad;
     private final int duracion;
@@ -27,13 +26,12 @@ public class Cancion implements Serializable {
     private final int valoracion;
 
     public Cancion(String nombre, String genero, String sello,
-                   int interpretesMin, int interpretesMax,
+                   int interpretes,
                    int anio, int popularidad, int duracion, int valoracion) {
         this.nombre = nombre;
         this.genero = genero;
         this.sello = sello;
-        this.interpretesMin = interpretesMin;
-        this.interpretesMax = interpretesMax;
+        this.interpretes = interpretes;
         this.anio = anio;
         this.popularidad = popularidad;
         this.duracion = duracion;
@@ -52,12 +50,8 @@ public class Cancion implements Serializable {
         return sello;
     }
 
-    public int getInterpretesMin() {
-        return interpretesMin;
-    }
-
-    public int getInterpretesMax() {
-        return interpretesMax;
+    public int getInterpretes() {
+        return interpretes;
     }
 
     public int getAnio() {
@@ -77,14 +71,11 @@ public class Cancion implements Serializable {
     }
 
     /** Texto de intérpretes para las filas de la lista. */
-    public String getInterpretesTexto() {
-        return interpretesMin + " - " + interpretesMax;
-    }
 
     @Override
     public String toString() {
         return nombre + " · " + genero + " · Sello: " + sello
-                + " · Intérpretes: " + getInterpretesTexto()
+                + " · Intérpretes: " + interpretes
                 + " · Año: " + anio
                 + " · Popularidad: " + popularidad
                 + " · Valoración: " + valoracion
