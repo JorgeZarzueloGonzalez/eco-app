@@ -1,5 +1,7 @@
 package es.ies.cm.dam2.pmdm.eco;
 
+import static es.ies.cm.dam2.pmdm.eco.BibliotecaActivity.EXTRA_CANCION;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -43,6 +45,7 @@ public class AltaCancionActivity extends AppCompatActivity {
     public static final String EXTRA_DURACION = "extra_duracion";
     public static final String EXTRA_POPULARIDAD = "extra_popularidad";
     public static final String EXTRA_VALORACION = "extra_valoracion";
+    public static final String EXTRA_CANCION = "extra_cancion";
 
     /** Máximo de intérpretes que permite el contador de la P2. */
     private static final int MAX_ARTISTAS = 4;
@@ -66,6 +69,8 @@ public class AltaCancionActivity extends AppCompatActivity {
     private View raiz;
     private TextView songName;
     private EditText songNameEdit;
+    private TextView artistNumber;
+    private ArrayAdapter<CharSequence> generos;
     private Spinner generoSpinner;
     private EditText selloEdit;
     private EditText yearEdit;
@@ -89,7 +94,7 @@ public class AltaCancionActivity extends AppCompatActivity {
         });
 
         // ===================== P2.1 Contador de intérpretes =====================
-        TextView artistNumber = findViewById(R.id.artistNumber);
+        artistNumber = findViewById(R.id.artistNumber);
         Button addButton = findViewById(R.id.addButton);
         Button resButton = findViewById(R.id.resButton);
 
@@ -151,7 +156,7 @@ public class AltaCancionActivity extends AppCompatActivity {
         popularityError = findViewById(R.id.popularityError);
 
         // El Spinner se rellena desde el recurso XML res/values/arrays.xml
-        ArrayAdapter<CharSequence> generos = ArrayAdapter.createFromResource(
+        generos = ArrayAdapter.createFromResource(
                 this, R.array.generos, android.R.layout.simple_spinner_item);
         generos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         generoSpinner.setAdapter(generos);
@@ -226,6 +231,38 @@ public class AltaCancionActivity extends AppCompatActivity {
         // P8: Aceptar devuelve la canción (para la biblioteca).
         Button aceptarFormButton = findViewById(R.id.aceptarFormButton);
         aceptarFormButton.setOnClickListener(v -> aceptarFormulario());
+
+
+        Cancion original = (Cancion) getIntent().getSerializableExtra(EXTRA_CANCION);
+
+        if (original != null) {                 // MODO EDICIÓN
+            cargarCancionEnFormulario(original); // rellena TODOS los controles
+            setTitle("Editar canción");
+            aceptarFormButton.setText("Guardar cambios");
+            sendButton.setVisibility(View.GONE);
+            resetFormButton.setOnClickListener(v -> cargarCancionEnFormulario(original));
+        }
+    }
+    private void cargarCancionEnFormulario(Cancion c) {
+        // 1. Campos de texto
+        songNameEdit.setText(c.getNombre());
+        selloEdit.setText(c.getSello());
+        yearEdit.setText(String.valueOf(c.getAnio()));
+        popularityEdit.setText(String.valueOf(c.getPopularidad()));
+        durationEdit.setText(String.valueOf(c.getDuracion()));
+
+        // 2. Contador de intérpretes (variable + TextView)
+        artistNumberValue = c.getInterpretes();
+        artistNumber.setText(String.valueOf(artistNumberValue));
+
+        // 3. Spinner de género: buscar la posición y seleccionarla
+        int posicion = generos.getPosition(c.getGenero());
+        if (posicion >= 0) {
+            generoSpinner.setSelection(posicion);
+        }
+
+        // 4. Valoración (RatingBar de 9 estrellas)
+        valoracionSeleccionada = c.getValoracion();
     }
 
     /** Comprueba que el texto del campo de popularidad es un entero entre 1 y 10. */
@@ -278,7 +315,7 @@ public class AltaCancionActivity extends AppCompatActivity {
             return;
         }
         Intent respuesta = new Intent();
-        respuesta.putExtra(BibliotecaActivity.EXTRA_CANCION, cancion);
+        respuesta.putExtra(EXTRA_CANCION, cancion);
         setResult(RESULT_OK, respuesta);
         finish();
     }

@@ -127,4 +127,8 @@
     <!-- ===== Práctica 9: RecyclerView y ficha ampliada ===== -->
     <string name="cancion_borrada">Canción borrada</string>
     <string name="ficha_valoracion">Valoración: %1$d / 9</string>
+    <string name="ordenar_por_nombre">Ordenar por nombre</string>
+    <string name="acerca_de">Acerca de</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
 </resources>
