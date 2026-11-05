@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class AdaptadorCancionRecycler
     public interface OyenteCancion {
         void alHacerClicCorto(int posicion);
 
-        void alHacerClicLargo(int posicion);
+        void alHacerClicLargo(int posicion, View itemview);
     }
 
     private final List<Cancion> canciones;
@@ -76,11 +77,7 @@ public class AdaptadorCancionRecycler
         });
 
         holder.itemView.setOnLongClickListener(v -> {
-            int posicion = holder.getBindingAdapterPosition();
-            if (posicion != RecyclerView.NO_POSITION) {
-                oyente.alHacerClicLargo(posicion);
-            }
-            // true = el evento lo hemos consumido: NO se abre también la ficha.
+            oyente.alHacerClicLargo(holder.getBindingAdapterPosition(), v);
             return true;
         });
     }
