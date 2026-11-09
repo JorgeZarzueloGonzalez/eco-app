@@ -131,4 +131,11 @@
     <string name="acerca_de">Acerca de</string>
     <string name="edit">Editar</string>
     <string name="delete">Eliminar</string>
+    <string name="inicio">Inicio</string>
+    <string name="navigation_drawer_open">open\n</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="anadir">Añadir Cancion</string>
+    <string name="buscar">Buscar Cancion</string>
+    <string name="biblioteca">Biblioteca</string>
 </resources>

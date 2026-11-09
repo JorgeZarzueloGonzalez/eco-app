@@ -123,6 +123,7 @@ public class BibliotecaActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.accion_anadir) {
             Intent intent = new Intent(this, AltaCancionActivity.class);
+            intent.putExtra("extra_to_biblioteca", true);
             lanzadorAlta.launch(intent);
             return true;
         }

@@ -12,4 +12,8 @@
         <!-- Característica investigada 2: separación entre las letras -->
         <item name="android:letterSpacing">0.1</item>
     </style>
+
+    <style name="CustomToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">45sp</item>
+    </style>
 </resources>

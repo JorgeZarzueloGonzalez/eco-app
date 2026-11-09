@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_inicio"
+            android:title="@string/inicio" />
+        <item
+            android:id="@+id/nav_coleccion"
+            android:title="@string/biblioteca" />
+        <item
+            android:id="@+id/nav_buscar"
+            android:title="@string/buscar" />
+        <item
+            android:id="@+id/nav_anadir"
+            android:title="@string/anadir" />
+        <item
+            android:id="@+id/nav_ajustes"
+            android:title="@string/ajustes" />
+        <item
+            android:id="@+id/nav_acerca_de"
+            android:title="@string/acerca_de" />
+    </group>
+</menu>

@@ -1,5 +1,6 @@
 package es.ies.cm.dam2.pmdm.eco;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Intent;
@@ -11,42 +12,83 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     int counterValue = 0;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        // Con EdgeToEdge la ventana también ocupa la barra de estado y el notch,
+        // así que hay que apartar a mano el contenido de esa zona.
+        // (El cajón lo hace él solo con android:fitsSystemWindows="true" en el XML.)
+        aplicarInsets(R.id.contenido);   // incluye la toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        TextView counter = findViewById(R.id.counter);
-        counter.setText(getString(R.string.reproductions, counterValue));
 
-        Button checkButton = findViewById(R.id.checkButton);
-        checkButton.setOnClickListener(v -> {
-            counterValue += 1;
-            counter.setText(getString(R.string.reproductions, counterValue));
-        });
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
-        Button resetButton = findViewById(R.id.resetButton);
-        resetButton.setOnClickListener(v -> {
-            counterValue = 0;
-            counter.setText(getString(R.string.reproductions, counterValue));
+        ActionBarDrawerToggle toggleButton = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        drawerLayout.addDrawerListener(toggleButton);
+        toggleButton.syncState();
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_inicio) {
+                drawerLayout.close();
+                return true;
+            }
+            if (id == R.id.nav_coleccion) {
+                startActivity(new Intent(this, BibliotecaActivity.class));
+                drawerLayout.close();
+                return true;
+            }
+            if (id == R.id.nav_buscar) {
+                startActivity(new Intent(this, BuscarActivity.class));
+                drawerLayout.close();
+                return true;
+            }
+            if (id == R.id.nav_anadir) {
+                startActivity(new Intent(this, AltaCancionActivity.class));
+                drawerLayout.close();
+                return true;
+            }
+            if (id == R.id.nav_ajustes) {
+                new MaterialAlertDialogBuilder(this)
+                        .setTitle("Ajustes")
+                        .setMessage("Ajustes Disponible en la práctica 20")
+                        .setNeutralButton("Ok", null)
+                        .show();
+                drawerLayout.close();
+                return true;
+            }
+            if (id == R.id.nav_acerca_de) {
+                startActivity(new Intent(this, AcercaDeActivity.class));
+                drawerLayout.close();
+                return true;
+            }
+            return false;
         });
 
         Button altaButton = findViewById(R.id.altaButton);
@@ -129,6 +171,20 @@ public class MainActivity extends AppCompatActivity {
         texto.setOnClickListener(v -> {
             Intent intent = new Intent(this, PaletaActivity.class);
             startActivity(intent);
+        });
+    }
+
+    /**
+     * Añade a la vista un padding del tamaño de las barras del sistema y del notch.
+     * Así la toolbar baja hasta quedar por debajo de la cámara, en vez de chocar con ella.
+     */
+    private void aplicarInsets(int idVista) {
+        View vista = findViewById(idVista);
+        ViewCompat.setOnApplyWindowInsetsListener(vista, (v, insets) -> {
+            Insets barras = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+            v.setPadding(barras.left, barras.top, barras.right, barras.bottom);
+            return insets;
         });
     }
 }

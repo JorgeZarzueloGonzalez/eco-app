@@ -232,6 +232,13 @@ public class AltaCancionActivity extends AppCompatActivity {
         Button aceptarFormButton = findViewById(R.id.aceptarFormButton);
         aceptarFormButton.setOnClickListener(v -> aceptarFormulario());
 
+        boolean aniadirBiblioteca = getIntent().getBooleanExtra("extra_to_biblioteca", false);
+        if (aniadirBiblioteca) {
+            aceptarFormButton.setVisibility(View.VISIBLE);
+            sendButton.setVisibility(View.GONE);
+        }else{
+            aceptarFormButton.setVisibility(View.GONE);
+        }
 
         Cancion original = (Cancion) getIntent().getSerializableExtra(EXTRA_CANCION);
 
@@ -239,6 +246,7 @@ public class AltaCancionActivity extends AppCompatActivity {
             cargarCancionEnFormulario(original); // rellena TODOS los controles
             setTitle("Editar canción");
             aceptarFormButton.setText("Guardar cambios");
+            aceptarFormButton.setVisibility(View.VISIBLE);
             sendButton.setVisibility(View.GONE);
             resetFormButton.setOnClickListener(v -> cargarCancionEnFormulario(original));
         }
