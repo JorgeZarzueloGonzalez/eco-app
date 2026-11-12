@@ -52,6 +52,7 @@ public class BibliotecaActivity extends AppCompatActivity
     private LinearLayoutManager disposicion;
     private int posicionEditando;
     private Cancion cancionSeleccionada;
+    private CancionRepository cancionRepository;
 
     /**
      * El lanzador se registra como atributo: recibe la canción del alta (P8).
@@ -99,8 +100,9 @@ public class BibliotecaActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
 
-        // 1. La colección (carga estática: mínimo 20 canciones)
-        cargarColeccion();
+        cancionRepository = new CancionRepository(this);
+
+        cargarCanciones();
 
         // 2. El RecyclerView con su LayoutManager (sin él no se pinta NADA)
         RecyclerView bibliotecaRecycler = findViewById(R.id.bibliotecaRecycler);
@@ -111,6 +113,12 @@ public class BibliotecaActivity extends AppCompatActivity
         adaptador = new AdaptadorCancionRecycler(coleccion, this);
         bibliotecaRecycler.setAdapter(adaptador);
     }
+
+    private void cargarCanciones() {
+        coleccion.clear();
+        coleccion.addAll(cancionRepository.getCanciones());
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,34 +154,6 @@ public class BibliotecaActivity extends AppCompatActivity
         disposicion.scrollToPosition(0);
     }
 
-    /**
-     * P9: la colección se rellena a mano aquí, sin base de datos ni ficheros.
-     */
-    private void cargarColeccion() {
-        coleccion.add(new Cancion("Luna de cobre", "Rock", "Eco Records", 2, 2024, 8, 180, 7));
-        coleccion.add(new Cancion("Tormenta", "Rock", "Eco Records", 3, 2021, 7, 205, 6));
-        coleccion.add(new Cancion("Camino al sur", "Rock", "Sur Records", 1, 2019, 6, 165, 5));
-        coleccion.add(new Cancion("Viento norte", "Rock", "Sur Records", 4, 2023, 9, 190, 8));
-        coleccion.add(new Cancion("Semilla", "Rock", "Eco Records", 2, 2020, 5, 150, 4));
-        coleccion.add(new Cancion("Fuego lento", "Rock", "Sur Records", 2, 2022, 8, 175, 7));
-        coleccion.add(new Cancion("Arena", "Rock", "Eco Records", 3, 2018, 6, 200, 6));
-
-        coleccion.add(new Cancion("Neón", "Pop", "Luces Records", 1, 2025, 9, 210, 9));
-        coleccion.add(new Cancion("Mariposa", "Pop", "Luces Records", 1, 2023, 8, 195, 7));
-        coleccion.add(new Cancion("Ciudad dormida", "Pop", "Luces Records", 2, 2022, 7, 185, 6));
-        coleccion.add(new Cancion("Azúcar", "Pop", "Sol Records", 1, 2024, 9, 200, 8));
-        coleccion.add(new Cancion("Ventana", "Pop", "Sol Records", 2, 2021, 6, 170, 5));
-        coleccion.add(new Cancion("Domingo", "Pop", "Luces Records", 1, 2020, 7, 160, 6));
-        coleccion.add(new Cancion("Papel de plata", "Pop", "Sol Records", 4, 2019, 5, 155, 4));
-
-        coleccion.add(new Cancion("Pulso", "Electrónica", "Circuito Records", 1, 2025, 9, 240, 9));
-        coleccion.add(new Cancion("Circuito", "Electrónica", "Circuito Records", 2, 2024, 8, 225, 8));
-        coleccion.add(new Cancion("Amanecer binario", "Electrónica", "Nébula Records", 3, 2023, 7, 210, 7));
-        coleccion.add(new Cancion("Órbita", "Electrónica", "Nébula Records", 2, 2022, 8, 235, 8));
-        coleccion.add(new Cancion("Señal", "Electrónica", "Circuito Records", 1, 2021, 6, 205, 5));
-        coleccion.add(new Cancion("Bitácora", "Electrónica", "Nébula Records", 3, 2020, 7, 220, 6));
-        coleccion.add(new Cancion("Nébula", "Electrónica", "Nébula Records", 1, 2019, 6, 215, 5));
-    }
 
     /**
      * Clic corto: se abre la ficha con la canción completa (objeto Serializable).
@@ -229,6 +209,7 @@ public class BibliotecaActivity extends AppCompatActivity
 
     private void borrarSeleccionada() {
         coleccion.remove(posicionEditando);
+        cancionRepository.deleteCancion(cancionSeleccionada.getId());
         adaptador.notifyItemRemoved(posicionEditando);
         Toast.makeText(this, "Canción eliminada", Toast.LENGTH_SHORT).show();
     }

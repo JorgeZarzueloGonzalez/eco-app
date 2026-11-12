@@ -11,23 +11,29 @@ import java.io.Serializable;
  */
 public class Cancion implements Serializable {
 
-    /** Identificador de la versión de la clase (lo pide Android Studio). */
+    /**
+     * Identificador de la versión de la clase (lo pide Android Studio).
+     */
     private static final long serialVersionUID = 1L;
+    private int id;
+    private String nombre;
+    private String genero;
+    private String sello;
+    private int interpretes;
+    private int anio;
+    private int popularidad;
+    private int duracion;
 
-    private final String nombre;
-    private final String genero;
-    private final String sello;
-    private final int interpretes;
-    private final int anio;
-    private final int popularidad;
-    private final int duracion;
+    /**
+     * Valoración del teclado de puntuación de la P3 (de 1 a 9; 0 = sin valorar).
+     */
+    private int valoracion;
 
-    /** Valoración del teclado de puntuación de la P3 (de 1 a 9; 0 = sin valorar). */
-    private final int valoracion;
 
     public Cancion(String nombre, String genero, String sello,
                    int interpretes,
                    int anio, int popularidad, int duracion, int valoracion) {
+        this.id = 0;
         this.nombre = nombre;
         this.genero = genero;
         this.sello = sello;
@@ -38,39 +44,85 @@ public class Cancion implements Serializable {
         this.valoracion = valoracion;
     }
 
+    public Cancion() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getGenero() {
         return genero;
     }
 
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
     public String getSello() {
         return sello;
+    }
+
+    public void setSello(String sello) {
+        this.sello = sello;
     }
 
     public int getInterpretes() {
         return interpretes;
     }
 
+    public void setInterpretes(int interpretes) {
+        this.interpretes = interpretes;
+    }
+
     public int getAnio() {
         return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
     }
 
     public int getPopularidad() {
         return popularidad;
     }
 
+    public void setPopularidad(int popularidad) {
+        this.popularidad = popularidad;
+    }
+
     public int getDuracion() {
         return duracion;
+    }
+
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
     }
 
     public int getValoracion() {
         return valoracion;
     }
 
-    /** Texto de intérpretes para las filas de la lista. */
+    public void setValoracion(int valoracion) {
+        this.valoracion = valoracion;
+    }
+
+    /**
+     * Texto de intérpretes para las filas de la lista.
+     */
 
     @Override
     public String toString() {
