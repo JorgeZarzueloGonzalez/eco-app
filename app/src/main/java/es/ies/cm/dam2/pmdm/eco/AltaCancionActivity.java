@@ -46,6 +46,7 @@ public class AltaCancionActivity extends AppCompatActivity {
     public static final String EXTRA_POPULARIDAD = "extra_popularidad";
     public static final String EXTRA_VALORACION = "extra_valoracion";
     public static final String EXTRA_CANCION = "extra_cancion";
+    private CancionRepository cancionRepository;
 
     /** Máximo de intérpretes que permite el contador de la P2. */
     private static final int MAX_ARTISTAS = 4;
@@ -92,6 +93,8 @@ public class AltaCancionActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        cancionRepository = new CancionRepository(this);
 
         // ===================== P2.1 Contador de intérpretes =====================
         artistNumber = findViewById(R.id.artistNumber);
@@ -303,7 +306,7 @@ public class AltaCancionActivity extends AppCompatActivity {
         if (cancion == null) {
             return;
         }
-
+        cancionRepository.insertCancion(cancion);
         Intent intent = new Intent(this, FichaCancionActivity.class);
         intent.putExtra(EXTRA_NOMBRE, cancion.getNombre());
         intent.putExtra(EXTRA_GENERO, cancion.getGenero());
@@ -322,6 +325,13 @@ public class AltaCancionActivity extends AppCompatActivity {
         if (cancion == null) {
             return;
         }
+
+        if(cancionRepository.cancionExists(cancion)) {
+            cancionRepository.updateCancion(cancion);
+        }else{
+            cancionRepository.insertCancion(cancion);
+        }
+
         Intent respuesta = new Intent();
         respuesta.putExtra(EXTRA_CANCION, cancion);
         setResult(RESULT_OK, respuesta);

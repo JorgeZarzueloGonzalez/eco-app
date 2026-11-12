@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EcoDB extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "eco.db";
@@ -39,24 +42,22 @@ public class EcoDB extends SQLiteOpenHelper {
 
         // ===== 1. Tablas =====
         // Primero las "padre" (canciones y usuarios): favoritos las referencia.
-        db.execSQL("CREATE TABLE canciones (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "nombre TEXT NOT NULL, " +
-                "genero TEXT, " +
-                "sello TEXT, " +
-                "interpretes INTEGER, " +
-                "anio INTEGER, " +
-                "popularidad INTEGER, " +
-                "duracion INTEGER, " +          // extra: el enunciado no la pide
-                "ubicacion TEXT, " +
-                "portada TEXT, " +
-                "valoracion INTEGER" +
+        db.execSQL("CREATE TABLE " + CancionContract.CancionEntry.TABLE_NAME + " (" +
+                CancionContract.CancionEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CancionContract.CancionEntry.COLUMN_NOMBRE + " TEXT NOT NULL, " +
+                CancionContract.CancionEntry.COLUMN_GENERO + " TEXT, " +
+                CancionContract.CancionEntry.COLUMN_SELLO + " TEXT, " +
+                CancionContract.CancionEntry.COLUMN_INTERPRETES + " INTEGER, " +
+                CancionContract.CancionEntry.COLUMN_ANIO + " INTEGER, " +
+                CancionContract.CancionEntry.COLUMN_POPULARIDAD + " INTEGER, " +
+                CancionContract.CancionEntry.COLUMN_DURACION + " INTEGER, " +
+                CancionContract.CancionEntry.COLUMN_VALORACION + " INTEGER" +
                 ")");
 
-        db.execSQL("CREATE TABLE usuarios (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "nombre TEXT NOT NULL UNIQUE, " +
-                "clave TEXT NOT NULL" +
+        db.execSQL("CREATE TABLE " + UsuarioContract.UsuarioEntry.TABLE_NAME + " (" +
+                UsuarioContract.UsuarioEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                UsuarioContract.UsuarioEntry.COLUMN_NOMBRE + " TEXT NOT NULL UNIQUE, " +
+                UsuarioContract.UsuarioEntry.COLUMN_CLAVE + " TEXT NOT NULL" +
                 ")");
 
         db.execSQL("CREATE TABLE favoritos (" +
@@ -133,4 +134,5 @@ public class EcoDB extends SQLiteOpenHelper {
             db.insert("canciones", null, valores);
         }
     }
+
 }
