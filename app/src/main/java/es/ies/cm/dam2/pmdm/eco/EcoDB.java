@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class EcoDB extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "eco.db";
@@ -60,13 +57,16 @@ public class EcoDB extends SQLiteOpenHelper {
                 UsuarioContract.UsuarioEntry.COLUMN_CLAVE + " TEXT NOT NULL" +
                 ")");
 
-        db.execSQL("CREATE TABLE favoritos (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "usuario_id INTEGER NOT NULL, " +
-                "cancion_id INTEGER NOT NULL, " +
-                "FOREIGN KEY (usuario_id) REFERENCES usuarios(_id) ON DELETE CASCADE, " +
-                "FOREIGN KEY (cancion_id) REFERENCES canciones(_id) ON DELETE CASCADE, " +
-                "UNIQUE (usuario_id, cancion_id)" +
+        db.execSQL("CREATE TABLE " + FavoritoContract.FavoritoEntry.TABLE_NAME + " (" +
+                FavoritoContract.FavoritoEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                FavoritoContract.FavoritoEntry.COLUMN_USUARIO_ID + " INTEGER NOT NULL, " +
+                FavoritoContract.FavoritoEntry.COLUMN_CANCION_ID + " INTEGER NOT NULL, " +
+                "FOREIGN KEY (" + FavoritoContract.FavoritoEntry.COLUMN_USUARIO_ID + ") REFERENCES "
+                + UsuarioContract.UsuarioEntry.TABLE_NAME + "(" + UsuarioContract.UsuarioEntry.COLUMN_ID + ") ON DELETE CASCADE, " +
+                "FOREIGN KEY (" + FavoritoContract.FavoritoEntry.COLUMN_CANCION_ID + ") REFERENCES "
+                + CancionContract.CancionEntry.TABLE_NAME + "(" + CancionContract.CancionEntry.COLUMN_ID + ") ON DELETE CASCADE, " +
+                "UNIQUE (" + FavoritoContract.FavoritoEntry.COLUMN_USUARIO_ID + ", "
+                + FavoritoContract.FavoritoEntry.COLUMN_CANCION_ID + ")" +
                 ")");
 
         // ===== 2. Usuarios iniciales =====
@@ -79,16 +79,16 @@ public class EcoDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        // No hay versiones anteriores: la base de datos nace en la 1.
     }
 
     // ===================== ayudas =====================
 
     private void insertarUsuario(SQLiteDatabase db, String nombre, String clave) {
         ContentValues valores = new ContentValues();
-        valores.put("nombre", nombre);
-        valores.put("clave", clave);
-        db.insert("usuarios", null, valores);
+        valores.put(UsuarioContract.UsuarioEntry.COLUMN_NOMBRE, nombre);
+        valores.put(UsuarioContract.UsuarioEntry.COLUMN_CLAVE, clave);
+        db.insert(UsuarioContract.UsuarioEntry.TABLE_NAME, null, valores);
     }
 
     private void insertarCancionesIniciales(SQLiteDatabase db) {

@@ -1,43 +1,44 @@
 package es.ies.cm.dam2.pmdm.eco;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 /**
- * P7 Controles de selección: elegir una canción por género, título y ubicación.
+ * P12 Buscador de la biblioteca: filtra por nombre (empieza por o contiene) y
+ * por valoración mínima, consultando la tabla {@code canciones} de {@code eco.db}.
  * <p>
- * Dos {@link Spinner} (género y canción) + un {@link ListView} de ubicaciones con
- * RadioButton (plantilla de Android) + botón Mostrar, que solo se activa cuando
- * están las tres selecciones.
+ * Sustituye a los filtros estáticos de la P7. Los resultados se pintan con el
+ * mismo {@link AdaptadorCancionRecycler} de la biblioteca y, al tocar uno, se
+ * abre su ficha.
  */
-public class BuscarActivity extends AppCompatActivity {
+public class BuscarActivity extends AppCompatActivity
+        implements AdaptadorCancionRecycler.OyenteCancion {
 
-    /** Los géneros (arrays de Java, como pide el enunciado). */
-    private static final String[] GENEROS = {"Rock", "Pop", "Electrónica"};
+    /** Los resultados de la última búsqueda (la lista que pinta el adaptador). */
+    private final ArrayList<Cancion> resultados = new ArrayList<>();
 
-    /** Las canciones de cada género: la fila i corresponde a GENEROS[i]. */
-    private static final String[][] CANCIONES = {
-            {"Luna de cobre", "Tormenta", "Camino al sur"},
-            {"Neón", "Mariposa", "Ciudad dormida"},
-            {"Pulso", "Circuito", "Amanecer binario"}
-    };
-
-    private Spinner generoSpinner;
-    private Spinner cancionSpinner;
-    private ListView ubicacionesList;
-    private Button mostrarButton;
+    private CancionRepository cancionRepository;
+    private AdaptadorCancionRecycler adaptador;
+    private EditText nombreEdit;
+    private RadioButton empiezaRadio;
+    private RatingBar valoracionRating;
+    private TextView resultadosVacio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,85 +51,63 @@ public class BuscarActivity extends AppCompatActivity {
             return insets;
         });
 
-        generoSpinner = findViewById(R.id.generoBuscarSpinner);
-        cancionSpinner = findViewById(R.id.cancionBuscarSpinner);
-        ubicacionesList = findViewById(R.id.ubicacionesList);
-        mostrarButton = findViewById(R.id.mostrarButton);
+        cancionRepository = new CancionRepository(this);
 
-        // Cada Spinner usa su propia plantilla de fila: así cada uno tiene su color.
-        ArrayAdapter<String> adaptadorGeneros = new ArrayAdapter<>(
-                this, R.layout.item_spinner_genero, GENEROS);
-        adaptadorGeneros.setDropDownViewResource(R.layout.item_spinner_genero);
-        generoSpinner.setAdapter(adaptadorGeneros);
+        nombreEdit = findViewById(R.id.nombreBuscarEdit);
+        empiezaRadio = findViewById(R.id.radioEmpieza);
+        valoracionRating = findViewById(R.id.valoracionBuscarRating);
+        resultadosVacio = findViewById(R.id.resultadosVacio);
 
-        // El ListView usa la plantilla con RadioButton que trae Android.
-        ArrayAdapter<CharSequence> adaptadorUbicaciones = ArrayAdapter.createFromResource(
-                this, R.array.ubicaciones, android.R.layout.simple_list_item_single_choice);
-        ubicacionesList.setAdapter(adaptadorUbicaciones);
+        RecyclerView resultadosRecycler = findViewById(R.id.resultadosRecycler);
+        resultadosRecycler.setLayoutManager(new LinearLayoutManager(this));
+        adaptador = new AdaptadorCancionRecycler(resultados, this);
+        resultadosRecycler.setAdapter(adaptador);
 
-        // Listener de SELECCIÓN (no de pulsación): al cambiar el género, se filtran las canciones.
-        generoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                actualizarCanciones(position);
-                actualizarBoton();
+        findViewById(R.id.buscarButton).setOnClickListener(v -> buscar());
+
+        // La lupa del teclado también lanza la búsqueda.
+        nombreEdit.setOnEditorActionListener((v, accion, evento) -> {
+            if (accion == EditorInfo.IME_ACTION_SEARCH) {
+                buscar();
+                return true;
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // No se usa
-            }
+            return false;
         });
-
-        cancionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                actualizarBoton();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // No se usa
-            }
-        });
-
-        ubicacionesList.setOnItemClickListener((parent, view, position, id) -> actualizarBoton());
-
-        mostrarButton.setOnClickListener(v -> mostrarCaracteristicas());
-
-        // Al arrancar ya hay un género elegido: se cargan sus canciones.
-        actualizarCanciones(generoSpinner.getSelectedItemPosition());
-        actualizarBoton();
     }
 
-    /** Rellena el Spinner de canciones con las del género elegido (filtrado dependiente). */
-    private void actualizarCanciones(int posicionGenero) {
-        if (posicionGenero < 0 || posicionGenero >= CANCIONES.length) {
-            return;
+    /** Al volver a la pantalla se repite la búsqueda por si cambió la base de datos. */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (adaptador != null) {
+            buscar();
         }
-        ArrayAdapter<String> adaptador = new ArrayAdapter<>(
-                this, R.layout.item_spinner_cancion, CANCIONES[posicionGenero]);
-        adaptador.setDropDownViewResource(R.layout.item_spinner_cancion);
-        cancionSpinner.setAdapter(adaptador);
     }
 
-    /** El botón solo se enciende con las TRES selecciones hechas. */
-    private void actualizarBoton() {
-        boolean hayGenero = generoSpinner.getSelectedItemPosition() != AdapterView.INVALID_POSITION;
-        boolean hayCancion = cancionSpinner.getSelectedItemPosition() != AdapterView.INVALID_POSITION;
-        boolean hayUbicacion = ubicacionesList.getCheckedItemPosition() != AdapterView.INVALID_POSITION;
-        mostrarButton.setEnabled(hayGenero && hayCancion && hayUbicacion);
+    /** Consulta la base de datos con los filtros actuales y repinta la lista. */
+    private void buscar() {
+        String texto = nombreEdit.getText().toString().trim();
+        boolean empiezaPor = empiezaRadio.isChecked();
+        int valoracionMinima = Math.round(valoracionRating.getRating());
+
+        resultados.clear();
+        resultados.addAll(cancionRepository.buscar(texto, empiezaPor, valoracionMinima));
+        adaptador.notifyDataSetChanged();
+
+        resultadosVacio.setVisibility(resultados.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
-    private void mostrarCaracteristicas() {
-        int posicionUbicacion = ubicacionesList.getCheckedItemPosition();
-        if (posicionUbicacion == AdapterView.INVALID_POSITION) {
-            return;
-        }
-        String genero = String.valueOf(generoSpinner.getSelectedItem());
-        String cancion = String.valueOf(cancionSpinner.getSelectedItem());
-        String ubicacion = String.valueOf(ubicacionesList.getItemAtPosition(posicionUbicacion));
-        Toast.makeText(this, getString(R.string.buscar_toast, genero, cancion, ubicacion),
-                Toast.LENGTH_LONG).show();
+    @Override
+    public void alHacerClicCorto(int posicion) {
+        if (posicion == RecyclerView.NO_POSITION) return;
+
+        Intent intent = new Intent(this, FichaCancionActivity.class);
+        intent.putExtra(BibliotecaActivity.EXTRA_CANCION, resultados.get(posicion));
+        startActivity(intent);
+    }
+
+    @Override
+    public void alHacerClicLargo(int posicion, View itemview) {
+        // El buscador no edita ni borra: eso se hace desde la biblioteca.
     }
 }

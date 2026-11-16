@@ -42,12 +42,14 @@ public class AdaptadorCancionRecycler
         final ImageView portada;
         final TextView nombre;
         final TextView interpretes;
+        final TextView genero;
 
         CancionViewHolder(@NonNull View fila) {
             super(fila);
             portada = fila.findViewById(R.id.portadaCancion);
             nombre = fila.findViewById(R.id.nombreCancionFila);
             interpretes = fila.findViewById(R.id.interpretesCancionFila);
+            genero = fila.findViewById(R.id.generoCancionFila);
         }
     }
 
@@ -67,6 +69,8 @@ public class AdaptadorCancionRecycler
         holder.nombre.setText(cancion.getNombre());
         holder.interpretes.setText(holder.itemView.getContext()
                 .getString(R.string.ficha_interpretes, cancion.getInterpretes()));
+        holder.genero.setText(holder.itemView.getContext()
+                .getString(R.string.ficha_genero, cancion.getGenero()));
 
         // Los dos clics van en la tarjeta (la vista de la fila), no en el RecyclerView.
         holder.itemView.setOnClickListener(v -> {

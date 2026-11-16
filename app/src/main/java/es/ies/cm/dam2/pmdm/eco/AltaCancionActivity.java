@@ -67,6 +67,7 @@ public class AltaCancionActivity extends AppCompatActivity {
     private int valoracionSeleccionada = 0;
 
     private View raiz;
+    private int id;
     private TextView songName;
     private EditText songNameEdit;
     private TextView artistNumber;
@@ -79,6 +80,7 @@ public class AltaCancionActivity extends AppCompatActivity {
     private TextView popularityError;
     private TextView scoreResult;
     private RadioGroup radioGroupState;
+    private CancionRepository cancionRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,8 @@ public class AltaCancionActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        cancionRepository = new CancionRepository(this);
 
         // ===================== P2.1 Contador de intérpretes =====================
         artistNumber = findViewById(R.id.artistNumber);
@@ -244,15 +248,17 @@ public class AltaCancionActivity extends AppCompatActivity {
 
         if (original != null) {                 // MODO EDICIÓN
             cargarCancionEnFormulario(original); // rellena TODOS los controles
-            setTitle("Editar canción");
-            aceptarFormButton.setText("Guardar cambios");
+            setTitle(R.string.editar_cancion);
+            aceptarFormButton.setText(R.string.guardar_cambios);
             aceptarFormButton.setVisibility(View.VISIBLE);
             sendButton.setVisibility(View.GONE);
             resetFormButton.setOnClickListener(v -> cargarCancionEnFormulario(original));
         }
     }
     private void cargarCancionEnFormulario(Cancion c) {
+        id = c.getId();
         // 1. Campos de texto
+        songName.setText(c.getNombre());
         songNameEdit.setText(c.getNombre());
         selloEdit.setText(c.getSello());
         yearEdit.setText(String.valueOf(c.getAnio()));
@@ -269,8 +275,9 @@ public class AltaCancionActivity extends AppCompatActivity {
             generoSpinner.setSelection(posicion);
         }
 
-        // 4. Valoración (RatingBar de 9 estrellas)
+        // 4. Valoración (teclado de 9 teclas)
         valoracionSeleccionada = c.getValoracion();
+        scoreResult.setText(getString(R.string.score, valoracionSeleccionada));
     }
 
     /** Comprueba que el texto del campo de popularidad es un entero entre 1 y 10. */
@@ -316,12 +323,21 @@ public class AltaCancionActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /** P8: ACEPTAR devuelve la canción a la pantalla que la haya pedido (la biblioteca). */
+    /** P8/P12: ACEPTAR guarda en la base de datos y devuelve la canción a la biblioteca. */
     private void aceptarFormulario() {
         Cancion cancion = validarFormulario();
         if (cancion == null) {
             return;
         }
+
+        if (cancion.getId() > 0) {
+            cancionRepository.updateCancion(cancion);
+            Toast.makeText(this, R.string.cancion_actualizada, Toast.LENGTH_SHORT).show();
+        } else {
+            cancionRepository.insertCancion(cancion);
+            Toast.makeText(this, R.string.cancion_guardada, Toast.LENGTH_SHORT).show();
+        }
+
         Intent respuesta = new Intent();
         respuesta.putExtra(EXTRA_CANCION, cancion);
         setResult(RESULT_OK, respuesta);
@@ -352,7 +368,7 @@ public class AltaCancionActivity extends AppCompatActivity {
         }
 
         int popularidad = Integer.parseInt(popularityEdit.getText().toString().trim());
-        return new Cancion(nombre, genero, sello, artistNumberValue, anio, popularidad, duracion,
+        return new Cancion(id, nombre, genero, sello, interpretes, anio, popularidad, duracion,
                 valoracionSeleccionada);
     }
 

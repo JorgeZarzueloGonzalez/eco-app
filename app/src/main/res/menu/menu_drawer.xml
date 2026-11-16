@@ -14,6 +14,9 @@
             android:id="@+id/nav_anadir"
             android:title="@string/anadir" />
         <item
+            android:id="@+id/nav_favoritos"
+            android:title="@string/favoritos" />
+        <item
             android:id="@+id/nav_ajustes"
             android:title="@string/ajustes" />
         <item

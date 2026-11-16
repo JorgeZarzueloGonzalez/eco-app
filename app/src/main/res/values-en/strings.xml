@@ -114,4 +114,40 @@
     <!-- ===== Practice 9: RecyclerView and expanded details ===== -->
     <string name="cancion_borrada">Song deleted</string>
     <string name="ficha_valoracion">Rating: %1$d / 9</string>
+
+    <!-- ===== Practice 12: SQLite (login, favourites and search) ===== -->
+    <string name="login_titulo">Sign in</string>
+    <string name="login_subtitulo">Sign in to see your favourite songs</string>
+    <string name="login_usuario">User</string>
+    <string name="login_clave">Password</string>
+    <string name="login_entrar">Sign in</string>
+    <string name="login_error">Wrong user or password</string>
+    <string name="login_falta_datos">Type a user and a password</string>
+    <string name="login_pista">Try admin / admin</string>
+
+    <string name="favoritos">Favourites</string>
+    <string name="favoritos_titulo">Favourites of %1$s</string>
+    <string name="favoritos_titulo_corto">My favourites</string>
+    <string name="favoritos_elige">Song</string>
+    <string name="favoritos_anadir">Add to favourites</string>
+    <string name="favoritos_anadida">Added to favourites: %1$s</string>
+    <string name="favoritos_duplicada">That song is already in your favourites</string>
+    <string name="favoritos_vacio">You have no favourite songs yet</string>
+    <string name="favoritos_quitar">Remove from favourites</string>
+    <string name="favoritos_quitar_pregunta">Remove «%1$s» from your favourites?</string>
+    <string name="favoritos_quitada">Song removed from favourites</string>
+    <string name="quitar">Remove</string>
+
+    <string name="buscar_hint">Type the name</string>
+    <string name="buscar_modo">Match</string>
+    <string name="buscar_empieza">Starts with</string>
+    <string name="buscar_contiene">Contains</string>
+    <string name="buscar_valoracion">Minimum rating</string>
+    <string name="buscar_accion">Search</string>
+    <string name="buscar_sin_resultados">No matching songs</string>
+
+    <string name="editar_cancion">Edit song</string>
+    <string name="guardar_cambios">Save changes</string>
+    <string name="cancion_guardada">Song saved</string>
+    <string name="cancion_actualizada">Changes saved</string>
 </resources>

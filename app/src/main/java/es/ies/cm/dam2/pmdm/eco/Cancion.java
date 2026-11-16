@@ -29,11 +29,10 @@ public class Cancion implements Serializable {
      */
     private int valoracion;
 
-
-    public Cancion(String nombre, String genero, String sello,
+    public Cancion(int id, String nombre, String genero, String sello,
                    int interpretes,
                    int anio, int popularidad, int duracion, int valoracion) {
-        this.id = 0;
+        this.id = id;
         this.nombre = nombre;
         this.genero = genero;
         this.sello = sello;
@@ -42,6 +41,12 @@ public class Cancion implements Serializable {
         this.popularidad = popularidad;
         this.duracion = duracion;
         this.valoracion = valoracion;
+    }
+
+    public Cancion(String nombre, String genero, String sello,
+                   int interpretes,
+                   int anio, int popularidad, int duracion, int valoracion) {
+        this(0, nombre, genero, sello, interpretes, anio, popularidad, duracion, valoracion);
     }
 
     public Cancion() {
