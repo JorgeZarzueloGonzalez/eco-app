@@ -1,4 +1,4 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -16,7 +15,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import es.ies.cm.dam2.pmdm.eco.R;
+import es.ies.cm.dam2.pmdm.eco.data.repository.CancionRepository;
+import es.ies.cm.dam2.pmdm.eco.model.Cancion;
+import es.ies.cm.dam2.pmdm.eco.ui.adapters.AdaptadorCancionRecycler;
 import java.util.ArrayList;
 
 /**

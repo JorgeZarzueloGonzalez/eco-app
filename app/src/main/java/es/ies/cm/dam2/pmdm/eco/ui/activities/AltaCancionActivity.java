@@ -1,6 +1,6 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.ui.activities;
 
-import static es.ies.cm.dam2.pmdm.eco.BibliotecaActivity.EXTRA_CANCION;
+import static es.ies.cm.dam2.pmdm.eco.ui.activities.BibliotecaActivity.EXTRA_CANCION;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +22,9 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import es.ies.cm.dam2.pmdm.eco.R;
+import es.ies.cm.dam2.pmdm.eco.data.repository.CancionRepository;
+import es.ies.cm.dam2.pmdm.eco.model.Cancion;
 import java.util.Calendar;
 
 /**

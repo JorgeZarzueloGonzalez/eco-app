@@ -1,6 +1,8 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.data.contract;
 
 import android.provider.BaseColumns;
+import es.ies.cm.dam2.pmdm.eco.data.repository.FavoritoRepository;
+import es.ies.cm.dam2.pmdm.eco.data.sqlite.EcoDB;
 
 /**
  * Nombres de la tabla {@code favoritos} y de sus columnas, para no repetir

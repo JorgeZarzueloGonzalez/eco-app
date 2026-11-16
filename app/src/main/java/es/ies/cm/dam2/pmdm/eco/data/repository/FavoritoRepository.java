@@ -1,10 +1,13 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.data.repository;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
+import es.ies.cm.dam2.pmdm.eco.data.contract.FavoritoContract;
+import es.ies.cm.dam2.pmdm.eco.data.sqlite.EcoDB;
+import es.ies.cm.dam2.pmdm.eco.model.Cancion;
+import es.ies.cm.dam2.pmdm.eco.model.Favorito;
 import java.util.ArrayList;
 import java.util.List;
 

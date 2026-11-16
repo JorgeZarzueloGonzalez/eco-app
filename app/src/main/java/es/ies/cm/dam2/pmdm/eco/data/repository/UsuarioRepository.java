@@ -1,9 +1,11 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.data.repository;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-
+import es.ies.cm.dam2.pmdm.eco.data.contract.UsuarioContract;
+import es.ies.cm.dam2.pmdm.eco.data.sqlite.EcoDB;
+import es.ies.cm.dam2.pmdm.eco.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 

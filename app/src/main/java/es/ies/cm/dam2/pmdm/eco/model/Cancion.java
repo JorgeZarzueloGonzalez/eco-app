@@ -1,4 +1,4 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.model;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.ui.activities;
 
 import android.content.ClipData;
 import android.os.Bundle;
@@ -6,12 +6,12 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import es.ies.cm.dam2.pmdm.eco.R;
 
 /**
  * P6.3 "Acerca de Eco": un único TextView con el autor.

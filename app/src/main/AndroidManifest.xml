@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Eco">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -21,45 +21,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PaletaActivity" />
+        <activity android:name=".ui.activities.PaletaActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.activities.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".FavoritosActivity"
+            android:name=".ui.activities.FavoritosActivity"
             android:exported="false" />
         <activity
-            android:name=".AltaCancionActivity"
+            android:name=".ui.activities.AltaCancionActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".FichaCancionActivity"
+            android:name=".ui.activities.FichaCancionActivity"
             android:exported="false" />
         <activity
-            android:name=".OyenteActivity"
+            android:name=".ui.activities.OyenteActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ConfirmarAsistenciaActivity"
+            android:name=".ui.activities.ConfirmarAsistenciaActivity"
             android:exported="false" />
         <activity
-            android:name=".InvitarCorreoActivity"
+            android:name=".ui.activities.InvitarCorreoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".CompartirActivity"
+            android:name=".ui.activities.CompartirActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".AcercaDeActivity"
+            android:name=".ui.activities.AcercaDeActivity"
             android:exported="false" />
         <activity
-            android:name=".BuscarActivity"
+            android:name=".ui.activities.BuscarActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".BibliotecaActivity"
+            android:name=".ui.activities.BibliotecaActivity"
             android:exported="false" />
     </application>
 

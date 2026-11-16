@@ -12,4 +12,4 @@
     android:textColor="@color/text_on_accent"
     android:textSize="28sp"
     android:textStyle="bold"
-    tools:context=".AcercaDeActivity" />
+    tools:context=".ui.activities.AcercaDeActivity" />

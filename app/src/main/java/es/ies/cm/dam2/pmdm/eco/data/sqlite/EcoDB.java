@@ -1,9 +1,13 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.data.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import es.ies.cm.dam2.pmdm.eco.data.contract.CancionContract;
+import es.ies.cm.dam2.pmdm.eco.data.contract.FavoritoContract;
+import es.ies.cm.dam2.pmdm.eco.data.contract.UsuarioContract;
+import es.ies.cm.dam2.pmdm.eco.model.Cancion;
 
 public class EcoDB extends SQLiteOpenHelper {
 

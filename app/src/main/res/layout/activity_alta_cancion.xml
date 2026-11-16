@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/estado_neutro"
     android:fillViewport="true"
-    tools:context=".AltaCancionActivity">
+    tools:context=".ui.activities.AltaCancionActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

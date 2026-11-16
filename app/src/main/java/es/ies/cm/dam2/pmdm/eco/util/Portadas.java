@@ -1,4 +1,6 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.util;
+
+import es.ies.cm.dam2.pmdm.eco.R;
 
 /**
  * Las portadas de Eco: recursos locales en {@code res/drawable} (sin permisos ni

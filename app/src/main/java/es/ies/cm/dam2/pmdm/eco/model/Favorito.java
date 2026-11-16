@@ -1,4 +1,4 @@
-package es.ies.cm.dam2.pmdm.eco;
+package es.ies.cm.dam2.pmdm.eco.model;
 
 import java.io.Serializable;
 
@@ -7,8 +7,7 @@ import java.io.Serializable;
  * usuario con una canción.
  * <p>
  * Aquí solo se guardan los dos identificadores; el nombre y el género de la
- * canción se leen de la tabla {@code canciones} con
- * {@link CancionRepository#getCancion(int)}.
+ * canción se leen de la tabla {@code canciones} por su {@code _id}.
  */
 public class Favorito implements Serializable {
 

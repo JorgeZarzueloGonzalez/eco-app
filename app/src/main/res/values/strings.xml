@@ -132,8 +132,8 @@
     <string name="edit">Editar</string>
     <string name="delete">Eliminar</string>
     <string name="inicio">Inicio</string>
-    <string name="navigation_drawer_open">open\n</string>
-    <string name="navigation_drawer_close">close</string>
+    <string name="navigation_drawer_open" translatable="false">open\n</string>
+    <string name="navigation_drawer_close" translatable="false">close</string>
     <string name="ajustes">Ajustes</string>
     <string name="anadir">Añadir Cancion</string>
     <string name="buscar">Buscar Cancion</string>

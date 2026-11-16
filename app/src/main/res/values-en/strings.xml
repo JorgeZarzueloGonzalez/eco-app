@@ -116,6 +116,7 @@
     <string name="ficha_valoracion">Rating: %1$d / 9</string>
 
     <!-- ===== Practice 12: SQLite (login, favourites and search) ===== -->
+    <string name="biblioteca">Library</string>
     <string name="login_titulo">Sign in</string>
     <string name="login_subtitulo">Sign in to see your favourite songs</string>
     <string name="login_usuario">User</string>
@@ -150,4 +151,12 @@
     <string name="guardar_cambios">Save changes</string>
     <string name="cancion_guardada">Song saved</string>
     <string name="cancion_actualizada">Changes saved</string>
+    <string name="ordenar_por_nombre">Order by name</string>
+    <string name="acerca_de">About</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="ajustes">Settings</string>
+    <string name="anadir">Add song</string>
+    <string name="buscar">Find song</string>
+    <string name="inicio">Home</string>
 </resources>
