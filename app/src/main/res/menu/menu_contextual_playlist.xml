@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menú contextual de una tarjeta de playlist (clic largo). -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/playlistRenombrar"
+        android:title="@string/playlist_renombrar" />
+    <item
+        android:id="@+id/playlistEliminar"
+        android:title="@string/delete" />
+</menu>

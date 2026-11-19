@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menú de opciones de "Mis playlists": nueva playlist y la cuenta del usuario. -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/playlistNueva"
+        android:icon="@drawable/ic_anadir"
+        android:title="@string/playlist_nueva"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/cuentaClave"
+        android:title="@string/cuenta_cambiar_clave"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/cuentaSalir"
+        android:title="@string/cuenta_cerrar_sesion"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/cuentaBorrar"
+        android:title="@string/cuenta_eliminar"
+        app:showAsAction="never" />
+</menu>

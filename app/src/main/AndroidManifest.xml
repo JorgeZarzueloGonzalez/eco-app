@@ -27,7 +27,14 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.activities.FavoritosActivity"
+            android:name=".ui.activities.RegistroActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activities.PlaylistsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.PlaylistActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.ReproduccionActivity"

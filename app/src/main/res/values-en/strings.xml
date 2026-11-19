@@ -101,25 +101,13 @@
     <!-- ===== Practice 12: SQLite (login, favourites and search) ===== -->
     <string name="biblioteca">Library</string>
     <string name="login_titulo">Sign in</string>
-    <string name="login_subtitulo">Sign in to see your favourite songs</string>
+    <string name="login_subtitulo">Sign in to see your playlists</string>
     <string name="login_usuario">User</string>
     <string name="login_clave">Password</string>
     <string name="login_entrar">Sign in</string>
     <string name="login_error">Wrong user or password</string>
-    <string name="login_falta_datos">Type a user and a password</string>
-    <string name="login_pista">Try admin / admin</string>
+    <string name="login_pista">Try admin / admin or carlos / carlos</string>
 
-    <string name="favoritos">Favourites</string>
-    <string name="favoritos_titulo">Favourites of %1$s</string>
-    <string name="favoritos_titulo_corto">My favourites</string>
-    <string name="favoritos_elige">Song</string>
-    <string name="favoritos_anadir">Add to favourites</string>
-    <string name="favoritos_anadida">Added to favourites: %1$s</string>
-    <string name="favoritos_duplicada">That song is already in your favourites</string>
-    <string name="favoritos_vacio">You have no favourite songs yet</string>
-    <string name="favoritos_quitar">Remove from favourites</string>
-    <string name="favoritos_quitar_pregunta">Remove «%1$s» from your favourites?</string>
-    <string name="favoritos_quitada">Song removed from favourites</string>
     <string name="quitar">Remove</string>
 
     <string name="buscar_hint">Type the name</string>
@@ -192,4 +180,47 @@
     <string name="fecha_hora">%1$s · %2$s</string>
     <string name="reproduccion_cambiar_fecha">Change date</string>
     <string name="reproduccion_actualizada">Play updated</string>
+
+    <!-- Número de canciones de una playlist: Android elige "one" u "other" según la cantidad -->
+    <plurals name="playlist_canciones">
+        <item quantity="one">%d song</item>
+        <item quantity="other">%d songs</item>
+    </plurals>
+
+    <!-- ===== Proyecto: login, registro y playlists ===== -->
+    <string name="login_crear_cuenta">No account? Create one</string>
+    <string name="registro_titulo">Create account</string>
+    <string name="registro_subtitulo">Your playlists are waiting</string>
+    <string name="registro_repetir">Repeat the password</string>
+    <string name="registro_boton">Create account</string>
+    <string name="registro_error_nombre">At least %1$d characters</string>
+    <string name="registro_error_clave">At least %1$d characters</string>
+    <string name="registro_error_distintas">Passwords do not match</string>
+    <string name="registro_error_existe">That user already exists</string>
+    <string name="playlists_titulo">%1$s\'s playlists</string>
+    <string name="playlists_vacio">You have no playlists yet: create one with the + button</string>
+    <string name="playlist_nueva">New playlist</string>
+    <string name="playlist_nombre">Playlist name</string>
+    <string name="playlist_renombrar">Rename</string>
+    <string name="playlist_creada">Playlist “%1$s” created</string>
+    <string name="playlist_repetida">You already have a playlist with that name</string>
+    <string name="playlist_eliminar_titulo">Delete playlist</string>
+    <string name="playlist_eliminar_pregunta">Delete “%1$s”? The songs stay in your library.</string>
+    <string name="playlist_eliminada">Playlist deleted</string>
+    <string name="playlist_anadir">Add to playlist</string>
+    <string name="playlist_anadida">Added: %1$s</string>
+    <string name="playlist_ya_esta">That song is already in the playlist</string>
+    <string name="playlist_vacia">This playlist is empty: add songs above</string>
+    <string name="playlist_quitar">Remove from playlist</string>
+    <string name="playlist_quitar_pregunta">Remove “%1$s” from the playlist?</string>
+    <string name="playlist_quitada">Song removed from the playlist</string>
+    <string name="cuenta_cambiar_clave">Change password</string>
+    <string name="cuenta_clave_actual">Current password</string>
+    <string name="cuenta_clave_nueva">New password</string>
+    <string name="cuenta_clave_cambiada">Password changed</string>
+    <string name="cuenta_clave_incorrecta">The current password is wrong</string>
+    <string name="cuenta_cerrar_sesion">Sign out</string>
+    <string name="cuenta_eliminar">Delete account</string>
+    <string name="cuenta_eliminar_pregunta">Your account and all your playlists will be deleted. Are you sure?</string>
+    <string name="cuenta_eliminada">Account deleted</string>
 </resources>

@@ -2,31 +2,45 @@ package es.ies.cm.dam2.pmdm.eco.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import es.ies.cm.dam2.pmdm.eco.R;
 import es.ies.cm.dam2.pmdm.eco.data.room.AppDatabase;
 import es.ies.cm.dam2.pmdm.eco.data.sqlite.EcoDB;
 import es.ies.cm.dam2.pmdm.eco.model.Usuario;
 
 /**
- * P12 Login: comprueba usuario y clave en la tabla {@code usuarios} de
- * {@code eco.db}. Si existen, abre {@link FavoritosActivity} pasando el
- * {@code _id} del usuario; si no, avisa con un Toast.
+ * Login: comprueba usuario y clave en la tabla {@code usuarios} de
+ * {@code eco.db}.
+ * <ul>
+ *     <li>Correctos: abre {@link PlaylistsActivity} con el {@code _id} del
+ *     usuario (el id viaja entre pantallas) y se cierra.</li>
+ *     <li>Incorrectos: aviso en el campo de la clave.</li>
+ *     <li>"Crear cuenta": abre {@link RegistroActivity}; si el registro
+ *     termina bien, devuelve el id nuevo y se entra directamente.</li>
+ * </ul>
  */
 public class LoginActivity extends AppCompatActivity {
 
-    /** Clave del extra con el {@code _id} del usuario que inicia sesión. */
-    public static final String EXTRA_USUARIO_ID = "extra_usuario_id";
-
     private EcoDB ecoDB;
-    private EditText usuarioEdit;
-    private EditText claveEdit;
+    private TextInputLayout usuarioLayout, claveLayout;
+    private TextInputEditText usuarioEdit, claveEdit;
+
+    /** Abre el registro y recoge su respuesta (el id del usuario creado). */
+    private final ActivityResultLauncher<Intent> registro = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), resultado -> {
+                if (resultado.getResultCode() == RESULT_OK && resultado.getData() != null) {
+                    entrar(resultado.getData().getIntExtra(PlaylistsActivity.EXTRA_USUARIO_ID, 0));
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,44 +48,74 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            Insets barras = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(barras.left, barras.top, barras.right, barras.bottom);
             return insets;
         });
 
-        setTitle(R.string.login_titulo);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         ecoDB = EcoDB.getInstance(this);
+        usuarioLayout = findViewById(R.id.usuarioLoginLayout);
+        claveLayout = findViewById(R.id.claveLoginLayout);
         usuarioEdit = findViewById(R.id.usuarioLoginEdit);
         claveEdit = findViewById(R.id.claveLoginEdit);
 
         findViewById(R.id.entrarButton).setOnClickListener(v -> iniciarSesion());
+        findViewById(R.id.crearCuentaButton).setOnClickListener(v ->
+                registro.launch(new Intent(this, RegistroActivity.class)));
     }
 
-    /** Valida las credenciales y, si son correctas, entra en los favoritos. */
+    /** Valida las credenciales (en el executor) y, si son correctas, entra. */
     private void iniciarSesion() {
-        String nombre = usuarioEdit.getText().toString().trim();
-        String clave = claveEdit.getText().toString();
+        usuarioLayout.setError(null);
+        claveLayout.setError(null);
+        String nombre = texto(usuarioEdit);
+        String clave = claveEdit.getText() == null ? "" : claveEdit.getText().toString();
 
-        if (nombre.isEmpty() || clave.isEmpty()) {
-            Toast.makeText(this, R.string.login_falta_datos, Toast.LENGTH_SHORT).show();
+        if (nombre.isEmpty()) {
+            usuarioLayout.setError(getString(R.string.error_obligatorio));
+            return;
+        }
+        if (clave.isEmpty()) {
+            claveLayout.setError(getString(R.string.error_obligatorio));
             return;
         }
 
-        // La consulta va en segundo plano, como todas las de la app desde la P13.
         AppDatabase.executor.execute(() -> {
             Usuario usuario = ecoDB.login(nombre, clave);
-
             runOnUiThread(() -> {
                 if (usuario == null) {
-                    Toast.makeText(this, R.string.login_error, Toast.LENGTH_SHORT).show();
-                    return;
+                    claveLayout.setError(getString(R.string.login_error));
+                } else {
+                    entrar(usuario.getId());
                 }
-                Intent intent = new Intent(this, FavoritosActivity.class);
-                intent.putExtra(FavoritosActivity.EXTRA_USUARIO_ID, usuario.getId());
-                startActivity(intent);
-                finish();
             });
         });
+    }
+
+    private void entrar(int usuarioId) {
+        if (usuarioId <= 0) {
+            return;
+        }
+        Intent intent = new Intent(this, PlaylistsActivity.class);
+        intent.putExtra(PlaylistsActivity.EXTRA_USUARIO_ID, usuarioId);
+        startActivity(intent);
+        finish(); // Atrás desde las playlists vuelve al inicio, no al login
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    private static String texto(TextInputEditText campo) {
+        return campo.getText() == null ? "" : campo.getText().toString().trim();
     }
 }
