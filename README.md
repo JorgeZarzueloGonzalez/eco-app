@@ -210,8 +210,7 @@ app/src/main/java/es/ies/cm/dam2/pmdm/eco/
 | Capturas de todas las pantallas (también en claro, en horizontal y en inglés) | [`docs/capturas/`](docs/capturas) |
 | Esquema de las bases de datos | [`docs/esquema-bd.png`](docs/esquema-bd.png) |
 | Esquema de navegación | [`docs/navegacion.png`](docs/navegacion.png) |
-| Manual de usuario (PDF) | [`docs/Manual de usuario - Eco.pdf`](docs) |
-| Manual técnico (PDF) | [`docs/Manual tecnico - Eco.pdf`](docs) |
+| Manual de usuario y manual técnico (PDF) | Se entregan aparte, junto con el proyecto |
 
 ## Autor
 
