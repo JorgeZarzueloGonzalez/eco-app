@@ -2,7 +2,7 @@
 <resources>
 
     <!-- ===== General ===== -->
-    <string name="createdBy">Created by Jorge Zarzuelo Gonzalez</string>
+    <string name="createdBy">Made by Jorge Zarzuelo González</string>
 
     <!-- ===== Practice 2: basic controls ===== -->
     <string name="add_artist">+</string>
@@ -103,7 +103,7 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="anadir">Add song</string>
-    <string name="buscar">Find song</string>
+    <string name="buscar">Search song</string>
 
     <!-- ===== Practice 13: Room (plays) ===== -->
     <string name="reproducciones">Plays</string>

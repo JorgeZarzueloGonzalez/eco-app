@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Paleta de Eco · TEMA OSCURO
+     Idea: grafito con un toque violeta (no negro puro, que cansa la vista y
+     deja las tarjetas "flotando" sin profundidad). Cada nivel de superficie
+     es un poco más claro que el anterior: así se ve la elevación sin sombras.
+     El lima brilla sobre el oscuro y es a la vez acción y control. -->
 <resources>
-    <!-- ===== MARCA (igual en ambos temas) ===== -->
-    <color name="primary">#4338CA</color>
-    <color name="primaryDark">#312E81</color>
-    <color name="primaryLight">#4F46E5</color>
-    <color name="accent">#C6F135</color>
-    <!-- Relleno de lima brillante: para fondos/chips/barra (NUNCA para texto) -->
+    <!-- ===== MARCA ===== -->
+    <color name="primary">#6C5CE7</color>
+    <color name="primaryDark">#3E32A8</color>
+    <color name="primaryLight">#A29BFE</color>
+    <color name="accent">#C6F135</color>           <!-- en oscuro el lima sí vale para texto (14:1) -->
     <color name="accent_fill">#C6F135</color>
-    <!-- Lima de ACCIÓN (botones primarios, checkbox, progreso) en tema oscuro:
-         lima brillante; texto negro encima = 15:1, vs fondo = 15,5:1 -->
     <color name="action">#C6F135</color>
+    <color name="control">#C6F135</color>
+    <color name="on_control">#141A05</color>
 
-    <!-- ===== CONTENEDORES (OSCURO) ===== -->
-    <!-- El primario es la lima de acción => contenedor lima; el secundario es el índigo -->
-    <color name="primary_container">#4A5A0A</color>
-    <color name="on_primary_container">#D9F78E</color>
-    <color name="secondary_container">#312E81</color>
-    <color name="on_secondary_container">#DCD9FF</color>
+    <!-- ===== CONTENEDORES ===== -->
+    <color name="primary_container">#33410F</color>
+    <color name="on_primary_container">#DDF78F</color>
+    <color name="secondary_container">#2C2752</color> <!-- botones tonales: violeta apagado -->
+    <color name="on_secondary_container">#DCD7FF</color>
 
-    <!-- ===== SUPERFICIES (OSCURO) ===== -->
-    <color name="background">#05050D</color>
-    <color name="surface">#101026</color>
-    <color name="surface_container_low">#12122C</color>
-    <color name="surface_container">#151531</color>
-    <color name="surface_container_high">#1B1B3C</color>
-    <color name="surface_container_highest">#212147</color>
-    <color name="surface_highlight">#26330A</color>
-    <color name="divider">#2A2A57</color>
-    <color name="outline">#4A4A7B</color>
+    <!-- ===== SUPERFICIES (de más hundida a más elevada) ===== -->
+    <color name="background">#0F0F16</color>
+    <color name="surface">#14141D</color>
+    <color name="surface_container_low">#181822</color>
+    <color name="surface_container">#1D1D29</color>   <!-- tarjetas -->
+    <color name="surface_container_high">#252533</color>
+    <color name="surface_container_highest">#2D2D3D</color>
+    <color name="surface_highlight">#232B12</color>
+    <color name="divider">#2A2A39</color>
+    <color name="outline">#4A4A5F</color>
 
-    <!-- ===== TEXTO (OSCURO) ===== -->
-    <color name="text">#EDEDF5</color>
-    <color name="text_secondary">#A3A3C8</color>
+    <!-- ===== TEXTO ===== -->
+    <color name="text">#F1F1F6</color>
+    <color name="text_secondary">#A3A3B7</color>
     <color name="text_on_primary">#FFFFFF</color>
-    <color name="text_on_accent">#0B0B0B</color>
+    <color name="text_on_accent">#141A05</color>
 
-    <!-- ===== ERRORES ===== -->
-
-    <!-- ===== ESTADO DE LA CANCIÓN (P3.3) ===== -->
-    <!-- En tema oscuro el fondo neutro es la superficie (en claro es blanco) -->
-
-    <!-- ===== PRÁCTICA 7: un color de texto distinto para cada Spinner ===== -->
+    <!-- ===== ESTADO DE LA CANCIÓN ===== -->
+    <color name="estado_nuevo">#7FE3C4</color>
+    <color name="estado_escuchado">#B4ACFF</color>
+    <color name="estado_favorito">#C6F135</color>
 </resources>

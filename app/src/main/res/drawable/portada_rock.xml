@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Portada de Rock: fondo lima con el disco oscuro -->
+<!-- Portada de Rock: un vinilo (disco, dos surcos, etiqueta y agujero) sobre un degradado.
+     Colores de la marca fijos: se ven igual en el tema claro y en el oscuro. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="64dp"
     android:height="64dp"
     android:viewportWidth="64"
     android:viewportHeight="64">
+    <!-- Fondo con degradado diagonal -->
+    <path android:pathData="M0,0h64v64h-64z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="64"
+                android:endY="64"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item android:color="#D8F76A" android:offset="0" />
+                <item android:color="#8DB815" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Disco -->
     <path
-        android:fillColor="@color/accent_fill"
-        android:pathData="M0,0h64v64h-64z" />
+        android:fillColor="#16190D"
+        android:pathData="M32,12a20,20 0 1,1 0,40a20,20 0 1,1 0,-40z" />
+    <!-- Surcos -->
     <path
-        android:fillColor="@color/text_on_accent"
-        android:pathData="M32,14 A18,18 0 1 1 31.99,14 Z" />
+        android:pathData="M32,16.5a15.5,15.5 0 1,1 0,31a15.5,15.5 0 1,1 0,-31z"
+        android:strokeWidth="0.7"
+        android:strokeColor="#3A4220" />
     <path
-        android:fillColor="@color/accent_fill"
-        android:pathData="M32,28 A4,4 0 1 1 31.99,28 Z" />
+        android:pathData="M32,20.5a11.5,11.5 0 1,1 0,23a11.5,11.5 0 1,1 0,-23z"
+        android:strokeWidth="0.7"
+        android:strokeColor="#3A4220" />
+    <!-- Etiqueta central y agujero -->
+    <path
+        android:fillColor="#C6F135"
+        android:pathData="M32,25a7,7 0 1,1 0,14a7,7 0 1,1 0,-14z" />
+    <path
+        android:fillColor="#16190D"
+        android:pathData="M32,30.5a1.5,1.5 0 1,1 0,3a1.5,1.5 0 1,1 0,-3z" />
 </vector>

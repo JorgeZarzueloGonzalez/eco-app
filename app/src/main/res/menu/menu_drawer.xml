@@ -22,6 +22,7 @@
             android:title="@string/main_playlists" />
         <item
             android:id="@+id/nav_reproducciones"
+            android:icon="@drawable/ic_reproducciones"
             android:title="@string/reproducciones" />
     </group>
     <group

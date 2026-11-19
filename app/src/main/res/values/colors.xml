@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Paleta de Eco · TEMA CLARO
+     Idea: fondo gris perla, tarjetas blancas que "flotan" con sombra suave,
+     lima como color de ACCIÓN (botones principales) y violeta como color de
+     ESTRUCTURA (botones secundarios, controles, enlaces).
+     En claro, el lima no sirve para texto ni para controles finos (sobre
+     blanco no se ve): por eso hay un lima oscuro (accent) y los controles
+     (casillas, interruptores, foco de los campos) van en violeta. -->
 <resources>
     <color name="white">#FFFFFF</color>
 
-    <!-- ===== MARCA (igual en ambos temas) ===== -->
-    <color name="primary">#4338CA</color>
-    <color name="primaryDark">#312E81</color>
-    <color name="primaryLight">#4F46E5</color>
-    <color name="accent">#567A00</color>
-    <!-- Relleno de lima brillante: para fondos/chips/barra (NUNCA para texto) -->
-    <color name="accent_fill">#C6F135</color>
-    <!-- Lima de ACCIÓN (botones primarios, checkbox, progreso) en tema claro:
-         lima oscurecida para cumplir 3:1 vs fondo; texto negro encima = 5,57:1 (AA) -->
-    <color name="action">#C6F135</color>
+    <!-- ===== MARCA ===== -->
+    <color name="primary">#6C5CE7</color>          <!-- violeta de la marca -->
+    <color name="primaryDark">#3E32A8</color>
+    <color name="primaryLight">#A29BFE</color>
+    <color name="accent">#4E7000</color>           <!-- lima oscuro: títulos y texto destacado (7:1 sobre blanco) -->
+    <color name="accent_fill">#C6F135</color>      <!-- lima de la marca: rellenos (nunca texto sobre fondo claro) -->
+    <color name="action">#C6F135</color>           <!-- botones principales; texto encima casi negro (15:1) -->
+    <color name="control">#5B4BD6</color>          <!-- casillas, radios, interruptores, slider, foco -->
+    <color name="on_control">#FFFFFF</color>
 
-    <!-- ===== CONTENEDORES (CLARO) ===== -->
-    <!-- El primario es la lima de acción => contenedor lima; el secundario es el índigo -->
-    <color name="primary_container">#CCF07B</color>
-    <color name="on_primary_container">#2E4300</color>
-    <color name="secondary_container">#E0E7FF</color>
-    <color name="on_secondary_container">#312E81</color>
+    <!-- ===== CONTENEDORES ===== -->
+    <color name="primary_container">#E4F7A8</color>
+    <color name="on_primary_container">#253500</color>
+    <color name="secondary_container">#ECE9FF</color> <!-- botones tonales -->
+    <color name="on_secondary_container">#2E2580</color>
 
-    <!-- ===== SUPERFICIES (CLARO) ===== -->
-    <color name="background">#F4F4FB</color>
+    <!-- ===== SUPERFICIES (de más hundida a más elevada) ===== -->
+    <color name="background">#F3F3F8</color>
     <color name="surface">#FFFFFF</color>
-    <color name="surface_container_low">#FDFDFF</color>
-    <color name="surface_container">#ECECF7</color>
-    <color name="surface_container_high">#E5E5F2</color>
-    <color name="surface_container_highest">#DEDEEE</color>
-    <color name="surface_highlight">#E7F1C8</color>
-    <color name="divider">#DBDBEA</color>
-    <color name="outline">#B9B9CE</color>
+    <color name="surface_container_low">#FFFFFF</color>
+    <color name="surface_container">#FFFFFF</color>   <!-- tarjetas -->
+    <color name="surface_container_high">#F0F0F6</color>
+    <color name="surface_container_highest">#E8E8F0</color>
+    <color name="surface_highlight">#F1FAD3</color>
+    <color name="divider">#E4E4EC</color>
+    <color name="outline">#C3C3D1</color>
 
-    <!-- ===== TEXTO (CLARO) ===== -->
-    <color name="text">#14141F</color>
-    <color name="text_secondary">#55556E</color>
+    <!-- ===== TEXTO ===== -->
+    <color name="text">#16161D</color>
+    <color name="text_secondary">#5F5F73</color>
     <color name="text_on_primary">#FFFFFF</color>
-    <color name="text_on_accent">#0B0B0B</color>
+    <color name="text_on_accent">#141A05</color>
 
-    <!-- ===== ERRORES ===== -->
-
-    <!-- ===== ESTADO DE LA CANCIÓN (P3.3) ===== -->
-    <!-- Fondo al abrir: blanco, como pide el enunciado -->
-    <color name="estado_nuevo">#4CAF50</color>
-    <color name="estado_escuchado">#2196F3</color>
-    <color name="estado_favorito">#C6F135</color>
-    <!-- Texto de los RadioButton sobre esos fondos -->
-
-    <!-- ===== PRÁCTICA 7: un color de texto distinto para cada Spinner ===== -->
+    <!-- ===== ESTADO DE LA CANCIÓN (etiqueta de la ficha) ===== -->
+    <color name="estado_nuevo">#7FE3C4</color>      <!-- Nueva: menta -->
+    <color name="estado_escuchado">#B4ACFF</color>  <!-- Escuchada: lavanda -->
+    <color name="estado_favorito">#C6F135</color>   <!-- En bucle: lima -->
 </resources>

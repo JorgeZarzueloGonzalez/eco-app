@@ -6,8 +6,8 @@
             <corners android:radius="28dp" />
             <gradient
                 android:angle="315"
-                android:endColor="#4F46E5"
-                android:startColor="#312E81" />
+                android:endColor="#6C5CE7"
+                android:startColor="#3E32A8" />
         </shape>
     </item>
     <item android:drawable="@drawable/ic_launcher_foreground" />
