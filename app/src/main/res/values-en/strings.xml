@@ -59,7 +59,7 @@
     <!-- ===== Practice 6: share via WhatsApp ===== -->
 
     <!-- ===== Practice 6: about Eco (Drag & Drop) ===== -->
-    <string name="acerca_autor">Eco · created by Jorge</string>
+    <string name="acerca_autor">Made by Jorge Zarzuelo González</string>
 
     <!-- ===== Practice 7: search song ===== -->
     <string name="buscar_titulo">Search song</string>
@@ -214,4 +214,9 @@
     <string name="paleta_otra">Another song</string>
     <string name="paleta_artista_duracion">Artist · 2:47</string>
     <string name="paleta_inicio">Home</string>
+
+    <!-- ===== Proyecto: acerca de ===== -->
+    <string name="acerca_version">Version %1$s</string>
+    <string name="acerca_descripcion">Eco is your music library: save songs with their genre, label, rating and status; log when you listen to them and organise them into personal playlists. Data is stored on the phone (SQLite and Room) and stays there when you close the app.</string>
+    <string name="acerca_curso">2nd year DAM · IES Claudio Moyano · PMDM 2026-27</string>
 </resources>

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.MaterialToolbar;
 import es.ies.cm.dam2.pmdm.eco.R;
+import es.ies.cm.dam2.pmdm.eco.util.Pantallas;
 import es.ies.cm.dam2.pmdm.eco.data.room.AppDatabase;
 import es.ies.cm.dam2.pmdm.eco.data.room.CancionDao;
 import es.ies.cm.dam2.pmdm.eco.model.Cancion;
@@ -71,10 +72,8 @@ public class BibliotecaActivity extends AppCompatActivity
         });
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.biblioteca_titulo);
         toolbar.setTitleTextColor(getResources().getColor(R.color.accent, getTheme()));
-
-        setSupportActionBar(toolbar);
+        Pantallas.barraConVuelta(this, toolbar, R.string.biblioteca_titulo);
 
         cancionDao = AppDatabase.getInstancia(this).cancionDao();
 

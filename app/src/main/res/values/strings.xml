@@ -58,7 +58,7 @@
     <!-- ===== Práctica 6: compartir por WhatsApp ===== -->
 
     <!-- ===== Práctica 6: acerca de Eco (Drag &amp; Drop) ===== -->
-    <string name="acerca_autor">Eco · creada por Jorge</string>
+    <string name="acerca_autor">Creada por Jorge Zarzuelo González</string>
 
     <!-- ===== Práctica 7: buscar canción ===== -->
     <string name="buscar_titulo">Buscar canción</string>
@@ -229,4 +229,10 @@
     <string name="paleta_uno" translatable="false">1</string>
     <string name="paleta_dos" translatable="false">2</string>
     <string name="paleta_sesion" translatable="false">Eco Session · 3:04</string>
+
+    <!-- ===== Proyecto: acerca de ===== -->
+    <string name="acerca_version">Versión %1$s</string>
+    <string name="acerca_descripcion">Eco es tu biblioteca musical: guarda canciones con su género, sello, valoración y estado; registra cuándo las escuchas y organízalas en playlists personales. Los datos se guardan en el móvil (SQLite y Room) y siguen ahí al cerrar la app.</string>
+    <string name="acerca_curso">2.º DAM · IES Claudio Moyano · PMDM 2026-27</string>
+    <string name="acerca_repo" translatable="false">https://github.com/JorgeZarzueloGonzalez/eco-app</string>
 </resources>

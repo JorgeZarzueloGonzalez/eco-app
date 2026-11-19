@@ -1,15 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- La única vista de esta pantalla: el texto del propietario. -->
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Acerca de Eco: se abre desde el menú de opciones de la biblioteca y desde el cajón. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/autor"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/accent_fill"
-    android:gravity="center"
-    android:padding="24dp"
-    android:text="@string/acerca_autor"
-    android:textColor="@color/text_on_accent"
-    android:textSize="28sp"
-    android:textStyle="bold"
-    tools:context=".ui.activities.AcercaDeActivity" />
+    android:orientation="vertical"
+    tools:context=".ui.activities.AcercaDeActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <ImageView
+                android:layout_width="104dp"
+                android:layout_height="104dp"
+                android:contentDescription="@string/logo_descripcion"
+                android:src="@drawable/logo_eco" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/app_name"
+                android:textAppearance="@style/CustomToolbarTitle"
+                android:textColor="@color/accent"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/acercaVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                tools:text="Versión 1.0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/fondo_tarjeta"
+                android:lineSpacingMultiplier="1.2"
+                android:padding="16dp"
+                android:text="@string/acerca_descripcion" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/acerca_autor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/acerca_curso"
+                android:textColor="@color/text_secondary" />
+
+            <!-- autoLink: Android convierte la URL en un enlace que abre el navegador -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:autoLink="web"
+                android:text="@string/acerca_repo"
+                android:textColorLink="@color/accent" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

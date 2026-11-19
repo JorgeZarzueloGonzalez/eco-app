@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import es.ies.cm.dam2.pmdm.eco.R;
+import es.ies.cm.dam2.pmdm.eco.util.Pantallas;
 import es.ies.cm.dam2.pmdm.eco.data.room.AppDatabase;
 import es.ies.cm.dam2.pmdm.eco.data.room.CancionDao;
 import es.ies.cm.dam2.pmdm.eco.model.Cancion;
@@ -50,6 +51,7 @@ public class BuscarActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_buscar);
+        Pantallas.barraConVuelta(this, findViewById(R.id.toolbar), 0);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import es.ies.cm.dam2.pmdm.eco.R;
+import es.ies.cm.dam2.pmdm.eco.util.Pantallas;
 
 /**
  * P5.2 Invitación por correo: recoge destinatario, asunto y texto y se lo pasa a
@@ -30,6 +31,7 @@ public class InvitarCorreoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_invitar_correo);
+        Pantallas.barraConVuelta(this, findViewById(R.id.toolbar), 0);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

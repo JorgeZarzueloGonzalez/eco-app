@@ -1,10 +1,7 @@
 package es.ies.cm.dam2.pmdm.eco.ui.activities;
 
-import android.content.ClipData;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.DragEvent;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,12 +9,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import es.ies.cm.dam2.pmdm.eco.R;
+import es.ies.cm.dam2.pmdm.eco.util.Pantallas;
 
 /**
- * P6.3 "Acerca de Eco": un único TextView con el autor.
- * <p>
- * Ese mismo texto hace de <b>origen</b> (se arrastra con el dedo) y de
- * <b>destino</b> (recibe la caída). Al soltar Encima, la pantalla se cierra.
+ * Acerca de Eco: logo, versión, para qué sirve la app, autor y repositorio.
+ * Se abre desde el menú de opciones de la biblioteca (Añadir, Ordenar,
+ * Acerca de) y desde el cajón lateral.
  */
 public class AcercaDeActivity extends AppCompatActivity {
 
@@ -26,36 +23,20 @@ public class AcercaDeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_acerca_de);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.autor), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets barras = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(barras.left, barras.top, barras.right, barras.bottom);
             return insets;
         });
+        Pantallas.barraConVuelta(this, findViewById(R.id.toolbar), R.string.acerca_de);
 
-        TextView autor = findViewById(R.id.autor);
-
-        // ORIGEN: al tocar el texto, se empieza el arrastre con un ClipData
-        // (los datos que viajan con el dedo) y la sombra por defecto.
-        autor.setOnTouchListener((vista, evento) -> {
-            if (evento.getAction() == MotionEvent.ACTION_DOWN) {
-                ClipData dato = ClipData.newPlainText("autor", autor.getText());
-                vista.startDragAndDrop(dato, new View.DragShadowBuilder(vista), null, 0);
-                return true;
-            }
-            return false;
-        });
-
-        // DESTINO: el mismo TextView recibe la caída.
-        autor.setOnDragListener((vista, evento) -> {
-            int accion = evento.getAction();
-            // ACTION_DRAG_STARTED y ACTION_DROP tienen que devolver true.
-            if (accion == DragEvent.ACTION_DRAG_STARTED || accion == DragEvent.ACTION_DROP) {
-                if (accion == DragEvent.ACTION_DROP) {
-                    finish();
-                }
-                return true;
-            }
-            return false;
-        });
+        // La versión se lee del propio APK (versionName de build.gradle.kts)
+        TextView version = findViewById(R.id.acercaVersion);
+        try {
+            String nombre = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            version.setText(getString(R.string.acerca_version, nombre));
+        } catch (PackageManager.NameNotFoundException e) {
+            version.setText("");
+        }
     }
 }
