@@ -53,5 +53,15 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
+
+        <!-- Corazón: solo se ve si la canción es favorita (Switch del alta/ficha) -->
+        <ImageView
+            android:id="@+id/favoritaCancionFila"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/alta_favorita"
+            android:src="@drawable/ic_favorita"
+            android:visibility="gone" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

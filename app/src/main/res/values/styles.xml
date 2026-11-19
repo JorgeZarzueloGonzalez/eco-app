@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Estilo ÚNICO compartido por los 9 botones del teclado de puntuación (P3.1).
-         En el layout se aplica con style="@style/TeclaPuntuacion" (SIN "android:"). -->
-    <style name="TeclaPuntuacion">
-        <!-- Obligatorios del enunciado -->
-        <item name="android:textSize">30sp</item>
-        <item name="android:textColor">@color/text_on_accent</item>
-        <item name="android:backgroundTint">@color/action</item>
-        <!-- Característica investigada 1: número en negrita -->
-        <item name="android:textStyle">bold</item>
-        <!-- Característica investigada 2: separación entre las letras -->
-        <item name="android:letterSpacing">0.1</item>
-    </style>
-
+    <!-- Título grande con la tipografía de la marca (portada y cabecera del cajón). -->
     <style name="CustomToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">45sp</item>
+    </style>
+
+    <!-- Etiqueta de un campo de formulario que no es un TextInputLayout
+         (Spinner, contador, RatingBar…). Se aplica con style="@style/EtiquetaFormulario". -->
+    <style name="EtiquetaFormulario">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- Fila "etiqueta | valor" de la tabla de la ficha (TableLayout). -->
+    <style name="FichaEtiqueta">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingVertical">6dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="FichaValor">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingVertical">6dp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

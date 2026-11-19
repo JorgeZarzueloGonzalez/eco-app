@@ -37,12 +37,12 @@
     <!-- ===== Práctica 3: validación de la popularidad ===== -->
     <string name="popularity_label">Popularidad (1-10)</string>
     <string name="popularity_hint" translatable="false">1 - 10</string>
-    <string name="popularity_error">Popularidad incorrecta</string>
+    <string name="popularity_error">Entre 1 y 10</string>
 
     <!-- ===== Práctica 3: estado de la canción ===== -->
     <string name="song_state">Estado de la canción</string>
-    <string name="state_new">Nuevo</string>
-    <string name="state_listened">Escuchado</string>
+    <string name="state_new">Nueva</string>
+    <string name="state_listened">Escuchada</string>
     <string name="state_favorite">Favorito</string>
     <string name="clear">Limpiar</string>
 
@@ -52,9 +52,9 @@
     <string name="interpretes_min">Intérpretes (mínimo)</string>
     <string name="interpretes_max">Intérpretes (máximo)</string>
     <string name="anio">Año de publicación</string>
-    <string name="duracion">Duración (minutos)</string>
+    <string name="duracion">Duración (segundos)</string>
     <string name="send">Enviar</string>
-    <string name="wrong_data">Datos incorrectos</string>
+    <string name="wrong_data">Revisa los campos marcados</string>
     <string name="sin_datos">Sin datos</string>
     <string name="ficha_title">Ficha de la canción</string>
     <string name="ficha_nombre">Nombre: %1$s</string>
@@ -177,4 +177,31 @@
     <string name="main_anadir">Añadir</string>
     <string name="main_playlists">Mis playlists</string>
     <string name="logo_descripcion">Logo de Eco</string>
+
+    <!-- ===== Proyecto: alta, ficha, diálogos y reproducciones ===== -->
+    <string name="confirmar_si">Confirmar</string>
+    <string name="alta_titulo">Nueva canción</string>
+    <string name="interpretes">Intérpretes</string>
+    <string name="quitar_interprete">Quitar intérprete</string>
+    <string name="anadir_interprete">Añadir intérprete</string>
+    <string name="alta_valoracion">Valoración</string>
+    <string name="alta_valoracion_valor">Valoración: %1$d / 9</string>
+    <string name="state_repeat">En bucle</string>
+    <string name="alta_favorita">Favorita</string>
+    <string name="alta_explicita">Contenido explícito</string>
+    <string name="guardar">Guardar</string>
+    <string name="error_obligatorio">Campo obligatorio</string>
+    <string name="error_anio">Entre %1$d y %2$d</string>
+    <string name="error_duracion">Escribe la duración en segundos</string>
+    <string name="error_genero">Elige un género</string>
+    <string name="error_valoracion">Elige una valoración con las estrellas</string>
+    <string name="ficha_explicita">EXPLÍCITA</string>
+    <string name="ficha_duracion_etiqueta">Duración</string>
+    <string name="ficha_popularidad_valor">%1$d / 10</string>
+    <string name="ficha_ver_reproducciones">Ver reproducciones</string>
+    <string name="borrar_cancion_titulo">Eliminar canción</string>
+    <string name="borrar_cancion_pregunta">¿Eliminar «%1$s» y todas sus reproducciones?</string>
+    <string name="fecha_hora">%1$s · %2$s</string>
+    <string name="reproduccion_cambiar_fecha">Cambiar fecha</string>
+    <string name="reproduccion_actualizada">Reproducción actualizada</string>
 </resources>

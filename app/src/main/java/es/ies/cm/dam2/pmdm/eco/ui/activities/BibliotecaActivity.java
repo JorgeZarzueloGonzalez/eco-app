@@ -16,12 +16,12 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import es.ies.cm.dam2.pmdm.eco.R;
 import es.ies.cm.dam2.pmdm.eco.data.room.AppDatabase;
 import es.ies.cm.dam2.pmdm.eco.data.room.CancionDao;
 import es.ies.cm.dam2.pmdm.eco.model.Cancion;
 import es.ies.cm.dam2.pmdm.eco.ui.adapters.AdaptadorCancionRecycler;
+import es.ies.cm.dam2.pmdm.eco.ui.dialogs.ConfirmarDialogFragment;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +45,9 @@ public class BibliotecaActivity extends AppCompatActivity
      * Clave del extra con el objeto {@link Cancion}: lo usan el alta (devuelve) y la ficha (recibe).
      */
     public static final String EXTRA_CANCION = "extra_cancion";
+
+    /** Clave del diálogo de confirmación de borrado. */
+    private static final String BORRAR = "biblioteca_borrar";
 
     /**
      * LA COLECCIÓN: atributo de clase, la biblioteca de la app.
@@ -83,6 +86,10 @@ public class BibliotecaActivity extends AppCompatActivity
         // 3. El adaptador (this = esta activity escucha los clics)
         adaptador = new AdaptadorCancionRecycler(coleccion, this);
         bibliotecaRecycler.setAdapter(adaptador);
+
+        // Respuesta del diálogo de borrar
+        getSupportFragmentManager().setFragmentResultListener(BORRAR, this,
+                (clave, resultado) -> borrar(resultado.getInt(ConfirmarDialogFragment.RESULTADO_ID)));
     }
 
     /**
@@ -123,7 +130,6 @@ public class BibliotecaActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.accion_anadir) {
             Intent intent = new Intent(this, AltaCancionActivity.class);
-            intent.putExtra("extra_to_biblioteca", true);
             startActivity(intent);
             return true;
         }
@@ -189,20 +195,24 @@ public class BibliotecaActivity extends AppCompatActivity
         menu.show();
     }
 
+    /** Pregunta con el DialogFragment propio; la respuesta llega a {@link #borrar(int)}. */
     private void confirmarBorrado() {
-        new MaterialAlertDialogBuilder(this)
-                .setTitle("Eliminar canción")
-                .setMessage("¿Eliminar «" + cancionSeleccionada.getNombre() + "» de tu biblioteca?")
-                .setPositiveButton("Eliminar", (dialog, which) -> borrarSeleccionada())
-                .setNegativeButton("Cancelar", null)
-                .show();
+        ConfirmarDialogFragment.mostrar(getSupportFragmentManager(), BORRAR,
+                getString(R.string.borrar_cancion_titulo),
+                getString(R.string.borrar_cancion_pregunta, cancionSeleccionada.getNombre()),
+                cancionSeleccionada.getId());
     }
 
-    /** Borra por {@code id}; Room borra en cascada sus reproducciones. */
-    private void borrarSeleccionada() {
-        Cancion aBorrar = cancionSeleccionada;
+    /**
+     * Borra por {@code id}; Room borra en cascada sus reproducciones. El id llega
+     * en la respuesta del diálogo, así que funciona aunque se haya girado el móvil.
+     */
+    private void borrar(int id) {
         AppDatabase.executor.execute(() -> {
-            cancionDao.borrar(aBorrar);
+            Cancion aBorrar = cancionDao.porId(id);
+            if (aBorrar != null) {
+                cancionDao.borrar(aBorrar);
+            }
             runOnUiThread(() ->
                     Toast.makeText(this, R.string.cancion_borrada, Toast.LENGTH_SHORT).show());
         });

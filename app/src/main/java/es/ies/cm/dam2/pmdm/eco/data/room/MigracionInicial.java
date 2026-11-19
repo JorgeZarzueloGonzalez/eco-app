@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import es.ies.cm.dam2.pmdm.eco.data.sqlite.EcoDB;
 import es.ies.cm.dam2.pmdm.eco.model.Cancion;
+import es.ies.cm.dam2.pmdm.eco.model.Reproduccion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,8 +51,8 @@ final class MigracionInicial {
                 room.cancionDao().insertarTodas(deSqlite);
                 Log.i(TAG, "Copiadas " + deSqlite.size() + " canciones de eco.db a Room");
             } else if (room.cancionDao().contar() == 0) {
-                room.cancionDao().insertarTodas(cancionesDeEjemplo());
-                Log.i(TAG, "Instalación limpia: sembradas las canciones de ejemplo");
+                sembrar(room);
+                Log.i(TAG, "Instalación limpia: sembrados los datos de ejemplo");
             }
 
             prefs.edit().putBoolean(CLAVE_HECHA, true).apply();
@@ -111,6 +112,35 @@ final class MigracionInicial {
                 new String[]{tabla})) {
             return c.moveToFirst();
         }
+    }
+
+    /**
+     * Carga inicial del proyecto (instalación limpia): las 21 canciones de ejemplo,
+     * algunas ya con estado y favorita, y tres reproducciones (la relación 1-N
+     * que pide el enunciado). Los usuarios y la playlist de ejemplo los crea
+     * {@code EcoDB.onCreate}.
+     */
+    private static void sembrar(AppDatabase room) {
+        List<Cancion> canciones = cancionesDeEjemplo();
+        marcar(canciones.get(0), Cancion.ESTADO_EN_BUCLE, true);   // Luna de cobre
+        marcar(canciones.get(7), Cancion.ESTADO_ESCUCHADA, true);  // Neón
+        marcar(canciones.get(14), Cancion.ESTADO_ESCUCHADA, false); // Pulso
+        canciones.get(3).setExplicita(true);                        // Viento norte
+
+        List<Long> ids = room.cancionDao().insertarTodas(canciones);
+
+        long ahora = System.currentTimeMillis();
+        long dia = 24L * 60 * 60 * 1000;
+        int lunaDeCobre = ids.get(0).intValue();
+        int neon = ids.get(7).intValue();
+        room.reproduccionDao().insertar(new Reproduccion(lunaDeCobre, ahora - 2 * dia, 8, "admin"));
+        room.reproduccionDao().insertar(new Reproduccion(lunaDeCobre, ahora - dia, 9, "carlos"));
+        room.reproduccionDao().insertar(new Reproduccion(neon, ahora - 3 * dia, 7, "admin"));
+    }
+
+    private static void marcar(Cancion cancion, int estado, boolean favorita) {
+        cancion.setEstado(estado);
+        cancion.setFavorita(favorita);
     }
 
     /** Las 21 canciones que antes sembraba EcoDB (P12). */

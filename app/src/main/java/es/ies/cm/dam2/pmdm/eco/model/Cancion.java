@@ -1,5 +1,6 @@
 package es.ies.cm.dam2.pmdm.eco.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -23,7 +24,12 @@ public class Cancion implements Serializable {
     /**
      * Identificador de la versión de la clase (lo pide Android Studio).
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
+
+    /** Valores de {@link #estado} (RadioGroup del alta). */
+    public static final int ESTADO_NUEVA = 0;
+    public static final int ESTADO_ESCUCHADA = 1;
+    public static final int ESTADO_EN_BUCLE = 2;
     /** Clave primaria: si vale 0 al insertar, Room genera una nueva. */
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -39,6 +45,24 @@ public class Cancion implements Serializable {
      * Valoración del teclado de puntuación de la P3 (de 1 a 9; 0 = sin valorar).
      */
     private int valoracion;
+
+    /*
+     * Proyecto (Room v2): tres columnas nuevas. defaultValue = "0" hace que el
+     * esquema que espera Room coincida con el que crea la migración 1 -> 2
+     * (ALTER TABLE ... DEFAULT 0); si no coinciden, Room lanza una excepción al abrir.
+     */
+
+    /** Estado de escucha: {@link #ESTADO_NUEVA}, {@link #ESTADO_ESCUCHADA} o {@link #ESTADO_EN_BUCLE}. */
+    @ColumnInfo(defaultValue = "0")
+    private int estado;
+
+    /** Marcada como favorita con el Switch. */
+    @ColumnInfo(defaultValue = "0")
+    private boolean favorita;
+
+    /** Contenido explícito (CheckBox). */
+    @ColumnInfo(defaultValue = "0")
+    private boolean explicita;
 
     @Ignore
     public Cancion(int id, String nombre, String genero, String sello,
@@ -138,6 +162,30 @@ public class Cancion implements Serializable {
         this.valoracion = valoracion;
     }
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public boolean isFavorita() {
+        return favorita;
+    }
+
+    public void setFavorita(boolean favorita) {
+        this.favorita = favorita;
+    }
+
+    public boolean isExplicita() {
+        return explicita;
+    }
+
+    public void setExplicita(boolean explicita) {
+        this.explicita = explicita;
+    }
+
     @Override
     public String toString() {
         return nombre + " · " + genero + " · Sello: " + sello
@@ -145,6 +193,7 @@ public class Cancion implements Serializable {
                 + " · Año: " + anio
                 + " · Popularidad: " + popularidad
                 + " · Valoración: " + valoracion
-                + " · Duración: " + duracion + " min";
+                + " · Duración: " + duracion + " s"
+                + " · Estado: " + estado + " · Favorita: " + favorita;
     }
 }

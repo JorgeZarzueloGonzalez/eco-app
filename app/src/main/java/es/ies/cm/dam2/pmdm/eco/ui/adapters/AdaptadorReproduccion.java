@@ -1,6 +1,5 @@
 package es.ies.cm.dam2.pmdm.eco.ui.adapters;
 
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,24 +8,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import es.ies.cm.dam2.pmdm.eco.R;
 import es.ies.cm.dam2.pmdm.eco.model.Reproduccion;
+import es.ies.cm.dam2.pmdm.eco.util.Formatos;
 import java.util.List;
 
 /**
  * P13 Adaptador de la lista de reproducciones: oyente y puntuación en la
- * primera línea, fecha en la segunda. El clic largo avisa a la activity
- * para borrar la reproducción.
+ * primera línea, fecha en la segunda. Clic corto: editar; clic largo: borrar
+ * (los dos los resuelve la activity).
  */
 public class AdaptadorReproduccion extends RecyclerView.Adapter<AdaptadorReproduccion.Fila> {
 
-    /** Lo que hace la activity con el clic largo. */
-    public interface OyenteBorrado {
+    /** Lo que hace la activity con los clics. */
+    public interface OyenteReproduccion {
+        void alPulsar(Reproduccion reproduccion);
+
         void alPedirBorrado(Reproduccion reproduccion);
     }
 
     private final List<Reproduccion> reproducciones;
-    private final OyenteBorrado oyente;
+    private final OyenteReproduccion oyente;
 
-    public AdaptadorReproduccion(List<Reproduccion> reproducciones, OyenteBorrado oyente) {
+    public AdaptadorReproduccion(List<Reproduccion> reproducciones, OyenteReproduccion oyente) {
         this.reproducciones = reproducciones;
         this.oyente = oyente;
     }
@@ -45,8 +47,14 @@ public class AdaptadorReproduccion extends RecyclerView.Adapter<AdaptadorReprodu
         fila.oyente.setText(fila.itemView.getContext().getString(
                 R.string.reproduccion_fila, r.getOyente(), r.getPuntuacion()));
         // Fecha y hora con el formato del idioma del móvil.
-        fila.fecha.setText(DateFormat.getMediumDateFormat(fila.itemView.getContext()).format(r.getFecha())
-                + " · " + DateFormat.getTimeFormat(fila.itemView.getContext()).format(r.getFecha()));
+        fila.fecha.setText(Formatos.fechaHora(fila.itemView.getContext(), r.getFecha()));
+
+        fila.itemView.setOnClickListener(v -> {
+            int actual = fila.getBindingAdapterPosition();
+            if (actual != RecyclerView.NO_POSITION) {
+                oyente.alPulsar(reproducciones.get(actual));
+            }
+        });
 
         fila.itemView.setOnLongClickListener(v -> {
             int actual = fila.getBindingAdapterPosition();

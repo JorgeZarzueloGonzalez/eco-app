@@ -15,9 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
+    <!-- Formulario y lista se desplazan juntos: en horizontal no se queda la lista sin sitio -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -56,6 +63,30 @@
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Fecha y hora de la escucha: se eligen con DatePicker + TimePicker -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fechaReproduccionTexto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                tools:text="19 nov 2026 · 18:55" />
+
+            <Button
+                android:id="@+id/fechaReproduccionButton"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reproduccion_cambiar_fecha" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/puntuacionReproduccionTexto"
             android:layout_width="wrap_content"
@@ -74,11 +105,29 @@
             android:valueTo="9"
             app:labelBehavior="floating" />
 
-        <Button
-            android:id="@+id/guardarReproduccionButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reproduccion_guardar" />
+            android:orientation="horizontal">
+
+            <!-- Solo se ve al editar una reproducción -->
+            <Button
+                android:id="@+id/cancelarEdicionButton"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="@string/cancelar"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/guardarReproduccionButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/reproduccion_guardar" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/reproduccionesVacio"
@@ -92,11 +141,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reproduccionesRecycler"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
             android:paddingBottom="8dp" />
 
     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

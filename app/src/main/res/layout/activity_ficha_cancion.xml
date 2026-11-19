@@ -1,95 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Ficha de una canción.
+     - Cabecera con ConstraintLayout: portada a la izquierda y título/género/estado
+       encadenados a su derecha (en horizontal se aprovecha el ancho).
+     - Datos con TableLayout: una fila por dato, "etiqueta | valor" alineados en columnas. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:orientation="vertical"
     tools:context=".ui.activities.FichaCancionActivity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="?attr/actionBarSize" />
 
-        <!-- P9: la portada, más grande que en la lista -->
-        <ImageView
-            android:id="@+id/fichaPortada"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/portada" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/fichaNombre"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/ficha_title"
-            android:textColor="@color/accent"
-            android:textSize="28sp" />
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <TextView
-            android:id="@+id/fichaGenero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/fichaSello"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/fichaPortada"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:contentDescription="@string/portada"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/portada_rock" />
 
-        <TextView
-            android:id="@+id/fichaInterpretes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/fichaNombre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/accent"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/fichaPortada"
+                    app:layout_constraintTop_toTopOf="@id/fichaPortada"
+                    tools:text="Luna de cobre" />
 
-        <TextView
-            android:id="@+id/fichaAnio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/fichaGenero"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/fichaNombre"
+                    app:layout_constraintTop_toBottomOf="@id/fichaNombre"
+                    tools:text="Rock" />
 
-        <TextView
-            android:id="@+id/fichaDuracion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/fichaEstado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/fondo_etiqueta"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="3dp"
+                    android:textColor="@color/text_on_accent"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/fichaNombre"
+                    app:layout_constraintTop_toBottomOf="@id/fichaGenero"
+                    tools:text="En bucle" />
 
-        <TextView
-            android:id="@+id/fichaPopularidad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/fichaExplicita"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/fondo_etiqueta"
+                    android:backgroundTint="@color/text_secondary"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    android:text="@string/ficha_explicita"
+                    android:textColor="@color/background"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBaseline_toBaselineOf="@id/fichaEstado"
+                    app:layout_constraintStart_toEndOf="@id/fichaEstado"
+                    tools:visibility="visible" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- P9: la valoración con estrellas (9 estrellas = escala del teclado de la P3) -->
-        <TextView
-            android:id="@+id/fichaValoracion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp" />
+            <!-- Valoración con estrellas (solo lectura: se cambia editando) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <RatingBar
-            android:id="@+id/fichaRatingBar"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:isIndicator="true"
-            android:numStars="9"
-            android:rating="0"
-            android:stepSize="1" />
+                <RatingBar
+                    android:id="@+id/fichaRatingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="9"
+                    android:stepSize="1" />
 
-    </LinearLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/fichaValoracion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    tools:text="Valoración: 7 / 9" />
+            </LinearLayout>
+
+            <!-- Favorita: se guarda al momento, sin pasar por Editar -->
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/fichaFavorita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/alta_favorita" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/fondo_tarjeta"
+                android:padding="16dp"
+                android:stretchColumns="1">
+
+                <TableRow>
+                    <TextView style="@style/FichaEtiqueta" android:text="@string/sello" />
+                    <TextView android:id="@+id/fichaSello" style="@style/FichaValor" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView style="@style/FichaEtiqueta" android:text="@string/interpretes" />
+                    <TextView android:id="@+id/fichaInterpretes" style="@style/FichaValor" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView style="@style/FichaEtiqueta" android:text="@string/anio" />
+                    <TextView android:id="@+id/fichaAnio" style="@style/FichaValor" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView style="@style/FichaEtiqueta" android:text="@string/ficha_duracion_etiqueta" />
+                    <TextView android:id="@+id/fichaDuracion" style="@style/FichaValor" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView style="@style/FichaEtiqueta" android:text="@string/popularity_label" />
+                    <TextView android:id="@+id/fichaPopularidad" style="@style/FichaValor" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView style="@style/FichaEtiqueta" android:text="@string/reproducciones" />
+                    <TextView android:id="@+id/fichaReproducciones" style="@style/FichaValor" />
+                </TableRow>
+            </TableLayout>
+
+            <Button
+                android:id="@+id/fichaVerReproducciones"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/ficha_ver_reproducciones" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

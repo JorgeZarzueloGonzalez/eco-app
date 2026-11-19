@@ -1,390 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Alta y edición de una canción. Todo lo que hay aquí se guarda en Room.
+     ScrollView: en horizontal el formulario no se corta, se desplaza. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/estado_neutro"
-    android:fillViewport="true"
-    tools:context=".AltaCancionActivity">
+    android:orientation="vertical"
+    tools:context=".ui.activities.AltaCancionActivity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="?attr/actionBarSize" />
 
-        <!-- ===================== P2.2 Nombre de la canción ===================== -->
-        <TextView
-            android:id="@+id/songName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textColor="@color/accent"
-            android:textSize="34sp" />
-
-        <EditText
-            android:id="@+id/songNameEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/write_here"
-            android:importantForAutofill="no"
-            android:inputType="text" />
-
-        <Button
-            android:id="@+id/nameButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/acept" />
-
-        <!-- ===================== P2.1 Contador de intérpretes ===================== -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/resButton"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/remove_artist" />
-
-            <Button
-                android:id="@+id/addButton"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/add_artist" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/artistNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="@string/numbers_of_artist" />
-
-        <!-- ===================== P2.3 ¿En mi biblioteca? ===================== -->
-        <CheckBox
-            android:id="@+id/checkBoxBiblioteca"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:checked="true"
-            android:text="@string/checkbox_library" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <Button
-                android:id="@+id/boxButton"
-                android:layout_width="wrap_content"
+            <!-- ===== Datos de la canción ===== -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nombreLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/box_button" />
+                android:hint="@string/name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nombreEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/puss"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/puss_button" />
-        </LinearLayout>
+                style="@style/EtiquetaFormulario"
+                android:text="@string/genero" />
 
-        <!-- ===================== P4 Formulario completo ===================== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/genero"
-            android:textStyle="bold" />
+            <Spinner
+                android:id="@+id/generoSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
 
-        <Spinner
-            android:id="@+id/generoSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/sello"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/selloEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/interpretes_min"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/minEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="number" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/interpretes_max"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/maxEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="number" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/anio"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/yearEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="number" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/duracion"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/durationEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="number" />
-
-        <!-- ===================== P3.2 Validación de la popularidad ===================== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/popularity_label"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/popularityEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/popularity_hint"
-            android:importantForAutofill="no"
-            android:inputType="number" />
-
-        <TextView
-            android:id="@+id/popularityError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/error"
-            android:textStyle="bold" />
-
-        <!-- ===================== P4 RESET y ENVIAR ===================== -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/resetFormButton"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reset" />
-
-            <Button
-                android:id="@+id/sendButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/send" />
-        </LinearLayout>
-
-        <!-- P8: devuelve la canción a la biblioteca -->
-        <Button
-            android:id="@+id/aceptarFormButton"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/aceptar" />
-
-        <!-- ===================== P3.1 Teclado de puntuación (1-9) ===================== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/keypad_title"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn1"
-                style="@style/TeclaPuntuacion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/key_1" />
-
-            <Button
-                android:id="@+id/btn2"
-                style="@style/TeclaPuntuacion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/key_2" />
-
-            <Button
-                android:id="@+id/btn3"
-                style="@style/TeclaPuntuacion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/key_3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn4"
-                style="@style/TeclaPuntuacion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/key_4" />
-
-            <Button
-                android:id="@+id/btn5"
-                style="@style/TeclaPuntuacion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/key_5" />
-
-            <Button
-                android:id="@+id/btn6"
-                style="@style/TeclaPuntuacion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/key_6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn7"
-                style="@style/TeclaPuntuacion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/key_7" />
-
-            <Button
-                android:id="@+id/btn8"
-                style="@style/TeclaPuntuacion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/key_8" />
-
-            <Button
-                android:id="@+id/btn9"
-                style="@style/TeclaPuntuacion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/key_9" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/scoreResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:textSize="20sp" />
-
-        <!-- ===================== P3.3 Estado de la canción ===================== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/song_state"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:id="@+id/radioGroupState"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/radioNew"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/selloLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/state_new"
-                android:textColor="@color/estado_texto" />
+                android:layout_marginTop="8dp"
+                android:hint="@string/sello">
 
-            <RadioButton
-                android:id="@+id/radioListened"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/selloEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapWords" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Año y duración, uno al lado del otro -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/state_listened"
-                android:textColor="@color/estado_texto" />
+                android:layout_marginTop="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radioFavorite"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/anioLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/anio">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/anioEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="4" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/duracionLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/duracion">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/duracionEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="4" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/popularidadLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/state_favorite"
-                android:textColor="@color/estado_texto" />
-        </RadioGroup>
+                android:layout_marginTop="8dp"
+                android:hint="@string/popularity_label">
 
-        <Button
-            android:id="@+id/clearButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/clear" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/popularidadEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="2" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-</ScrollView>
+            <!-- ===== Intérpretes: contador − / + (P2) ===== -->
+            <TextView
+                style="@style/EtiquetaFormulario"
+                android:text="@string/interpretes" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/menosButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/quitar_interprete"
+                    android:text="@string/remove_artist" />
+
+                <TextView
+                    android:id="@+id/interpretesTexto"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    tools:text="2" />
+
+                <Button
+                    android:id="@+id/masButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/anadir_interprete"
+                    android:text="@string/add_artist" />
+            </LinearLayout>
+
+            <!-- ===== Valoración (RatingBar de 9 estrellas) ===== -->
+            <TextView
+                android:id="@+id/valoracionTexto"
+                style="@style/EtiquetaFormulario"
+                android:text="@string/alta_valoracion" />
+
+            <RatingBar
+                android:id="@+id/valoracionRating"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:isIndicator="false"
+                android:numStars="9"
+                android:rating="0"
+                android:stepSize="1" />
+
+            <!-- ===== Estado (RadioGroup) ===== -->
+            <TextView
+                style="@style/EtiquetaFormulario"
+                android:text="@string/song_state" />
+
+            <RadioGroup
+                android:id="@+id/estadoGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@id/estadoNueva"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/estadoNueva"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/state_new" />
+
+                <RadioButton
+                    android:id="@+id/estadoEscuchada"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/state_listened" />
+
+                <RadioButton
+                    android:id="@+id/estadoEnBucle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/state_repeat" />
+            </RadioGroup>
+
+            <!-- ===== Favorita (Switch) y explícita (CheckBox) ===== -->
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/favoritaSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/alta_favorita" />
+
+            <CheckBox
+                android:id="@+id/explicitaCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/alta_explicita" />
+
+            <!-- ===== Botones ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/limpiarButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/clear" />
+
+                <Button
+                    android:id="@+id/guardarButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/guardar" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

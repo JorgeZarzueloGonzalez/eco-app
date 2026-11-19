@@ -10,7 +10,7 @@
     <path
         android:fillColor="#C6F135"
         android:pathData="M40,54m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
-    <!-- Onda 1 (la más fuerte) -->
+    <!-- Onda 1 (la más fuerte: la más gruesa) -->
     <path
         android:pathData="M49.64,42.51 A15,15 0 0,1 49.64,65.49"
         android:strokeWidth="5"
@@ -19,15 +19,13 @@
     <!-- Onda 2 -->
     <path
         android:pathData="M55.43,35.62 A24,24 0 0,1 55.43,72.38"
-        android:strokeAlpha="0.7"
-        android:strokeWidth="5"
+        android:strokeWidth="4"
         android:strokeColor="#C6F135"
         android:strokeLineCap="round" />
     <!-- Onda 3 (la más débil: el eco que se apaga) -->
     <path
         android:pathData="M61.21,28.72 A33,33 0 0,1 61.21,79.28"
-        android:strokeAlpha="0.4"
-        android:strokeWidth="5"
+        android:strokeWidth="3"
         android:strokeColor="#C6F135"
         android:strokeLineCap="round" />
 </vector>

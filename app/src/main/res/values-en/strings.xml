@@ -27,7 +27,7 @@
 
     <!-- ===== Practice 3: popularity validation ===== -->
     <string name="popularity_label">Popularity (1-10)</string>
-    <string name="popularity_error">Invalid popularity</string>
+    <string name="popularity_error">Between 1 and 10</string>
 
     <!-- ===== Practice 3: song status ===== -->
     <string name="song_state">Song status</string>
@@ -42,9 +42,9 @@
     <string name="interpretes_min">Performers (minimum)</string>
     <string name="interpretes_max">Performers (maximum)</string>
     <string name="anio">Release year</string>
-    <string name="duracion">Duration (minutes)</string>
+    <string name="duracion">Duration (seconds)</string>
     <string name="send">Send</string>
-    <string name="wrong_data">Incorrect data</string>
+    <string name="wrong_data">Check the highlighted fields</string>
     <string name="sin_datos">No data</string>
     <string name="ficha_title">Song details</string>
     <string name="ficha_nombre">Name: %1$s</string>
@@ -165,4 +165,31 @@
     <string name="main_anadir">Add</string>
     <string name="main_playlists">My playlists</string>
     <string name="logo_descripcion">Eco logo</string>
+
+    <!-- ===== Proyecto: alta, ficha, diálogos y reproducciones ===== -->
+    <string name="confirmar_si">Confirm</string>
+    <string name="alta_titulo">New song</string>
+    <string name="interpretes">Performers</string>
+    <string name="quitar_interprete">Remove performer</string>
+    <string name="anadir_interprete">Add performer</string>
+    <string name="alta_valoracion">Rating</string>
+    <string name="alta_valoracion_valor">Rating: %1$d / 9</string>
+    <string name="state_repeat">On repeat</string>
+    <string name="alta_favorita">Favourite</string>
+    <string name="alta_explicita">Explicit content</string>
+    <string name="guardar">Save</string>
+    <string name="error_obligatorio">Required field</string>
+    <string name="error_anio">Between %1$d and %2$d</string>
+    <string name="error_duracion">Enter the duration in seconds</string>
+    <string name="error_genero">Choose a genre</string>
+    <string name="error_valoracion">Choose a rating with the stars</string>
+    <string name="ficha_explicita">EXPLICIT</string>
+    <string name="ficha_duracion_etiqueta">Duration</string>
+    <string name="ficha_popularidad_valor">%1$d / 10</string>
+    <string name="ficha_ver_reproducciones">View plays</string>
+    <string name="borrar_cancion_titulo">Delete song</string>
+    <string name="borrar_cancion_pregunta">Delete “%1$s” and all its plays?</string>
+    <string name="fecha_hora">%1$s · %2$s</string>
+    <string name="reproduccion_cambiar_fecha">Change date</string>
+    <string name="reproduccion_actualizada">Play updated</string>
 </resources>

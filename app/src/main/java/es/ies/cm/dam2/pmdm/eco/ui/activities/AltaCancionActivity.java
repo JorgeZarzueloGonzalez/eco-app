@@ -1,27 +1,27 @@
 package es.ies.cm.dam2.pmdm.eco.ui.activities;
 
-import static es.ies.cm.dam2.pmdm.eco.ui.activities.BibliotecaActivity.EXTRA_CANCION;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import es.ies.cm.dam2.pmdm.eco.R;
 import es.ies.cm.dam2.pmdm.eco.data.room.AppDatabase;
 import es.ies.cm.dam2.pmdm.eco.data.room.CancionDao;
@@ -29,146 +29,171 @@ import es.ies.cm.dam2.pmdm.eco.model.Cancion;
 import java.util.Calendar;
 
 /**
- * Pantalla de alta de una canción: aquí están TODOS los controles de las
- * prácticas 2, 3 y 4 (el enunciado pide unirlos en una sola pantalla).
- * <p>
- * P2: contadores de intérpretes, nombre y "¿en mi biblioteca?".
- * P3: teclado de puntuación, validación de la popularidad y estado con color.
- * P4: formulario completo, validaciones, RESET y ENVIAR a la ficha.
+ * Alta y edición de una canción.
+ * <ul>
+ *     <li><b>Alta</b>: se abre sin extras; Guardar inserta en Room.</li>
+ *     <li><b>Edición</b>: se abre con la canción en {@link #EXTRA_CANCION}
+ *     (desde la ficha o el menú contextual de la biblioteca); Guardar actualiza
+ *     la misma fila (mismo {@code id}).</li>
+ * </ul>
+ * Componentes: EditText con validación, Spinner de género, contador de
+ * intérpretes, RatingBar (valoración), RadioGroup (estado), Switch (favorita)
+ * y CheckBox (explícita). Todo se guarda y se conserva al reabrir la app.
  */
 public class AltaCancionActivity extends AppCompatActivity {
 
-    /** Claves de los extras que viajan a {@link FichaCancionActivity}. */
-    public static final String EXTRA_NOMBRE = "extra_nombre";
-    public static final String EXTRA_GENERO = "extra_genero";
-    public static final String EXTRA_SELLO = "extra_sello";
-    public static final String EXTRA_INTERPRETES = "extra_interpretes";
-    public static final String EXTRA_ANIO = "extra_anio";
-    public static final String EXTRA_DURACION = "extra_duracion";
-    public static final String EXTRA_POPULARIDAD = "extra_popularidad";
-    public static final String EXTRA_VALORACION = "extra_valoracion";
+    /** Extra con la {@link Cancion} a editar. */
     public static final String EXTRA_CANCION = "extra_cancion";
 
-    /** Máximo de intérpretes que permite el contador de la P2. */
-    private static final int MAX_ARTISTAS = 4;
+    private static final int MIN_INTERPRETES = 1;
+    private static final int MAX_INTERPRETES = 4;
+    private static final int ANIO_MINIMO = 1900;
 
-    /** Ids de las 9 teclas, en orden del 1 al 9. */
-    private static final int[] TECLAS = {
-            R.id.btn1, R.id.btn2, R.id.btn3,
-            R.id.btn4, R.id.btn5, R.id.btn6,
-            R.id.btn7, R.id.btn8, R.id.btn9
-    };
+    /** Clave para guardar el contador al girar (es la única parte que Android no guarda solo). */
+    private static final String ESTADO_INTERPRETES = "interpretes";
 
-    /** Número de intérpretes del contador (atributo de clase: lo usan varias lambdas). */
-    private int artistNumberValue = 1;
-
-    /** Último nombre aceptado con el botón de la P2.2 (por si el EditText se vació). */
-    private String nombreAceptado = "";
-
-    /** Valoración elegida en el teclado de la P3 (0 = ninguna). */
-    private int valoracionSeleccionada = 0;
-
-    private View raiz;
-    private int id;
-    private TextView songName;
-    private EditText songNameEdit;
-    private TextView artistNumber;
-    private ArrayAdapter<CharSequence> generos;
-    private Spinner generoSpinner;
-    private EditText selloEdit;
-    private EditText yearEdit;
-    private EditText durationEdit;
-    private EditText popularityEdit;
-    private TextView popularityError;
-    private TextView scoreResult;
-    private RadioGroup radioGroupState;
     private CancionDao cancionDao;
+
+    /** {@code null} en un alta; la canción original en una edición. */
+    private Cancion original;
+    private int interpretes = MIN_INTERPRETES;
+
+    private TextInputLayout nombreLayout, selloLayout, anioLayout, duracionLayout, popularidadLayout;
+    private TextInputEditText nombreEdit, selloEdit, anioEdit, duracionEdit, popularidadEdit;
+    private Spinner generoSpinner;
+    private ArrayAdapter<CharSequence> generos;
+    private TextView interpretesTexto, valoracionTexto;
+    private Button menosButton, masButton;
+    private RatingBar valoracionRating;
+    private RadioGroup estadoGroup;
+    private MaterialSwitch favoritaSwitch;
+    private CheckBox explicitaCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_alta_cancion);
-
-        raiz = findViewById(R.id.main);
-        ViewCompat.setOnApplyWindowInsetsListener(raiz, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets barras = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(barras.left, barras.top, barras.right, barras.bottom);
             return insets;
         });
 
         cancionDao = AppDatabase.getInstancia(this).cancionDao();
+        original = (Cancion) getIntent().getSerializableExtra(EXTRA_CANCION);
 
-        // ===================== P2.1 Contador de intérpretes =====================
-        artistNumber = findViewById(R.id.artistNumber);
-        Button addButton = findViewById(R.id.addButton);
-        Button resButton = findViewById(R.id.resButton);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(original == null ? R.string.alta_titulo : R.string.editar_cancion);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // flecha atrás = cancelar
+        }
 
-        artistNumber.setText(getString(R.string.numbers_of_artist, artistNumberValue));
+        enlazarVistas();
+        prepararSpinner();
+        prepararContador();
+        prepararValidaciones();
 
-        addButton.setOnClickListener(v -> {
-            if (artistNumberValue == MAX_ARTISTAS) {
-                Toast.makeText(this, R.string.max_artists, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            artistNumberValue++;
-            addButton.setEnabled(artistNumberValue < MAX_ARTISTAS);
-            resButton.setEnabled(true);
-            artistNumber.setText(getString(R.string.artist_info, addButton.getText(), artistNumberValue));
-        });
+        valoracionRating.setOnRatingBarChangeListener((barra, valor, delUsuario) -> pintarValoracion());
+        findViewById(R.id.limpiarButton).setOnClickListener(v -> limpiar());
+        findViewById(R.id.guardarButton).setOnClickListener(v -> guardar());
 
-        resButton.setOnClickListener(v -> {
-            if (artistNumberValue == 1) {
-                Toast.makeText(this, R.string.min_artists, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            artistNumberValue--;
-            resButton.setEnabled(artistNumberValue > 1);
-            addButton.setEnabled(true);
-            artistNumber.setText(getString(R.string.artist_info, resButton.getText(), artistNumberValue));
-        });
+        if (savedInstanceState != null) {
+            // Viene de un giro: los EditText, el RatingBar, el RadioGroup, el Switch
+            // y el CheckBox se restauran solos (tienen id); el contador no.
+            interpretes = savedInstanceState.getInt(ESTADO_INTERPRETES, MIN_INTERPRETES);
+        } else if (original != null) {
+            cargar(original);
+        }
+        pintarContador();
+        pintarValoracion();
+    }
 
-        // ===================== P2.2 Nombre de la canción =====================
-        songName = findViewById(R.id.songName);
-        songNameEdit = findViewById(R.id.songNameEdit);
-        Button nameButton = findViewById(R.id.nameButton);
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ESTADO_INTERPRETES, interpretes);
+    }
 
-        nameButton.setOnClickListener(v -> {
-            String texto = songNameEdit.getText().toString().trim();
-            if (texto.isEmpty()) {
-                Toast.makeText(this, R.string.write_a_name, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            nombreAceptado = texto;
-            songName.setText(texto);
-            songNameEdit.setText("");
-        });
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 
-        // ===================== P2.3 ¿En mi biblioteca? =====================
-        CheckBox checkBoxBiblioteca = findViewById(R.id.checkBoxBiblioteca);
-        Button boxButton = findViewById(R.id.boxButton);
-        TextView puss = findViewById(R.id.puss);
+    // ===================== preparación =====================
 
-        // Relación inversa: casilla marcada -> botón apagado (y al revés).
-        checkBoxBiblioteca.setOnCheckedChangeListener((v, isChecked) -> boxButton.setEnabled(!isChecked));
-        boxButton.setOnClickListener(v -> puss.setText(R.string.button_pussed));
-
-        // ===================== P4 Campos del formulario =====================
-        generoSpinner = findViewById(R.id.generoSpinner);
+    private void enlazarVistas() {
+        nombreLayout = findViewById(R.id.nombreLayout);
+        selloLayout = findViewById(R.id.selloLayout);
+        anioLayout = findViewById(R.id.anioLayout);
+        duracionLayout = findViewById(R.id.duracionLayout);
+        popularidadLayout = findViewById(R.id.popularidadLayout);
+        nombreEdit = findViewById(R.id.nombreEdit);
         selloEdit = findViewById(R.id.selloEdit);
-        yearEdit = findViewById(R.id.yearEdit);
-        durationEdit = findViewById(R.id.durationEdit);
-        popularityEdit = findViewById(R.id.popularityEdit);
-        popularityError = findViewById(R.id.popularityError);
+        anioEdit = findViewById(R.id.anioEdit);
+        duracionEdit = findViewById(R.id.duracionEdit);
+        popularidadEdit = findViewById(R.id.popularidadEdit);
+        generoSpinner = findViewById(R.id.generoSpinner);
+        interpretesTexto = findViewById(R.id.interpretesTexto);
+        valoracionTexto = findViewById(R.id.valoracionTexto);
+        menosButton = findViewById(R.id.menosButton);
+        masButton = findViewById(R.id.masButton);
+        valoracionRating = findViewById(R.id.valoracionRating);
+        estadoGroup = findViewById(R.id.estadoGroup);
+        favoritaSwitch = findViewById(R.id.favoritaSwitch);
+        explicitaCheck = findViewById(R.id.explicitaCheck);
+    }
 
-        // El Spinner se rellena desde el recurso XML res/values/arrays.xml
-        generos = ArrayAdapter.createFromResource(
-                this, R.array.generos, android.R.layout.simple_spinner_item);
+    /** El Spinner se rellena desde res/values/arrays.xml; la posición 0 es "Selecciona un género". */
+    private void prepararSpinner() {
+        generos = ArrayAdapter.createFromResource(this, R.array.generos,
+                android.R.layout.simple_spinner_item);
         generos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         generoSpinner.setAdapter(generos);
+    }
 
-        // ===================== P3.2 Validación de la popularidad =====================
-        popularityEdit.addTextChangedListener(new TextWatcher() {
+    /** Contador de intérpretes (P2): los botones se apagan al llegar a los límites. */
+    private void prepararContador() {
+        menosButton.setOnClickListener(v -> {
+            if (interpretes > MIN_INTERPRETES) {
+                interpretes--;
+                pintarContador();
+            }
+        });
+        masButton.setOnClickListener(v -> {
+            if (interpretes < MAX_INTERPRETES) {
+                interpretes++;
+                pintarContador();
+            }
+        });
+    }
+
+    private void pintarContador() {
+        interpretesTexto.setText(String.valueOf(interpretes));
+        menosButton.setEnabled(interpretes > MIN_INTERPRETES);
+        masButton.setEnabled(interpretes < MAX_INTERPRETES);
+    }
+
+    private void pintarValoracion() {
+        int valor = Math.round(valoracionRating.getRating());
+        valoracionTexto.setText(valor == 0
+                ? getString(R.string.alta_valoracion)
+                : getString(R.string.alta_valoracion_valor, valor));
+    }
+
+    /** Al escribir, se borra el error de ese campo (el aviso solo sale al pulsar Guardar). */
+    private void prepararValidaciones() {
+        quitarErrorAlEscribir(nombreEdit, nombreLayout);
+        quitarErrorAlEscribir(selloEdit, selloLayout);
+        quitarErrorAlEscribir(anioEdit, anioLayout);
+        quitarErrorAlEscribir(duracionEdit, duracionLayout);
+        quitarErrorAlEscribir(popularidadEdit, popularidadLayout);
+    }
+
+    private void quitarErrorAlEscribir(TextInputEditText campo, TextInputLayout layout) {
+        campo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // No se usa
@@ -176,163 +201,57 @@ public class AltaCancionActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No se usa
+                layout.setError(null);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                String texto = s.toString().trim();
-                // Campo vacío: todavía no hay nada que validar -> sin aviso
-                if (texto.isEmpty()) {
-                    popularityError.setText("");
-                    return;
-                }
-                popularityError.setText(esPopularidadValida(texto) ? "" : getString(R.string.popularity_error));
+                // No se usa
             }
         });
-
-        // ===================== P3.1 Teclado de puntuación =====================
-        scoreResult = findViewById(R.id.scoreResult);
-        for (int i = 0; i < TECLAS.length; i++) {
-            final int numero = i + 1;
-            Button tecla = findViewById(TECLAS[i]);
-            tecla.setOnClickListener(v -> {
-                valoracionSeleccionada = numero;
-                scoreResult.setText(getString(R.string.score, numero));
-            });
-        }
-
-        // ===================== P3.3 Estado de la canción =====================
-        radioGroupState = findViewById(R.id.radioGroupState);
-        Button clearButton = findViewById(R.id.clearButton);
-
-        radioGroupState.setOnCheckedChangeListener((group, checkedId) -> {
-            @ColorRes int color;
-            if (checkedId == R.id.radioNew) {
-                color = R.color.estado_nuevo;
-            } else if (checkedId == R.id.radioListened) {
-                color = R.color.estado_escuchado;
-            } else if (checkedId == R.id.radioFavorite) {
-                color = R.color.estado_favorito;
-            } else {
-                color = R.color.estado_neutro;
-            }
-            raiz.setBackgroundColor(ContextCompat.getColor(this, color));
-        });
-
-        clearButton.setOnClickListener(v -> {
-            // clearCheck() desmarca de forma programática: NO dispara el listener
-            // del grupo, así que el fondo hay que devolverlo a mano.
-            radioGroupState.clearCheck();
-            raiz.setBackgroundColor(ContextCompat.getColor(this, R.color.estado_neutro));
-        });
-
-        // ===================== P4 RESET y ENVIAR =====================
-        Button resetFormButton = findViewById(R.id.resetFormButton);
-        resetFormButton.setOnClickListener(v -> limpiarFormulario());
-
-        Button sendButton = findViewById(R.id.sendButton);
-        sendButton.setOnClickListener(v -> enviarFormulario());
-
-        // P8: Aceptar devuelve la canción (para la biblioteca).
-        Button aceptarFormButton = findViewById(R.id.aceptarFormButton);
-        aceptarFormButton.setOnClickListener(v -> aceptarFormulario());
-
-        boolean aniadirBiblioteca = getIntent().getBooleanExtra("extra_to_biblioteca", false);
-        if (aniadirBiblioteca) {
-            aceptarFormButton.setVisibility(View.VISIBLE);
-            sendButton.setVisibility(View.GONE);
-        }else{
-            aceptarFormButton.setVisibility(View.GONE);
-        }
-
-        Cancion original = (Cancion) getIntent().getSerializableExtra(EXTRA_CANCION);
-
-        if (original != null) {                 // MODO EDICIÓN
-            cargarCancionEnFormulario(original); // rellena TODOS los controles
-            setTitle(R.string.editar_cancion);
-            aceptarFormButton.setText(R.string.guardar_cambios);
-            aceptarFormButton.setVisibility(View.VISIBLE);
-            sendButton.setVisibility(View.GONE);
-            resetFormButton.setOnClickListener(v -> cargarCancionEnFormulario(original));
-        }
     }
-    private void cargarCancionEnFormulario(Cancion c) {
-        id = c.getId();
-        // 1. Campos de texto
-        songName.setText(c.getNombre());
-        songNameEdit.setText(c.getNombre());
+
+    // ===================== cargar, validar y guardar =====================
+
+    /** Modo edición: rellena todos los controles con la canción. */
+    private void cargar(Cancion c) {
+        nombreEdit.setText(c.getNombre());
         selloEdit.setText(c.getSello());
-        yearEdit.setText(String.valueOf(c.getAnio()));
-        popularityEdit.setText(String.valueOf(c.getPopularidad()));
-        durationEdit.setText(String.valueOf(c.getDuracion()));
+        anioEdit.setText(String.valueOf(c.getAnio()));
+        duracionEdit.setText(String.valueOf(c.getDuracion()));
+        popularidadEdit.setText(String.valueOf(c.getPopularidad()));
+        interpretes = Math.max(MIN_INTERPRETES, Math.min(MAX_INTERPRETES, c.getInterpretes()));
 
-        // 2. Contador de intérpretes (variable + TextView)
-        artistNumberValue = c.getInterpretes();
-        artistNumber.setText(String.valueOf(artistNumberValue));
-
-        // 3. Spinner de género: buscar la posición y seleccionarla
         int posicion = generos.getPosition(c.getGenero());
-        if (posicion >= 0) {
-            generoSpinner.setSelection(posicion);
-        }
+        generoSpinner.setSelection(Math.max(posicion, 0));
 
-        // 4. Valoración (teclado de 9 teclas)
-        valoracionSeleccionada = c.getValoracion();
-        scoreResult.setText(getString(R.string.score, valoracionSeleccionada));
+        valoracionRating.setRating(c.getValoracion());
+        estadoGroup.check(idDeEstado(c.getEstado()));
+        favoritaSwitch.setChecked(c.isFavorita());
+        explicitaCheck.setChecked(c.isExplicita());
     }
 
-    /** Comprueba que el texto del campo de popularidad es un entero entre 1 y 10. */
-    private boolean esPopularidadValida(String texto) {
-        try {
-            int popularidad = Integer.parseInt(texto);
-            return popularidad >= 1 && popularidad <= 10;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    private void limpiar() {
+        nombreEdit.setText("");
+        selloEdit.setText("");
+        anioEdit.setText("");
+        duracionEdit.setText("");
+        popularidadEdit.setText("");
+        generoSpinner.setSelection(0);
+        interpretes = MIN_INTERPRETES;
+        pintarContador();
+        valoracionRating.setRating(0);
+        estadoGroup.check(R.id.estadoNueva);
+        favoritaSwitch.setChecked(false);
+        explicitaCheck.setChecked(false);
+        nombreEdit.requestFocus();
     }
 
-    /** Convierte un campo de texto en entero, o devuelve {@code -1} si no es un número. */
-    private int leerEntero(EditText campo) {
-        try {
-            return Integer.parseInt(campo.getText().toString().trim());
-        } catch (NumberFormatException e) {
-            return -1;
-        }
-    }
-
-    /** Nombre a enviar: lo que haya en el EditText o el último aceptado en la P2.2. */
-    private String leerNombre() {
-        String nombre = songNameEdit.getText().toString().trim();
-        return nombre.isEmpty() ? nombreAceptado : nombre;
-    }
-
-    private void enviarFormulario() {
-        Cancion cancion = validarFormulario();
+    /** Valida y guarda en Room: insert si es nueva, update si es una edición. */
+    private void guardar() {
+        Cancion cancion = validar();
         if (cancion == null) {
-            return;
-        }
-
-        Intent intent = new Intent(this, FichaCancionActivity.class);
-        intent.putExtra(EXTRA_NOMBRE, cancion.getNombre());
-        intent.putExtra(EXTRA_GENERO, cancion.getGenero());
-        intent.putExtra(EXTRA_SELLO, cancion.getSello());
-        intent.putExtra(EXTRA_INTERPRETES, cancion.getInterpretes());
-        intent.putExtra(EXTRA_ANIO, cancion.getAnio());
-        intent.putExtra(EXTRA_DURACION, cancion.getDuracion());
-        intent.putExtra(EXTRA_POPULARIDAD, cancion.getPopularidad());
-        intent.putExtra(EXTRA_VALORACION, cancion.getValoracion());
-        startActivity(intent);
-    }
-
-    /**
-     * P8/P13: ACEPTAR guarda en Room (insert si es nueva, update si se está
-     * editando) y devuelve la canción a la biblioteca. La escritura va en el
-     * executor; la pantalla se cierra cuando ha terminado.
-     */
-    private void aceptarFormulario() {
-        Cancion cancion = validarFormulario();
-        if (cancion == null) {
+            Toast.makeText(this, R.string.wrong_data, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -342,63 +261,101 @@ public class AltaCancionActivity extends AppCompatActivity {
                 cancionDao.actualizar(cancion);
                 mensaje = R.string.cancion_actualizada;
             } else {
-                cancion.setId((int) cancionDao.insertar(cancion));
+                cancionDao.insertar(cancion);
                 mensaje = R.string.cancion_guardada;
             }
-
             runOnUiThread(() -> {
                 Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
-                Intent respuesta = new Intent();
-                respuesta.putExtra(EXTRA_CANCION, cancion);
-                setResult(RESULT_OK, respuesta);
-                finish();
+                finish(); // la pantalla anterior recarga en onResume
             });
         });
     }
 
-    /** Valida el formulario: devuelve la canción, o {@code null} (con su Toast) si algo está mal. */
-    private Cancion validarFormulario() {
-        String nombre = leerNombre();
-        String genero = generoSpinner.getSelectedItemPosition() > 0
-                ? generoSpinner.getSelectedItem().toString()
-                : "";
-        String sello = selloEdit.getText().toString().trim();
-        int interpretes = artistNumberValue;
-        int anio = leerEntero(yearEdit);
-        int duracion = leerEntero(durationEdit);
+    /**
+     * Comprueba cada campo y marca en rojo los incorrectos.
+     *
+     * @return la canción lista para guardar, o {@code null} si hay algún error.
+     */
+    private Cancion validar() {
+        boolean ok = true;
         int anioActual = Calendar.getInstance().get(Calendar.YEAR);
-        boolean popularidadOk = esPopularidadValida(popularityEdit.getText().toString().trim());
 
-        boolean todoRelleno = !nombre.isEmpty() && !genero.isEmpty() && !sello.isEmpty()
-                && artistNumberValue > 0 && anio > 0 && duracion > 0;
-        boolean interpretesOk = todoRelleno && artistNumberValue <= 4;
-        boolean anioOk = interpretesOk && anio >= 1900 && anio <= anioActual;
-
-        if (!todoRelleno || !interpretesOk || !anioOk || !popularidadOk) {
-            Toast.makeText(this, R.string.wrong_data, Toast.LENGTH_SHORT).show();
+        String nombre = texto(nombreEdit);
+        if (nombre.isEmpty()) {
+            nombreLayout.setError(getString(R.string.error_obligatorio));
+            ok = false;
+        }
+        String sello = texto(selloEdit);
+        if (sello.isEmpty()) {
+            selloLayout.setError(getString(R.string.error_obligatorio));
+            ok = false;
+        }
+        int anio = entero(anioEdit);
+        if (anio < ANIO_MINIMO || anio > anioActual) {
+            anioLayout.setError(getString(R.string.error_anio, ANIO_MINIMO, anioActual));
+            ok = false;
+        }
+        int duracion = entero(duracionEdit);
+        if (duracion <= 0) {
+            duracionLayout.setError(getString(R.string.error_duracion));
+            ok = false;
+        }
+        int popularidad = entero(popularidadEdit);
+        if (popularidad < 1 || popularidad > 10) {
+            popularidadLayout.setError(getString(R.string.popularity_error));
+            ok = false;
+        }
+        if (generoSpinner.getSelectedItemPosition() <= 0) {
+            Toast.makeText(this, R.string.error_genero, Toast.LENGTH_SHORT).show();
+            ok = false;
+        }
+        int valoracion = Math.round(valoracionRating.getRating());
+        if (valoracion == 0) {
+            Toast.makeText(this, R.string.error_valoracion, Toast.LENGTH_SHORT).show();
+            ok = false;
+        }
+        if (!ok) {
             return null;
         }
 
-        int popularidad = Integer.parseInt(popularityEdit.getText().toString().trim());
-        return new Cancion(id, nombre, genero, sello, interpretes, anio, popularidad, duracion,
-                valoracionSeleccionada);
+        Cancion c = new Cancion(original == null ? 0 : original.getId(), nombre,
+                generoSpinner.getSelectedItem().toString(), sello, interpretes, anio,
+                popularidad, duracion, valoracion);
+        c.setEstado(estadoElegido());
+        c.setFavorita(favoritaSwitch.isChecked());
+        c.setExplicita(explicitaCheck.isChecked());
+        return c;
     }
 
-    private void limpiarFormulario() {
-        songNameEdit.setText("");
-        songName.setText(R.string.name);
-        nombreAceptado = "";
+    // ===================== ayudas =====================
 
-        generoSpinner.setSelection(0);
-        selloEdit.setText("");
-        yearEdit.setText("");
-        durationEdit.setText("");
-        popularityEdit.setText("");
-        popularityError.setText("");
+    private int estadoElegido() {
+        int id = estadoGroup.getCheckedRadioButtonId();
+        if (id == R.id.estadoEscuchada) return Cancion.ESTADO_ESCUCHADA;
+        if (id == R.id.estadoEnBucle) return Cancion.ESTADO_EN_BUCLE;
+        return Cancion.ESTADO_NUEVA;
+    }
 
-        scoreResult.setText("");
-        valoracionSeleccionada = 0;
-        radioGroupState.clearCheck();
-        raiz.setBackgroundColor(ContextCompat.getColor(this, R.color.estado_neutro));
+    private static int idDeEstado(int estado) {
+        if (estado == Cancion.ESTADO_ESCUCHADA) return R.id.estadoEscuchada;
+        if (estado == Cancion.ESTADO_EN_BUCLE) return R.id.estadoEnBucle;
+        return R.id.estadoNueva;
+    }
+
+    private static String texto(TextInputEditText campo) {
+        return campo.getText() == null ? "" : campo.getText().toString().trim();
+    }
+
+    /** El número escrito, o -1 si el campo está vacío o no es un número. */
+    private static int entero(TextInputEditText campo) {
+        String t = texto(campo);
+        if (TextUtils.isEmpty(t)) {
+            return -1;
+        }
+        try {
+            return Integer.parseInt(t);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 }

@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 import es.ies.cm.dam2.pmdm.eco.R;
 import es.ies.cm.dam2.pmdm.eco.model.Cancion;
@@ -44,6 +43,7 @@ public class AdaptadorCancionRecycler
         final TextView nombre;
         final TextView interpretes;
         final TextView genero;
+        final ImageView favorita;
 
         CancionViewHolder(@NonNull View fila) {
             super(fila);
@@ -51,6 +51,7 @@ public class AdaptadorCancionRecycler
             nombre = fila.findViewById(R.id.nombreCancionFila);
             interpretes = fila.findViewById(R.id.interpretesCancionFila);
             genero = fila.findViewById(R.id.generoCancionFila);
+            favorita = fila.findViewById(R.id.favoritaCancionFila);
         }
     }
 
@@ -72,6 +73,7 @@ public class AdaptadorCancionRecycler
                 .getString(R.string.ficha_interpretes, cancion.getInterpretes()));
         holder.genero.setText(holder.itemView.getContext()
                 .getString(R.string.ficha_genero, cancion.getGenero()));
+        holder.favorita.setVisibility(cancion.isFavorita() ? View.VISIBLE : View.GONE);
 
         // Los dos clics van en la tarjeta (la vista de la fila), no en el RecyclerView.
         holder.itemView.setOnClickListener(v -> {
