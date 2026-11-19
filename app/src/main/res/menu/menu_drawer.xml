@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Cajón lateral: arriba lo principal de la app y, separado, lo de las prácticas. -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="none">
-        <item
-            android:id="@+id/nav_inicio"
-            android:title="@string/inicio" />
+    <group
+        android:id="@+id/grupo_principal"
+        android:checkableBehavior="none">
         <item
             android:id="@+id/nav_coleccion"
+            android:icon="@drawable/ic_biblioteca"
             android:title="@string/biblioteca" />
         <item
             android:id="@+id/nav_buscar"
+            android:icon="@drawable/ic_buscar"
             android:title="@string/buscar" />
         <item
             android:id="@+id/nav_anadir"
+            android:icon="@drawable/ic_anadir"
             android:title="@string/anadir" />
         <item
-            android:id="@+id/nav_favoritos"
-            android:title="@string/favoritos" />
+            android:id="@+id/nav_playlists"
+            android:icon="@drawable/ic_playlist"
+            android:title="@string/main_playlists" />
         <item
             android:id="@+id/nav_reproducciones"
             android:title="@string/reproducciones" />
+    </group>
+    <group
+        android:id="@+id/grupo_extra"
+        android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_ajustes"
-            android:title="@string/ajustes" />
+            android:id="@+id/nav_noche"
+            android:title="@string/main_oyente" />
+        <item
+            android:id="@+id/nav_invitar"
+            android:title="@string/main_invitar" />
         <item
             android:id="@+id/nav_acerca_de"
             android:title="@string/acerca_de" />

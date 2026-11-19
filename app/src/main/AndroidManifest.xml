@@ -52,10 +52,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.activities.CompartirActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".ui.activities.AcercaDeActivity"
             android:exported="false" />
         <activity

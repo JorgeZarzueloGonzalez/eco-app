@@ -1,36 +1,36 @@
 package es.ies.cm.dam2.pmdm.eco.ui.activities;
 
-import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
-import android.content.ClipData;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.DragEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import es.ies.cm.dam2.pmdm.eco.R;
 
+/**
+ * Pantalla de inicio de Eco.
+ * <p>
+ * Tiene dos formas de moverse por la app:
+ * <ul>
+ *     <li>Los <b>cuatro accesos</b> principales de la portada: biblioteca,
+ *     buscar, añadir canción y mis playlists.</li>
+ *     <li>El <b>cajón lateral</b> (Navigation Drawer, P11), con esos mismos
+ *     destinos y el resto de pantallas.</li>
+ * </ul>
+ * Las playlists son personales: se entra por el login.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    int counterValue = 0;
+    private DrawerLayout drawerLayout;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,148 +39,79 @@ public class MainActivity extends AppCompatActivity {
         // Con EdgeToEdge la ventana también ocupa la barra de estado y el notch,
         // así que hay que apartar a mano el contenido de esa zona.
         // (El cajón lo hace él solo con android:fitsSystemWindows="true" en el XML.)
-        aplicarInsets(R.id.contenido);   // incluye la toolbar
+        aplicarInsets(R.id.contenido);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false); // el nombre ya sale grande
+        }
 
-
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        // ===================== Cajón lateral =====================
+        drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        ActionBarDrawerToggle toggleButton = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        // El "botón hamburguesa" de la toolbar que abre y cierra el cajón
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
-        drawerLayout.addDrawerListener(toggleButton);
-        toggleButton.syncState();
+        // Con el cajón abierto, Atrás lo cierra en vez de salir de la app.
+        OnBackPressedCallback cerrarCajon = new OnBackPressedCallback(false) {
+            @Override
+            public void handleOnBackPressed() {
+                drawerLayout.close();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, cerrarCajon);
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerOpened(View cajon) {
+                cerrarCajon.setEnabled(true);
+            }
+
+            @Override
+            public void onDrawerClosed(View cajon) {
+                cerrarCajon.setEnabled(false);
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.nav_inicio) {
-                drawerLayout.close();
-                return true;
+            Class<?> destino = destinoDelCajon(item.getItemId());
+            drawerLayout.close();
+            if (destino == null) {
+                return false;
             }
-            if (id == R.id.nav_coleccion) {
-                startActivity(new Intent(this, BibliotecaActivity.class));
-                drawerLayout.close();
-                return true;
-            }
-            if (id == R.id.nav_buscar) {
-                startActivity(new Intent(this, BuscarActivity.class));
-                drawerLayout.close();
-                return true;
-            }
-            if (id == R.id.nav_anadir) {
-                startActivity(new Intent(this, AltaCancionActivity.class));
-                drawerLayout.close();
-                return true;
-            }
-            if (id == R.id.nav_favoritos) {
-                startActivity(new Intent(this, LoginActivity.class));
-                drawerLayout.close();
-                return true;
-            }
-            if (id == R.id.nav_reproducciones) {
-                startActivity(new Intent(this, ReproduccionActivity.class));
-                drawerLayout.close();
-                return true;
-            }
-            if (id == R.id.nav_ajustes) {
-                new MaterialAlertDialogBuilder(this)
-                        .setTitle("Ajustes")
-                        .setMessage("Ajustes Disponible en la práctica 20")
-                        .setNeutralButton("Ok", null)
-                        .show();
-                drawerLayout.close();
-                return true;
-            }
-            if (id == R.id.nav_acerca_de) {
-                startActivity(new Intent(this, AcercaDeActivity.class));
-                drawerLayout.close();
-                return true;
-            }
-            return false;
+            abrir(destino);
+            return true;
         });
 
-        Button altaButton = findViewById(R.id.altaButton);
-        altaButton.setOnClickListener(v ->
-                startActivity(new Intent(this, AltaCancionActivity.class)));
+        // ===================== Accesos de la portada =====================
+        findViewById(R.id.bibliotecaButton).setOnClickListener(v -> abrir(BibliotecaActivity.class));
+        findViewById(R.id.buscarButton).setOnClickListener(v -> abrir(BuscarActivity.class));
+        findViewById(R.id.altaButton).setOnClickListener(v -> abrir(AltaCancionActivity.class));
+        findViewById(R.id.playlistsButton).setOnClickListener(v -> abrir(LoginActivity.class));
 
-        Button oyenteButton = findViewById(R.id.oyenteButton);
-        oyenteButton.setOnClickListener(v ->
-                startActivity(new Intent(this, OyenteActivity.class)));
+        // El pie "Creado por…" abre la paleta de colores de la app (P1b)
+        findViewById(R.id.Created).setOnClickListener(v -> abrir(PaletaActivity.class));
+    }
 
-        Button invitarButton = findViewById(R.id.invitarButton);
-        invitarButton.setOnClickListener(v ->
-                startActivity(new Intent(this, InvitarCorreoActivity.class)));
+    /** Qué pantalla abre cada entrada del cajón ({@code null} si no es ninguna). */
+    private Class<?> destinoDelCajon(int id) {
+        if (id == R.id.nav_coleccion) return BibliotecaActivity.class;
+        if (id == R.id.nav_buscar) return BuscarActivity.class;
+        if (id == R.id.nav_anadir) return AltaCancionActivity.class;
+        if (id == R.id.nav_playlists) return LoginActivity.class;
+        if (id == R.id.nav_reproducciones) return ReproduccionActivity.class;
+        if (id == R.id.nav_noche) return OyenteActivity.class;
+        if (id == R.id.nav_invitar) return InvitarCorreoActivity.class;
+        if (id == R.id.nav_acerca_de) return AcercaDeActivity.class;
+        return null;
+    }
 
-        // ===================== P6.1 Abrir la web de Eco =====================
-        Button webButton = findViewById(R.id.webButton);
-        webButton.setOnClickListener(v -> {
-            Intent verWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.web_eco)));
-            try {
-                startActivity(verWeb);
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(this, R.string.sin_navegador, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // ===================== P6.2 Compartir: segunda actividad =====================
-        Button compartirButton = findViewById(R.id.compartirButton);
-        compartirButton.setOnClickListener(v ->
-                startActivity(new Intent(this, CompartirActivity.class)));
-
-        // ===================== P7 Buscar canción =====================
-        Button buscarButton = findViewById(R.id.buscarButton);
-        buscarButton.setOnClickListener(v ->
-                startActivity(new Intent(this, BuscarActivity.class)));
-
-        // ===================== P8 La biblioteca =====================
-        Button bibliotecaButton = findViewById(R.id.bibliotecaButton);
-        bibliotecaButton.setOnClickListener(v ->
-                startActivity(new Intent(this, BibliotecaActivity.class)));
-
-        // ===================== P6.3 Drag &amp; Drop hasta la zona de destino =====================
-        TextView dragSource = findViewById(R.id.dragSource);
-        TextView dropTarget = findViewById(R.id.dropTarget);
-
-        // ORIGEN: al tocar, empieza el arrastre (hace falta un ClipData).
-        dragSource.setOnTouchListener((vista, evento) -> {
-            if (evento.getAction() == MotionEvent.ACTION_DOWN) {
-                ClipData dato = ClipData.newPlainText("eco", getString(R.string.app_name));
-                vista.startDragAndDrop(dato, new View.DragShadowBuilder(vista), null, 0);
-                return true;
-            }
-            return false;
-        });
-
-        // DESTINO: si se suelta aquí encima, se abre "Acerca de Eco".
-        dropTarget.setOnDragListener((vista, evento) -> {
-            int accion = evento.getAction();
-            if (accion == DragEvent.ACTION_DRAG_STARTED) {
-                // El destino acepta el arrastre: si devolviera false, el drop no llegaría.
-                return true;
-            }
-            if (accion == DragEvent.ACTION_DRAG_ENTERED || accion == DragEvent.ACTION_DRAG_EXITED) {
-                vista.setBackgroundColor(ContextCompat.getColor(this,
-                        accion == DragEvent.ACTION_DRAG_ENTERED
-                                ? R.color.accent_fill : R.color.surface_container));
-                return true;
-            }
-            if (accion == DragEvent.ACTION_DROP) {
-                startActivity(new Intent(this, AcercaDeActivity.class));
-                return true;
-            }
-            if (accion == DragEvent.ACTION_DRAG_ENDED) {
-                vista.setBackgroundColor(ContextCompat.getColor(this, R.color.surface_container));
-                return true;
-            }
-            return false;
-        });
-
-        TextView texto = findViewById(R.id.Created);
-        texto.setOnClickListener(v -> {
-            Intent intent = new Intent(this, PaletaActivity.class);
-            startActivity(intent);
-        });
+    private void abrir(Class<?> pantalla) {
+        startActivity(new Intent(this, pantalla));
     }
 
     /**
