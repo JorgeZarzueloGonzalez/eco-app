@@ -3,67 +3,33 @@
     <string name="createdBy">Creado por Jorge Zarzuelo Gonzalez</string>
 
     <!-- ===== Práctica 1b: contador ===== -->
-    <string name="reset" translatable="false">Reset</string>
 
     <!-- ===== Práctica 2: controles básicos ===== -->
-    <string name="numbers_of_artist">Intérpretes: %1$d</string>
-    <string name="artist_info">Botón pulsado: %1$s · Intérpretes: %2$d</string>
-    <string name="max_artists">Máximo número de intérpretes</string>
-    <string name="min_artists">Mínimo número de intérpretes</string>
     <string name="add_artist">+</string>
     <string name="remove_artist">−</string>
-    <string name="write_here">Escribe aquí</string>
-    <string name="write_a_name">Escribe un nombre</string>
-    <string name="acept">Aceptar</string>
     <string name="name">Nombre</string>
-    <string name="checkbox_library">En mi biblioteca</string>
-    <string name="puss_button">Pulsa el botón</string>
-    <string name="button_pussed">Botón pulsado</string>
-    <string name="box_button">Button</string>
 
     <!-- ===== Práctica 3: teclado de puntuación ===== -->
-    <string name="keypad_title">Teclado de puntuación</string>
-    <string name="score">Puntuación: %1$d</string>
-    <string name="key_1" translatable="false">1</string>
-    <string name="key_2" translatable="false">2</string>
-    <string name="key_3" translatable="false">3</string>
-    <string name="key_4" translatable="false">4</string>
-    <string name="key_5" translatable="false">5</string>
-    <string name="key_6" translatable="false">6</string>
-    <string name="key_7" translatable="false">7</string>
-    <string name="key_8" translatable="false">8</string>
-    <string name="key_9" translatable="false">9</string>
 
     <!-- ===== Práctica 3: validación de la popularidad ===== -->
     <string name="popularity_label">Popularidad (1-10)</string>
-    <string name="popularity_hint" translatable="false">1 - 10</string>
     <string name="popularity_error">Entre 1 y 10</string>
 
     <!-- ===== Práctica 3: estado de la canción ===== -->
     <string name="song_state">Estado de la canción</string>
     <string name="state_new">Nueva</string>
     <string name="state_listened">Escuchada</string>
-    <string name="state_favorite">Favorito</string>
     <string name="clear">Limpiar</string>
 
     <!-- ===== Práctica 4: formulario completo y ficha ===== -->
     <string name="genero">Género</string>
     <string name="sello">Sello discográfico</string>
-    <string name="interpretes_min">Intérpretes (mínimo)</string>
-    <string name="interpretes_max">Intérpretes (máximo)</string>
     <string name="anio">Año de publicación</string>
     <string name="duracion">Duración (segundos)</string>
-    <string name="send">Enviar</string>
     <string name="wrong_data">Revisa los campos marcados</string>
-    <string name="sin_datos">Sin datos</string>
     <string name="ficha_title">Ficha de la canción</string>
-    <string name="ficha_nombre">Nombre: %1$s</string>
     <string name="ficha_genero">Género: %1$s</string>
-    <string name="ficha_sello">Sello discográfico: %1$s</string>
     <string name="ficha_interpretes">Intérpretes: %1$d</string>
-    <string name="ficha_anio">Año de publicación: %1$d</string>
-    <string name="ficha_duracion">Duración: %1$d min</string>
-    <string name="ficha_popularidad">Popularidad: %1$d</string>
 
     <!-- ===== Práctica 5: asistencia a la Noche de Eco ===== -->
     <string name="oyente_nombre">Tu nombre</string>
@@ -111,10 +77,8 @@
     <string name="acerca_de">Acerca de</string>
     <string name="edit">Editar</string>
     <string name="delete">Eliminar</string>
-    <string name="inicio">Inicio</string>
     <string name="navigation_drawer_open" translatable="false">open\n</string>
     <string name="navigation_drawer_close" translatable="false">close</string>
-    <string name="ajustes">Ajustes</string>
     <string name="anadir">Añadir Cancion</string>
     <string name="buscar">Buscar Cancion</string>
     <string name="biblioteca">Biblioteca</string>
@@ -128,7 +92,6 @@
     <string name="login_error">Usuario o contraseña incorrectos</string>
     <string name="login_pista">Prueba con admin / admin o carlos / carlos</string>
 
-    <string name="quitar">Quitar</string>
 
     <string name="buscar_hint">Escribe el nombre</string>
     <string name="buscar_modo">Coincidencia</string>
@@ -235,4 +198,35 @@
     <string name="cuenta_eliminar">Eliminar cuenta</string>
     <string name="cuenta_eliminar_pregunta">Se borrarán tu cuenta y todas tus playlists. ¿Seguro?</string>
     <string name="cuenta_eliminada">Cuenta eliminada</string>
+
+    <!-- ===== Paleta de colores (P1b) ===== -->
+    <string name="paleta_vista_previa">Vista previa de esquema</string>
+    <string name="paleta_titulo">PALETA</string>
+    <string name="paleta_botones">BOTONES</string>
+    <string name="paleta_play">REPRODUCIR</string>
+    <string name="paleta_probar">PROBAR</string>
+    <string name="paleta_chips">CHIPS DE GÉNERO</string>
+    <string name="paleta_mini">MINI REPRODUCTOR</string>
+    <string name="paleta_cancion_prueba">Canción de prueba</string>
+    <string name="paleta_artista">Artista Eco</string>
+    <string name="paleta_favorito">Favorito</string>
+    <string name="paleta_lista">LISTA DE CANCIONES</string>
+    <string name="paleta_reproduciendo">Reproduciendo ahora</string>
+    <string name="paleta_otra">Otra canción</string>
+    <string name="paleta_artista_duracion">Artista · 2:47</string>
+    <string name="paleta_inicio">Inicio</string>
+
+    <!-- Paleta: nombres técnicos y de marca, iguales en todos los idiomas -->
+    <string name="paleta_primary" translatable="false">primary</string>
+    <string name="paleta_primary_dark" translatable="false">primaryDark</string>
+    <string name="paleta_accent" translatable="false">accent</string>
+    <string name="paleta_surface" translatable="false">surface</string>
+    <string name="paleta_eco_mix" translatable="false">Eco Mix</string>
+    <string name="paleta_indie" translatable="false">Indie</string>
+    <string name="paleta_lofi" translatable="false">Lo-Fi</string>
+    <string name="paleta_tiempo" translatable="false">1:42</string>
+    <string name="paleta_restante" translatable="false">-2:18</string>
+    <string name="paleta_uno" translatable="false">1</string>
+    <string name="paleta_dos" translatable="false">2</string>
+    <string name="paleta_sesion" translatable="false">Eco Session · 3:04</string>
 </resources>

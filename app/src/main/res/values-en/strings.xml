@@ -5,25 +5,12 @@
     <string name="createdBy">Created by Jorge Zarzuelo Gonzalez</string>
 
     <!-- ===== Practice 2: basic controls ===== -->
-    <string name="numbers_of_artist">Performers: %1$d</string>
-    <string name="artist_info">Button pressed: %1$s · Performers: %2$d</string>
-    <string name="max_artists">Maximum number of performers</string>
-    <string name="min_artists">Minimum number of performers</string>
     <string name="add_artist">+</string>
     <string name="remove_artist">−</string>
-    <string name="write_here">Type here</string>
-    <string name="write_a_name">Type a name</string>
-    <string name="acept">Accept</string>
     <string name="name">Name</string>
-    <string name="checkbox_library">In my library</string>
-    <string name="puss_button">Press the button</string>
-    <string name="button_pussed">Button pressed</string>
-    <string name="box_button">Button</string>
 
 
     <!-- ===== Practice 3: rating keypad ===== -->
-    <string name="keypad_title">Score keypad</string>
-    <string name="score">Score: %1$d</string>
 
     <!-- ===== Practice 3: popularity validation ===== -->
     <string name="popularity_label">Popularity (1-10)</string>
@@ -33,27 +20,17 @@
     <string name="song_state">Song status</string>
     <string name="state_new">New</string>
     <string name="state_listened">Listened</string>
-    <string name="state_favorite">Favourite</string>
     <string name="clear">Clear</string>
 
     <!-- ===== Practice 4: full form and details ===== -->
     <string name="genero">Genre</string>
     <string name="sello">Record label</string>
-    <string name="interpretes_min">Performers (minimum)</string>
-    <string name="interpretes_max">Performers (maximum)</string>
     <string name="anio">Release year</string>
     <string name="duracion">Duration (seconds)</string>
-    <string name="send">Send</string>
     <string name="wrong_data">Check the highlighted fields</string>
-    <string name="sin_datos">No data</string>
     <string name="ficha_title">Song details</string>
-    <string name="ficha_nombre">Name: %1$s</string>
     <string name="ficha_genero">Genre: %1$s</string>
-    <string name="ficha_sello">Record label: %1$s</string>
     <string name="ficha_interpretes">Performers: %1$d</string>
-    <string name="ficha_anio">Release year: %1$d</string>
-    <string name="ficha_duracion">Duration: %1$d min</string>
-    <string name="ficha_popularidad">Popularity: %1$d</string>
 
     <!-- ===== Practice 5: Eco Night attendance ===== -->
     <string name="oyente_nombre">Your name</string>
@@ -108,7 +85,6 @@
     <string name="login_error">Wrong user or password</string>
     <string name="login_pista">Try admin / admin or carlos / carlos</string>
 
-    <string name="quitar">Remove</string>
 
     <string name="buscar_hint">Type the name</string>
     <string name="buscar_modo">Match</string>
@@ -126,10 +102,8 @@
     <string name="acerca_de">About</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="ajustes">Settings</string>
     <string name="anadir">Add song</string>
     <string name="buscar">Find song</string>
-    <string name="inicio">Home</string>
 
     <!-- ===== Practice 13: Room (plays) ===== -->
     <string name="reproducciones">Plays</string>
@@ -223,4 +197,21 @@
     <string name="cuenta_eliminar">Delete account</string>
     <string name="cuenta_eliminar_pregunta">Your account and all your playlists will be deleted. Are you sure?</string>
     <string name="cuenta_eliminada">Account deleted</string>
+
+    <!-- ===== Paleta de colores (P1b) ===== -->
+    <string name="paleta_vista_previa">Scheme preview</string>
+    <string name="paleta_titulo">PALETTE</string>
+    <string name="paleta_botones">BUTTONS</string>
+    <string name="paleta_play">PLAY</string>
+    <string name="paleta_probar">TRY</string>
+    <string name="paleta_chips">GENRE CHIPS</string>
+    <string name="paleta_mini">MINI PLAYER</string>
+    <string name="paleta_cancion_prueba">Test song</string>
+    <string name="paleta_artista">Eco Artist</string>
+    <string name="paleta_favorito">Favourite</string>
+    <string name="paleta_lista">SONG LIST</string>
+    <string name="paleta_reproduciendo">Now playing</string>
+    <string name="paleta_otra">Another song</string>
+    <string name="paleta_artista_duracion">Artist · 2:47</string>
+    <string name="paleta_inicio">Home</string>
 </resources>

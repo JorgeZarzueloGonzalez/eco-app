@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Eco"
+                android:text="@string/app_name"
                 android:textColor="@color/text"
                 android:textSize="34sp"
                 android:textStyle="bold" />
@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vista previa de esquema"
+            android:text="@string/paleta_vista_previa"
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:letterSpacing="0.15"
-            android:text="PALETA"
+            android:text="@string/paleta_titulo"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
@@ -74,7 +74,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="primary"
+                    android:text="@string/paleta_primary"
                     android:textColor="@color/text_secondary"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -94,7 +94,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="primaryDark"
+                    android:text="@string/paleta_primary_dark"
                     android:textColor="@color/text_secondary"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -114,7 +114,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="accent"
+                    android:text="@string/paleta_accent"
                     android:textColor="@color/text_secondary"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -134,7 +134,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="surface"
+                    android:text="@string/paleta_surface"
                     android:textColor="@color/text_secondary"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -146,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:letterSpacing="0.15"
-            android:text="BOTONES"
+            android:text="@string/paleta_botones"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/primary"
-                android:text="PLAY"
+                android:text="@string/paleta_play"
                 android:textAllCaps="false"
                 android:textColor="@color/text_on_primary" />
 
@@ -174,7 +174,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/accent_fill"
-                android:text="PROBAR"
+                android:text="@string/paleta_probar"
                 android:textAllCaps="false"
                 android:textColor="@color/text_on_accent" />
         </LinearLayout>
@@ -185,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:letterSpacing="0.15"
-            android:text="CHIPS DE GÉNERO"
+            android:text="@string/paleta_chips"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
@@ -203,7 +203,7 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
-                android:text="Eco Mix"
+                android:text="@string/paleta_eco_mix"
                 android:textColor="@color/text_on_accent"
                 android:textStyle="bold" />
 
@@ -216,7 +216,7 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
-                android:text="Indie"
+                android:text="@string/paleta_indie"
                 android:textColor="@color/text_secondary" />
 
             <TextView
@@ -228,7 +228,7 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
-                android:text="Lo-Fi"
+                android:text="@string/paleta_lofi"
                 android:textColor="@color/text_secondary" />
         </LinearLayout>
 
@@ -238,7 +238,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:letterSpacing="0.15"
-            android:text="MINI REPRODUCTOR"
+            android:text="@string/paleta_mini"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
@@ -271,7 +271,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Canción de prueba"
+                        android:text="@string/paleta_cancion_prueba"
                         android:textColor="@color/text"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -279,7 +279,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Artista Eco"
+                        android:text="@string/paleta_artista"
                         android:textColor="@color/text_secondary"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -288,7 +288,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Favorito"
+                    android:contentDescription="@string/paleta_favorito"
                     android:src="@android:drawable/btn_star_big_on"
                     app:tint="@color/accent" />
             </LinearLayout>
@@ -313,14 +313,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="1:42"
+                    android:text="@string/paleta_tiempo"
                     android:textColor="@color/text_secondary"
                     android:textSize="11sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-2:18"
+                    android:text="@string/paleta_restante"
                     android:textColor="@color/text_secondary"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -332,7 +332,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:letterSpacing="0.15"
-            android:text="LISTA DE CANCIONES"
+            android:text="@string/paleta_lista"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
@@ -347,7 +347,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
+                android:text="@string/paleta_uno"
                 android:textColor="@color/accent"
                 android:textStyle="bold" />
 
@@ -361,7 +361,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reproduciendo ahora"
+                    android:text="@string/paleta_reproduciendo"
                     android:textColor="@color/accent"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -369,7 +369,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Eco Session · 3:04"
+                    android:text="@string/paleta_sesion"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -385,7 +385,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2"
+                android:text="@string/paleta_dos"
                 android:textColor="@color/text_secondary" />
 
             <LinearLayout
@@ -398,14 +398,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Otra canción"
+                    android:text="@string/paleta_otra"
                     android:textColor="@color/text"
                     android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Artista · 2:47"
+                    android:text="@string/paleta_artista_duracion"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -425,7 +425,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Inicio"
+                android:text="@string/paleta_inicio"
                 android:textColor="@color/accent"
                 android:textStyle="bold" />
 
@@ -434,7 +434,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Buscar"
+                android:text="@string/main_buscar"
                 android:textColor="@color/text_secondary" />
 
             <TextView
@@ -442,7 +442,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Biblioteca"
+                android:text="@string/main_biblioteca"
                 android:textColor="@color/text_secondary" />
         </LinearLayout>
 

@@ -38,16 +38,13 @@
     <color name="text_on_accent">#0B0B0B</color>
 
     <!-- ===== ERRORES ===== -->
-    <color name="error">#B3261E</color>
 
     <!-- ===== ESTADO DE LA CANCIÓN (P3.3) ===== -->
     <!-- Fondo al abrir: blanco, como pide el enunciado -->
-    <color name="estado_neutro">#FFFFFF</color>
     <color name="estado_nuevo">#4CAF50</color>
     <color name="estado_escuchado">#2196F3</color>
     <color name="estado_favorito">#C6F135</color>
     <!-- Texto de los RadioButton sobre esos fondos -->
-    <color name="estado_texto">#14141F</color>
 
     <!-- ===== PRÁCTICA 7: un color de texto distinto para cada Spinner ===== -->
 </resources>
