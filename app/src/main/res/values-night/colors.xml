@@ -5,7 +5,6 @@
     <color name="primaryDark">#312E81</color>
     <color name="primaryLight">#4F46E5</color>
     <color name="accent">#C6F135</color>
-    <color name="accentDark">#9BC426</color>
     <!-- Relleno de lima brillante: para fondos/chips/barra (NUNCA para texto) -->
     <color name="accent_fill">#C6F135</color>
     <!-- Lima de ACCIÓN (botones primarios, checkbox, progreso) en tema oscuro:
@@ -45,6 +44,4 @@
     <color name="estado_texto">#EDEDF5</color>
 
     <!-- ===== PRÁCTICA 7: un color de texto distinto para cada Spinner ===== -->
-    <color name="spinner_genero">#C6F135</color>
-    <color name="spinner_cancion">#9FA8FF</color>
 </resources>

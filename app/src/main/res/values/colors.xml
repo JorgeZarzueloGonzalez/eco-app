@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
 
     <!-- ===== MARCA (igual en ambos temas) ===== -->
     <color name="primary">#4338CA</color>
     <color name="primaryDark">#312E81</color>
     <color name="primaryLight">#4F46E5</color>
     <color name="accent">#567A00</color>
-    <color name="accentDark">#416000</color>
     <!-- Relleno de lima brillante: para fondos/chips/barra (NUNCA para texto) -->
     <color name="accent_fill">#C6F135</color>
     <!-- Lima de ACCIÓN (botones primarios, checkbox, progreso) en tema claro:
@@ -52,6 +50,4 @@
     <color name="estado_texto">#14141F</color>
 
     <!-- ===== PRÁCTICA 7: un color de texto distinto para cada Spinner ===== -->
-    <color name="spinner_genero">#567A00</color>
-    <color name="spinner_cancion">#4F46E5</color>
 </resources>

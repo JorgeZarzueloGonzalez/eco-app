@@ -10,7 +10,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import es.ies.cm.dam2.pmdm.eco.R;
-import es.ies.cm.dam2.pmdm.eco.data.repository.UsuarioRepository;
+import es.ies.cm.dam2.pmdm.eco.data.room.AppDatabase;
+import es.ies.cm.dam2.pmdm.eco.data.sqlite.EcoDB;
 import es.ies.cm.dam2.pmdm.eco.model.Usuario;
 
 /**
@@ -23,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     /** Clave del extra con el {@code _id} del usuario que inicia sesión. */
     public static final String EXTRA_USUARIO_ID = "extra_usuario_id";
 
-    private UsuarioRepository usuarioRepository;
+    private EcoDB ecoDB;
     private EditText usuarioEdit;
     private EditText claveEdit;
 
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setTitle(R.string.login_titulo);
 
-        usuarioRepository = new UsuarioRepository(this);
+        ecoDB = EcoDB.getInstance(this);
         usuarioEdit = findViewById(R.id.usuarioLoginEdit);
         claveEdit = findViewById(R.id.claveLoginEdit);
 
@@ -57,20 +58,20 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (!usuarioRepository.validarCredenciales(nombre, clave)) {
-            Toast.makeText(this, R.string.login_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
+        // La consulta va en segundo plano, como todas las de la app desde la P13.
+        AppDatabase.executor.execute(() -> {
+            Usuario usuario = ecoDB.login(nombre, clave);
 
-        Usuario usuario = usuarioRepository.getUsuarioPorNombre(nombre);
-        if (usuario == null) {
-            Toast.makeText(this, R.string.login_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent intent = new Intent(this, FavoritosActivity.class);
-        intent.putExtra(FavoritosActivity.EXTRA_USUARIO_ID, usuario.getId());
-        startActivity(intent);
-        finish();
+            runOnUiThread(() -> {
+                if (usuario == null) {
+                    Toast.makeText(this, R.string.login_error, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(this, FavoritosActivity.class);
+                intent.putExtra(FavoritosActivity.EXTRA_USUARIO_ID, usuario.getId());
+                startActivity(intent);
+                finish();
+            });
+        });
     }
 }

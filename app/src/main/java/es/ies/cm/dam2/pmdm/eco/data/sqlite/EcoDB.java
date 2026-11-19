@@ -2,141 +2,171 @@ package es.ies.cm.dam2.pmdm.eco.data.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import es.ies.cm.dam2.pmdm.eco.data.contract.CancionContract;
-import es.ies.cm.dam2.pmdm.eco.data.contract.FavoritoContract;
-import es.ies.cm.dam2.pmdm.eco.data.contract.UsuarioContract;
-import es.ies.cm.dam2.pmdm.eco.model.Cancion;
+import es.ies.cm.dam2.pmdm.eco.model.Favorito;
+import es.ies.cm.dam2.pmdm.eco.model.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * {@code eco.db}: la base de datos SQLite de Eco (la {@code DamaBD} del enunciado).
+ * <p>
+ * P12 (versión 1): canciones, usuarios y favoritos.<br>
+ * P13 (versión 2): solo <b>usuarios</b> y <b>favoritos</b>. Las canciones viven
+ * en Room ({@code eco_room.db}), así que {@code favoritos.cancion_id} ya no
+ * tiene clave ajena: apunta a una tabla de OTRA base de datos.
+ * <p>
+ * Aquí está todo el SQL de las dos tablas: las activities llaman a estos
+ * métodos (siempre desde {@code AppDatabase.executor}) y no escriben SQL.
+ */
 public class EcoDB extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "eco.db";
-    private static final int DB_VERSION = 1;
-    private static EcoDB instance;
+    public static final String DB_NAME = "eco.db";
+    private static final int DB_VERSION = 2;
+
+    private static final String T_USUARIOS = "usuarios";
+    private static final String T_FAVORITOS = "favoritos";
+
+    private static EcoDB instancia;
 
     private EcoDB(Context context) {
         super(context.getApplicationContext(), DB_NAME, null, DB_VERSION);
     }
 
     public static synchronized EcoDB getInstance(Context context) {
-        if (instance == null) {
-            instance = new EcoDB(context);
-            return instance;
-        } else {
-            return instance;
+        if (instancia == null) {
+            instancia = new EcoDB(context);
         }
+        return instancia;
+    }
+
+    /** Se ejecuta ANTES de onCreate/onUpgrade: SQLite no comprueba las FK si no se activan. */
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.setForeignKeyConstraintsEnabled(true);
+    }
+
+    /** Instalación limpia: la base de datos nace directamente en la versión 2. */
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + T_USUARIOS + " ("
+                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "nombre TEXT NOT NULL UNIQUE, "
+                + "clave TEXT NOT NULL)");
+
+        crearTablaFavoritos(db);
+
+        insertarUsuario(db, "admin", "admin");
+        insertarUsuario(db, "carlos", "carlos");
     }
 
     /**
-     * Se ejecuta ANTES de onCreate/onUpgrade: aquí se activan las claves ajenas.
+     * P13 v1 -> v2: SQLite no deja quitar una clave ajena con ALTER TABLE, así
+     * que {@code favoritos} se reconstruye: renombrar, crear, copiar y borrar.
+     * <p>
+     * La tabla {@code canciones} NO se borra aquí: Room la necesita para
+     * copiar las canciones ({@code MigracionInicial}), que la borra al terminar.
      */
     @Override
-    public void onConfigure(SQLiteDatabase db) {
-        db.setForeignKeyConstraintsEnabled(true);
-        super.onConfigure(db);
-    }
-
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-
-        // ===== 1. Tablas =====
-        // Primero las "padre" (canciones y usuarios): favoritos las referencia.
-        db.execSQL("CREATE TABLE " + CancionContract.CancionEntry.TABLE_NAME + " (" +
-                CancionContract.CancionEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                CancionContract.CancionEntry.COLUMN_NOMBRE + " TEXT NOT NULL, " +
-                CancionContract.CancionEntry.COLUMN_GENERO + " TEXT, " +
-                CancionContract.CancionEntry.COLUMN_SELLO + " TEXT, " +
-                CancionContract.CancionEntry.COLUMN_INTERPRETES + " INTEGER, " +
-                CancionContract.CancionEntry.COLUMN_ANIO + " INTEGER, " +
-                CancionContract.CancionEntry.COLUMN_POPULARIDAD + " INTEGER, " +
-                CancionContract.CancionEntry.COLUMN_DURACION + " INTEGER, " +
-                CancionContract.CancionEntry.COLUMN_VALORACION + " INTEGER" +
-                ")");
-
-        db.execSQL("CREATE TABLE " + UsuarioContract.UsuarioEntry.TABLE_NAME + " (" +
-                UsuarioContract.UsuarioEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                UsuarioContract.UsuarioEntry.COLUMN_NOMBRE + " TEXT NOT NULL UNIQUE, " +
-                UsuarioContract.UsuarioEntry.COLUMN_CLAVE + " TEXT NOT NULL" +
-                ")");
-
-        db.execSQL("CREATE TABLE " + FavoritoContract.FavoritoEntry.TABLE_NAME + " (" +
-                FavoritoContract.FavoritoEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                FavoritoContract.FavoritoEntry.COLUMN_USUARIO_ID + " INTEGER NOT NULL, " +
-                FavoritoContract.FavoritoEntry.COLUMN_CANCION_ID + " INTEGER NOT NULL, " +
-                "FOREIGN KEY (" + FavoritoContract.FavoritoEntry.COLUMN_USUARIO_ID + ") REFERENCES "
-                + UsuarioContract.UsuarioEntry.TABLE_NAME + "(" + UsuarioContract.UsuarioEntry.COLUMN_ID + ") ON DELETE CASCADE, " +
-                "FOREIGN KEY (" + FavoritoContract.FavoritoEntry.COLUMN_CANCION_ID + ") REFERENCES "
-                + CancionContract.CancionEntry.TABLE_NAME + "(" + CancionContract.CancionEntry.COLUMN_ID + ") ON DELETE CASCADE, " +
-                "UNIQUE (" + FavoritoContract.FavoritoEntry.COLUMN_USUARIO_ID + ", "
-                + FavoritoContract.FavoritoEntry.COLUMN_CANCION_ID + ")" +
-                ")");
-
-        // ===== 2. Usuarios iniciales =====
-        insertarUsuario(db, "admin", "admin");
-        insertarUsuario(db, "carlos", "carlos");
-
-        // ===== 3. Las 21 canciones =====
-        insertarCancionesIniciales(db);
-    }
-
-    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // No hay versiones anteriores: la base de datos nace en la 1.
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE " + T_FAVORITOS + " RENAME TO favoritos_v1");
+            crearTablaFavoritos(db);
+            db.execSQL("INSERT INTO " + T_FAVORITOS + " (_id, usuario_id, cancion_id) "
+                    + "SELECT _id, usuario_id, cancion_id FROM favoritos_v1 "
+                    + "WHERE usuario_id IN (SELECT _id FROM " + T_USUARIOS + ")");
+            db.execSQL("DROP TABLE favoritos_v1");
+        }
+    }
+
+    // ===================== usuarios =====================
+
+    /** Login: el usuario con ese nombre (sin distinguir mayúsculas) y esa clave, o {@code null}. */
+    public Usuario login(String nombre, String clave) {
+        try (Cursor c = getReadableDatabase().query(T_USUARIOS, null,
+                "nombre = ? COLLATE NOCASE AND clave = ?", new String[]{nombre, clave},
+                null, null, null)) {
+            return c.moveToFirst() ? leerUsuario(c) : null;
+        }
+    }
+
+    /** Un usuario por su {@code _id}, o {@code null} si no existe. */
+    public Usuario getUsuario(int id) {
+        try (Cursor c = getReadableDatabase().query(T_USUARIOS, null,
+                "_id = ?", new String[]{String.valueOf(id)}, null, null, null)) {
+            return c.moveToFirst() ? leerUsuario(c) : null;
+        }
+    }
+
+    // ===================== favoritos =====================
+
+    /** Favoritos de un usuario, del último añadido al primero. */
+    public List<Favorito> getFavoritos(int usuarioId) {
+        List<Favorito> favoritos = new ArrayList<>();
+        try (Cursor c = getReadableDatabase().query(T_FAVORITOS, null,
+                "usuario_id = ?", new String[]{String.valueOf(usuarioId)},
+                null, null, "_id DESC")) {
+            while (c.moveToNext()) {
+                Favorito f = new Favorito();
+                f.setId(c.getInt(c.getColumnIndexOrThrow("_id")));
+                f.setCancionId(c.getInt(c.getColumnIndexOrThrow("cancion_id")));
+                favoritos.add(f);
+            }
+        }
+        return favoritos;
+    }
+
+    /**
+     * Añade una canción a los favoritos del usuario. Por el
+     * {@code UNIQUE(usuario_id, cancion_id)} un duplicado se ignora.
+     *
+     * @return el {@code _id} nuevo, o {@code -1} si ya era favorita.
+     */
+    public long insertarFavorito(int usuarioId, int cancionId) {
+        ContentValues valores = new ContentValues();
+        valores.put("usuario_id", usuarioId);
+        valores.put("cancion_id", cancionId);
+        return getWritableDatabase().insertWithOnConflict(T_FAVORITOS, null, valores,
+                SQLiteDatabase.CONFLICT_IGNORE);
+    }
+
+    /** Quita una canción de los favoritos de un usuario. */
+    public void borrarFavorito(int usuarioId, int cancionId) {
+        getWritableDatabase().delete(T_FAVORITOS, "usuario_id = ? AND cancion_id = ?",
+                new String[]{String.valueOf(usuarioId), String.valueOf(cancionId)});
+    }
+
+    /** Borra un favorito por su {@code _id} (los huérfanos de canciones borradas). */
+    public void borrarFavorito(int id) {
+        getWritableDatabase().delete(T_FAVORITOS, "_id = ?", new String[]{String.valueOf(id)});
     }
 
     // ===================== ayudas =====================
 
+    /** Esquema v2: FK solo a usuarios (CASCADE) y sin duplicados. */
+    private void crearTablaFavoritos(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + T_FAVORITOS + " ("
+                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "usuario_id INTEGER NOT NULL, "
+                + "cancion_id INTEGER NOT NULL, "
+                + "FOREIGN KEY (usuario_id) REFERENCES " + T_USUARIOS + "(_id) ON DELETE CASCADE, "
+                + "UNIQUE (usuario_id, cancion_id))");
+    }
+
     private void insertarUsuario(SQLiteDatabase db, String nombre, String clave) {
         ContentValues valores = new ContentValues();
-        valores.put(UsuarioContract.UsuarioEntry.COLUMN_NOMBRE, nombre);
-        valores.put(UsuarioContract.UsuarioEntry.COLUMN_CLAVE, clave);
-        db.insert(UsuarioContract.UsuarioEntry.TABLE_NAME, null, valores);
+        valores.put("nombre", nombre);
+        valores.put("clave", clave);
+        db.insert(T_USUARIOS, null, valores);
     }
 
-    private void insertarCancionesIniciales(SQLiteDatabase db) {
-        // La misma lista que tenías en el ArrayList de BibliotecaActivity.
-        Cancion[] iniciales = {
-                new Cancion("Luna de cobre", "Rock", "Eco Records", 2, 2024, 8, 180, 7),
-                new Cancion("Tormenta", "Rock", "Eco Records", 3, 2021, 7, 205, 6),
-                new Cancion("Camino al sur", "Rock", "Sur Records", 1, 2019, 6, 165, 5),
-                new Cancion("Viento norte", "Rock", "Sur Records", 4, 2023, 9, 190, 8),
-                new Cancion("Semilla", "Rock", "Eco Records", 2, 2020, 5, 150, 4),
-                new Cancion("Fuego lento", "Rock", "Sur Records", 2, 2022, 8, 175, 7),
-                new Cancion("Arena", "Rock", "Eco Records", 3, 2018, 6, 200, 6),
-
-                new Cancion("Neón", "Pop", "Luces Records", 1, 2025, 9, 210, 9),
-                new Cancion("Mariposa", "Pop", "Luces Records", 1, 2023, 8, 195, 7),
-                new Cancion("Ciudad dormida", "Pop", "Luces Records", 2, 2022, 7, 185, 6),
-                new Cancion("Azúcar", "Pop", "Sol Records", 1, 2024, 9, 200, 8),
-                new Cancion("Ventana", "Pop", "Sol Records", 2, 2021, 6, 170, 5),
-                new Cancion("Domingo", "Pop", "Luces Records", 1, 2020, 7, 160, 6),
-                new Cancion("Papel de plata", "Pop", "Sol Records", 4, 2019, 5, 155, 4),
-
-                new Cancion("Pulso", "Electrónica", "Circuito Records", 1, 2025, 9, 240, 9),
-                new Cancion("Circuito", "Electrónica", "Circuito Records", 2, 2024, 8, 225, 8),
-                new Cancion("Amanecer binario", "Electrónica", "Nébula Records", 3, 2023, 7, 210, 7),
-                new Cancion("Órbita", "Electrónica", "Nébula Records", 2, 2022, 8, 235, 8),
-                new Cancion("Señal", "Electrónica", "Circuito Records", 1, 2021, 6, 205, 5),
-                new Cancion("Bitácora", "Electrónica", "Nébula Records", 3, 2020, 7, 220, 6),
-                new Cancion("Nébula", "Electrónica", "Nébula Records", 1, 2019, 6, 215, 5)
-        };
-
-        for (Cancion c : iniciales) {
-            ContentValues valores = new ContentValues();
-            valores.put("nombre", c.getNombre());
-            valores.put("genero", c.getGenero());
-            valores.put("sello", c.getSello());
-            valores.put("interpretes", c.getInterpretes());
-            valores.put("anio", c.getAnio());
-            valores.put("popularidad", c.getPopularidad());
-            valores.put("duracion", c.getDuracion());
-            valores.put("valoracion", c.getValoracion());
-            // "ubicacion" y "portada" se quedan NULL: la portada se calcula
-            // con Portadas.de(genero) y la canción no tiene ubicación física.
-            db.insert("canciones", null, valores);
-        }
+    private Usuario leerUsuario(Cursor c) {
+        Usuario u = new Usuario();
+        u.setId(c.getInt(c.getColumnIndexOrThrow("_id")));
+        u.setNombre(c.getString(c.getColumnIndexOrThrow("nombre")));
+        return u;
     }
-
 }

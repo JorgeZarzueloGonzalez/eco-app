@@ -30,6 +30,10 @@
             android:name=".ui.activities.FavoritosActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activities.ReproduccionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.activities.AltaCancionActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

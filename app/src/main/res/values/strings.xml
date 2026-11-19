@@ -3,15 +3,13 @@
     <string name="createdBy">Creado por Jorge Zarzuelo Gonzalez</string>
 
     <!-- ===== Práctica 1b: contador ===== -->
-    <string name="check" translatable="false">Check</string>
     <string name="reset" translatable="false">Reset</string>
-    <string name="reproductions">Reproducciones: %1$d</string>
 
     <!-- ===== Práctica 2: controles básicos ===== -->
     <string name="numbers_of_artist">Intérpretes: %1$d</string>
     <string name="artist_info">Botón pulsado: %1$s · Intérpretes: %2$d</string>
-    <string name="max_artists">Ya no se pueden añadir más intérpretes</string>
-    <string name="min_artists">Ya no se pueden quitar más intérpretes</string>
+    <string name="max_artists">Máximo número de intérpretes</string>
+    <string name="min_artists">Mínimo número de intérpretes</string>
     <string name="add_artist">+</string>
     <string name="remove_artist">−</string>
     <string name="write_here">Escribe aquí</string>
@@ -22,7 +20,6 @@
     <string name="puss_button">Pulsa el botón</string>
     <string name="button_pussed">Botón pulsado</string>
     <string name="box_button">Button</string>
-    <string name="next_symbol" translatable="false">›</string>
 
     <!-- ===== Práctica 3: teclado de puntuación ===== -->
     <string name="keypad_title">Teclado de puntuación</string>
@@ -52,6 +49,8 @@
     <!-- ===== Práctica 4: formulario completo y ficha ===== -->
     <string name="genero">Género</string>
     <string name="sello">Sello discográfico</string>
+    <string name="interpretes_min">Intérpretes (mínimo)</string>
+    <string name="interpretes_max">Intérpretes (máximo)</string>
     <string name="anio">Año de publicación</string>
     <string name="duracion">Duración (minutos)</string>
     <string name="send">Enviar</string>
@@ -107,21 +106,12 @@
 
     <!-- ===== Práctica 7: buscar canción ===== -->
     <string name="buscar_titulo">Buscar canción</string>
-    <string name="buscar_genero">Género</string>
-    <string name="buscar_cancion">Canción</string>
-    <string name="buscar_ubicacion">Ubicación</string>
-    <string name="mostrar">Mostrar</string>
-    <string name="buscar_toast">Género: %1$s · Canción: %2$s · Ubicación: %3$s</string>
     <string name="main_buscar">Buscar</string>
 
     <!-- ===== Práctica 8: la biblioteca (colección) ===== -->
     <string name="biblioteca_titulo">Mi biblioteca</string>
     <string name="anadir_cancion">Añadir canción</string>
-    <string name="mostrar_canciones">Mostrar canciones</string>
     <string name="portada">Portada</string>
-    <string name="item_interpretes">Intérpretes: %1$s</string>
-    <string name="biblioteca_anadida">Añadida: %1$s</string>
-    <string name="biblioteca_vacia">Todavía no hay canciones: pulsa Añadir canción</string>
     <string name="main_biblioteca">Biblioteca</string>
 
     <!-- ===== Práctica 9: RecyclerView y ficha ampliada ===== -->
@@ -174,4 +164,21 @@
     <string name="guardar_cambios">Guardar cambios</string>
     <string name="cancion_guardada">Canción guardada</string>
     <string name="cancion_actualizada">Cambios guardados</string>
+
+    <!-- ===== Práctica 13: Room (reproducciones) ===== -->
+    <string name="reproducciones">Reproducciones</string>
+    <string name="reproduccion_cancion">Canción</string>
+    <string name="reproduccion_total">Reproducciones: %1$d</string>
+    <string name="reproduccion_oyente">Oyente</string>
+    <string name="reproduccion_puntuacion">Puntuación: %1$d / 9</string>
+    <string name="reproduccion_puntuacion_label">Puntuación de la escucha</string>
+    <string name="reproduccion_guardar">Guardar reproducción</string>
+    <string name="reproduccion_guardada">Reproducción guardada</string>
+    <string name="reproduccion_falta_oyente">Escribe quién la ha escuchado</string>
+    <string name="reproduccion_sin_canciones">No hay canciones en la biblioteca</string>
+    <string name="reproduccion_vacio">Esta canción todavía no tiene reproducciones</string>
+    <string name="reproduccion_fila">%1$s · ★ %2$d / 9</string>
+    <string name="reproduccion_borrar_pregunta">¿Borrar esta reproducción?</string>
+    <string name="reproduccion_borrada">Reproducción borrada</string>
+    <string name="borrar">Borrar</string>
 </resources>

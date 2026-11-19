@@ -10,11 +10,4 @@
     </string-array>
 
     <!-- Practice 7: the 5 places where a song can be -->
-    <string-array name="ubicaciones">
-        <item>Library</item>
-        <item>Downloaded</item>
-        <item>Eco Night playlist</item>
-        <item>Lent</item>
-        <item>In the cloud</item>
-    </string-array>
 </resources>

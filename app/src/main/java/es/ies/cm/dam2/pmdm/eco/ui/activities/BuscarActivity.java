@@ -16,14 +16,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import es.ies.cm.dam2.pmdm.eco.R;
-import es.ies.cm.dam2.pmdm.eco.data.repository.CancionRepository;
+import es.ies.cm.dam2.pmdm.eco.data.room.AppDatabase;
+import es.ies.cm.dam2.pmdm.eco.data.room.CancionDao;
 import es.ies.cm.dam2.pmdm.eco.model.Cancion;
 import es.ies.cm.dam2.pmdm.eco.ui.adapters.AdaptadorCancionRecycler;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * P12 Buscador de la biblioteca: filtra por nombre (empieza por o contiene) y
- * por valoración mínima, consultando la tabla {@code canciones} de {@code eco.db}.
+ * por valoración mínima. Desde la P13 consulta {@link CancionDao#buscar} de Room
+ * en {@link AppDatabase#executor}.
  * <p>
  * Sustituye a los filtros estáticos de la P7. Los resultados se pintan con el
  * mismo {@link AdaptadorCancionRecycler} de la biblioteca y, al tocar uno, se
@@ -35,7 +38,7 @@ public class BuscarActivity extends AppCompatActivity
     /** Los resultados de la última búsqueda (la lista que pinta el adaptador). */
     private final ArrayList<Cancion> resultados = new ArrayList<>();
 
-    private CancionRepository cancionRepository;
+    private CancionDao cancionDao;
     private AdaptadorCancionRecycler adaptador;
     private EditText nombreEdit;
     private RadioButton empiezaRadio;
@@ -53,7 +56,7 @@ public class BuscarActivity extends AppCompatActivity
             return insets;
         });
 
-        cancionRepository = new CancionRepository(this);
+        cancionDao = AppDatabase.getInstancia(this).cancionDao();
 
         nombreEdit = findViewById(R.id.nombreBuscarEdit);
         empiezaRadio = findViewById(R.id.radioEmpieza);
@@ -88,15 +91,31 @@ public class BuscarActivity extends AppCompatActivity
 
     /** Consulta la base de datos con los filtros actuales y repinta la lista. */
     private void buscar() {
-        String texto = nombreEdit.getText().toString().trim();
-        boolean empiezaPor = empiezaRadio.isChecked();
+        String patron = patron(nombreEdit.getText().toString(), empiezaRadio.isChecked());
         int valoracionMinima = Math.round(valoracionRating.getRating());
 
-        resultados.clear();
-        resultados.addAll(cancionRepository.buscar(texto, empiezaPor, valoracionMinima));
-        adaptador.notifyDataSetChanged();
+        AppDatabase.executor.execute(() -> {
+            List<Cancion> encontradas = cancionDao.buscar(patron, valoracionMinima);
+            runOnUiThread(() -> {
+                resultados.clear();
+                resultados.addAll(encontradas);
+                adaptador.notifyDataSetChanged();
+                resultadosVacio.setVisibility(resultados.isEmpty() ? View.VISIBLE : View.GONE);
+            });
+        });
+    }
 
-        resultadosVacio.setVisibility(resultados.isEmpty() ? View.VISIBLE : View.GONE);
+    /**
+     * Patrón del {@code LIKE}: {@code texto%} (empieza por) o {@code %texto%}
+     * (contiene). Se escapan {@code %} y {@code _} para que, si el usuario los
+     * escribe, se busquen como letras normales y no como comodines.
+     */
+    private static String patron(String texto, boolean empiezaPor) {
+        String limpio = texto.trim()
+                .replace("\\", "\\\\")
+                .replace("%", "\\%")
+                .replace("_", "\\_");
+        return empiezaPor ? limpio + "%" : "%" + limpio + "%";
     }
 
     @Override

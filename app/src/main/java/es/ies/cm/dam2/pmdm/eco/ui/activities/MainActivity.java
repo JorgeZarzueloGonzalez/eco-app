@@ -78,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.close();
                 return true;
             }
+            if (id == R.id.nav_reproducciones) {
+                startActivity(new Intent(this, ReproduccionActivity.class));
+                drawerLayout.close();
+                return true;
+            }
             if (id == R.id.nav_ajustes) {
                 new MaterialAlertDialogBuilder(this)
                         .setTitle("Ajustes")

@@ -18,20 +18,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import es.ies.cm.dam2.pmdm.eco.R;
-import es.ies.cm.dam2.pmdm.eco.data.repository.CancionRepository;
+import es.ies.cm.dam2.pmdm.eco.data.room.AppDatabase;
+import es.ies.cm.dam2.pmdm.eco.data.room.CancionDao;
 import es.ies.cm.dam2.pmdm.eco.model.Cancion;
 import es.ies.cm.dam2.pmdm.eco.ui.adapters.AdaptadorCancionRecycler;
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * P8/P9 La biblioteca de Eco: la colección de canciones.
  * <p>
  * En la P8 se pintaba con un {@code ListView}; en la P9 pasa a un
- * {@link RecyclerView} con tarjetas. Desde la P12 la fuente de verdad es la
- * tabla {@code canciones} de {@code eco.db}: la lista se recarga en
+ * {@link RecyclerView} con tarjetas. Desde la P12 la lista se recarga en
  * {@code onResume} y el menú contextual edita o borra la fila.
+ * <p>
+ * P13: las canciones están en Room ({@code eco_room.db}). Cada acceso al
+ * {@link CancionDao} va en {@link AppDatabase#executor} y el adaptador se
+ * actualiza de vuelta en el hilo principal con {@code runOnUiThread}.
  */
 public class BibliotecaActivity extends AppCompatActivity
         implements AdaptadorCancionRecycler.OyenteCancion {
@@ -49,7 +54,7 @@ public class BibliotecaActivity extends AppCompatActivity
     private AdaptadorCancionRecycler adaptador;
     private LinearLayoutManager disposicion;
     private Cancion cancionSeleccionada;
-    private CancionRepository cancionRepository;
+    private CancionDao cancionDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +73,7 @@ public class BibliotecaActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
 
-        cancionRepository = new CancionRepository(this);
-
-        cargarCanciones();
+        cancionDao = AppDatabase.getInstancia(this).cancionDao();
 
         // 2. El RecyclerView con su LayoutManager (sin él no se pinta NADA)
         RecyclerView bibliotecaRecycler = findViewById(R.id.bibliotecaRecycler);
@@ -82,22 +85,30 @@ public class BibliotecaActivity extends AppCompatActivity
         bibliotecaRecycler.setAdapter(adaptador);
     }
 
+    /**
+     * Consulta Room en segundo plano y repinta la lista en el hilo principal.
+     * Las vistas solo se pueden tocar desde el hilo principal.
+     */
     private void cargarCanciones() {
-        coleccion.clear();
-        coleccion.addAll(cancionRepository.getCanciones());
+        AppDatabase.executor.execute(() -> {
+            List<Cancion> canciones = cancionDao.todas();
+            runOnUiThread(() -> {
+                coleccion.clear();
+                coleccion.addAll(canciones);
+                adaptador.notifyDataSetChanged();
+            });
+        });
     }
 
     /**
-     * P12: al volver del alta, de la ficha o de la edición se recarga desde la
+     * Al volver del alta, de la ficha o de la edición se recarga desde la
      * base de datos. Así la BD manda y no hay canciones duplicadas en memoria.
+     * (También es la primera carga: onResume se ejecuta justo después de onCreate.)
      */
     @Override
     protected void onResume() {
         super.onResume();
         cargarCanciones();
-        if (adaptador != null) {
-            adaptador.notifyDataSetChanged();
-        }
     }
 
 
@@ -187,11 +198,15 @@ public class BibliotecaActivity extends AppCompatActivity
                 .show();
     }
 
+    /** Borra por {@code id}; Room borra en cascada sus reproducciones. */
     private void borrarSeleccionada() {
-        cancionRepository.deleteCancion(cancionSeleccionada.getId());
-        cargarCanciones();
-        adaptador.notifyDataSetChanged();
-        Toast.makeText(this, R.string.cancion_borrada, Toast.LENGTH_SHORT).show();
+        Cancion aBorrar = cancionSeleccionada;
+        AppDatabase.executor.execute(() -> {
+            cancionDao.borrar(aBorrar);
+            runOnUiThread(() ->
+                    Toast.makeText(this, R.string.cancion_borrada, Toast.LENGTH_SHORT).show());
+        });
+        cargarCanciones(); // se encola detrás del borrado: el executor tiene un solo hilo
     }
 
     private void abrirEdicion() {

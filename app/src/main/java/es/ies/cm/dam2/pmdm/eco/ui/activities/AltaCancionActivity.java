@@ -23,7 +23,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import es.ies.cm.dam2.pmdm.eco.R;
-import es.ies.cm.dam2.pmdm.eco.data.repository.CancionRepository;
+import es.ies.cm.dam2.pmdm.eco.data.room.AppDatabase;
+import es.ies.cm.dam2.pmdm.eco.data.room.CancionDao;
 import es.ies.cm.dam2.pmdm.eco.model.Cancion;
 import java.util.Calendar;
 
@@ -81,7 +82,7 @@ public class AltaCancionActivity extends AppCompatActivity {
     private TextView popularityError;
     private TextView scoreResult;
     private RadioGroup radioGroupState;
-    private CancionRepository cancionRepository;
+    private CancionDao cancionDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +97,7 @@ public class AltaCancionActivity extends AppCompatActivity {
             return insets;
         });
 
-        cancionRepository = new CancionRepository(this);
+        cancionDao = AppDatabase.getInstancia(this).cancionDao();
 
         // ===================== P2.1 Contador de intérpretes =====================
         artistNumber = findViewById(R.id.artistNumber);
@@ -324,25 +325,35 @@ public class AltaCancionActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /** P8/P12: ACEPTAR guarda en la base de datos y devuelve la canción a la biblioteca. */
+    /**
+     * P8/P13: ACEPTAR guarda en Room (insert si es nueva, update si se está
+     * editando) y devuelve la canción a la biblioteca. La escritura va en el
+     * executor; la pantalla se cierra cuando ha terminado.
+     */
     private void aceptarFormulario() {
         Cancion cancion = validarFormulario();
         if (cancion == null) {
             return;
         }
 
-        if (cancion.getId() > 0) {
-            cancionRepository.updateCancion(cancion);
-            Toast.makeText(this, R.string.cancion_actualizada, Toast.LENGTH_SHORT).show();
-        } else {
-            cancionRepository.insertCancion(cancion);
-            Toast.makeText(this, R.string.cancion_guardada, Toast.LENGTH_SHORT).show();
-        }
+        AppDatabase.executor.execute(() -> {
+            int mensaje;
+            if (cancion.getId() > 0) {
+                cancionDao.actualizar(cancion);
+                mensaje = R.string.cancion_actualizada;
+            } else {
+                cancion.setId((int) cancionDao.insertar(cancion));
+                mensaje = R.string.cancion_guardada;
+            }
 
-        Intent respuesta = new Intent();
-        respuesta.putExtra(EXTRA_CANCION, cancion);
-        setResult(RESULT_OK, respuesta);
-        finish();
+            runOnUiThread(() -> {
+                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+                Intent respuesta = new Intent();
+                respuesta.putExtra(EXTRA_CANCION, cancion);
+                setResult(RESULT_OK, respuesta);
+                finish();
+            });
+        });
     }
 
     /** Valida el formulario: devuelve la canción, o {@code null} (con su Toast) si algo está mal. */

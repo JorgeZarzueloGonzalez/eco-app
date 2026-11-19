@@ -1,5 +1,8 @@
 package es.ies.cm.dam2.pmdm.eco.model;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 /**
@@ -8,13 +11,21 @@ import java.io.Serializable;
  * {@code implements Serializable} es la etiqueta que permite meter el objeto
  * dentro de un Intent (extra). Sin ella salta {@code NotSerializableException}.
  * {@code toString()} sirve para poder pintar el objeto como texto legible.
+ * <p>
+ * P13: es una {@code @Entity} de Room (tabla {@code canciones} de
+ * {@code eco_room.db}). Cada campo es una columna; Room los lee y escribe con
+ * los getters/setters y crea los objetos con el constructor vacío (los otros
+ * llevan {@code @Ignore} para que Room no dude cuál usar).
  */
+@Entity(tableName = "canciones")
 public class Cancion implements Serializable {
 
     /**
      * Identificador de la versión de la clase (lo pide Android Studio).
      */
     private static final long serialVersionUID = 1L;
+    /** Clave primaria: si vale 0 al insertar, Room genera una nueva. */
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String nombre;
     private String genero;
@@ -29,6 +40,7 @@ public class Cancion implements Serializable {
      */
     private int valoracion;
 
+    @Ignore
     public Cancion(int id, String nombre, String genero, String sello,
                    int interpretes,
                    int anio, int popularidad, int duracion, int valoracion) {
@@ -43,14 +55,15 @@ public class Cancion implements Serializable {
         this.valoracion = valoracion;
     }
 
+    @Ignore
     public Cancion(String nombre, String genero, String sello,
                    int interpretes,
                    int anio, int popularidad, int duracion, int valoracion) {
         this(0, nombre, genero, sello, interpretes, anio, popularidad, duracion, valoracion);
     }
 
+    /** Constructor que usa Room para crear los objetos al leer filas. */
     public Cancion() {
-
     }
 
     public int getId() {
@@ -124,10 +137,6 @@ public class Cancion implements Serializable {
     public void setValoracion(int valoracion) {
         this.valoracion = valoracion;
     }
-
-    /**
-     * Texto de intérpretes para las filas de la lista.
-     */
 
     @Override
     public String toString() {

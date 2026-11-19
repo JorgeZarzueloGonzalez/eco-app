@@ -3,13 +3,12 @@
 
     <!-- ===== General ===== -->
     <string name="createdBy">Created by Jorge Zarzuelo Gonzalez</string>
-    <string name="reproductions">Plays: %1$d</string>
 
     <!-- ===== Practice 2: basic controls ===== -->
     <string name="numbers_of_artist">Performers: %1$d</string>
     <string name="artist_info">Button pressed: %1$s · Performers: %2$d</string>
-    <string name="max_artists">No more performers can be added</string>
-    <string name="min_artists">No more performers can be removed</string>
+    <string name="max_artists">Maximum number of performers</string>
+    <string name="min_artists">Minimum number of performers</string>
     <string name="add_artist">+</string>
     <string name="remove_artist">−</string>
     <string name="write_here">Type here</string>
@@ -40,6 +39,8 @@
     <!-- ===== Practice 4: full form and details ===== -->
     <string name="genero">Genre</string>
     <string name="sello">Record label</string>
+    <string name="interpretes_min">Performers (minimum)</string>
+    <string name="interpretes_max">Performers (maximum)</string>
     <string name="anio">Release year</string>
     <string name="duracion">Duration (minutes)</string>
     <string name="send">Send</string>
@@ -94,21 +95,12 @@
 
     <!-- ===== Practice 7: search song ===== -->
     <string name="buscar_titulo">Search song</string>
-    <string name="buscar_genero">Genre</string>
-    <string name="buscar_cancion">Song</string>
-    <string name="buscar_ubicacion">Location</string>
-    <string name="mostrar">Show</string>
-    <string name="buscar_toast">Genre: %1$s · Song: %2$s · Location: %3$s</string>
     <string name="main_buscar">Search</string>
 
     <!-- ===== Practice 8: the library (collection) ===== -->
     <string name="biblioteca_titulo">My library</string>
     <string name="anadir_cancion">Add song</string>
-    <string name="mostrar_canciones">Show songs</string>
     <string name="portada">Cover</string>
-    <string name="item_interpretes">Performers: %1$s</string>
-    <string name="biblioteca_anadida">Added: %1$s</string>
-    <string name="biblioteca_vacia">No songs yet: press Add song</string>
     <string name="main_biblioteca">Library</string>
 
     <!-- ===== Practice 9: RecyclerView and expanded details ===== -->
@@ -159,4 +151,21 @@
     <string name="anadir">Add song</string>
     <string name="buscar">Find song</string>
     <string name="inicio">Home</string>
+
+    <!-- ===== Practice 13: Room (plays) ===== -->
+    <string name="reproducciones">Plays</string>
+    <string name="reproduccion_cancion">Song</string>
+    <string name="reproduccion_total">Plays: %1$d</string>
+    <string name="reproduccion_oyente">Listener</string>
+    <string name="reproduccion_puntuacion">Score: %1$d / 9</string>
+    <string name="reproduccion_puntuacion_label">Listening score</string>
+    <string name="reproduccion_guardar">Save play</string>
+    <string name="reproduccion_guardada">Play saved</string>
+    <string name="reproduccion_falta_oyente">Type who listened to it</string>
+    <string name="reproduccion_sin_canciones">There are no songs in the library</string>
+    <string name="reproduccion_vacio">This song has no plays yet</string>
+    <string name="reproduccion_fila">%1$s · ★ %2$d / 9</string>
+    <string name="reproduccion_borrar_pregunta">Delete this play?</string>
+    <string name="reproduccion_borrada">Play deleted</string>
+    <string name="borrar">Delete</string>
 </resources>

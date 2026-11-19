@@ -1,31 +1,17 @@
 package es.ies.cm.dam2.pmdm.eco.model;
 
-import java.io.Serializable;
-
 /**
- * P12 Una fila de la tabla {@code favoritos} de {@code eco.db}: relaciona un
- * usuario con una canción.
+ * P12 Una fila de la tabla {@code favoritos} de {@code eco.db}.
  * <p>
- * Aquí solo se guardan los dos identificadores; el nombre y el género de la
- * canción se leen de la tabla {@code canciones} por su {@code _id}.
+ * Solo guarda identificadores: el nombre y el género de la canción se piden
+ * a Room con {@code cancionDao().porId(cancionId)} (P13: no hay JOIN posible
+ * entre dos bases de datos). El usuario no hace falta: la consulta ya filtra
+ * por él.
  */
-public class Favorito implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Favorito {
 
     private int id;
-    private int usuarioId;
     private int cancionId;
-
-    public Favorito(int usuarioId, int cancionId) {
-        this.id = 0;
-        this.usuarioId = usuarioId;
-        this.cancionId = cancionId;
-    }
-
-    public Favorito() {
-
-    }
 
     public int getId() {
         return id;
@@ -35,24 +21,11 @@ public class Favorito implements Serializable {
         this.id = id;
     }
 
-    public int getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
     public int getCancionId() {
         return cancionId;
     }
 
     public void setCancionId(int cancionId) {
         this.cancionId = cancionId;
-    }
-
-    @Override
-    public String toString() {
-        return "Favorito · usuario " + usuarioId + " · canción " + cancionId;
     }
 }
