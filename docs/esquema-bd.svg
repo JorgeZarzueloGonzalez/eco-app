@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="730" viewBox="0 0 1240 730" font-family="DejaVu Sans, Arial, sans-serif">
+<defs><marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#3A3A4C"/></marker></defs>
+<rect width="1240" height="730" fill="#FFFFFF"/>
+<text x="40" y="44" font-size="26" font-weight="bold" fill="#16161D">Eco · Esquema de las bases de datos</text>
+<text x="40" y="70" font-size="14" fill="#5F5F73">PK = clave primaria · FK = clave ajena · las flechas apuntan a la tabla padre</text>
+<rect x="30" y="95" width="560" height="610" rx="16" fill="#6C5CE7" fill-opacity="0.08" stroke="#6C5CE7" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="48" y="125" font-size="18" font-weight="bold" fill="#16161D">eco.db · SQLite (EcoDB, versión 3)</text>
+<text x="48" y="145" font-size="13" fill="#5F5F73">Usuarios y listas personales (playlists)</text>
+<rect x="650" y="95" width="560" height="610" rx="16" fill="#C6F135" fill-opacity="0.08" stroke="#C6F135" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="668" y="125" font-size="18" font-weight="bold" fill="#16161D">eco_room.db · Room (AppDatabase, versión 2)</text>
+<text x="668" y="145" font-size="13" fill="#5F5F73">Entidad principal y su relación 1-N</text>
+<rect x="300" y="175" width="250" height="114" rx="10" fill="#FFFFFF" stroke="#C3C3D1" stroke-width="1.5"/>
+<path d="M300,211V185a10,10 0 0 1 10,-10H540a10,10 0 0 1 10,10V211z" fill="#6C5CE7"/>
+<text x="314" y="199" font-size="15" font-weight="bold" fill="#FFFFFF">usuarios</text>
+<text x="314" y="229" font-size="13" font-weight="bold" fill="#16161D">_id</text>
+<text x="536" y="229" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · PK</text>
+<rect x="301" y="237" width="248" height="26" fill="#F3F3F8"/>
+<text x="314" y="255" font-size="13" font-weight="normal" fill="#16161D">nombre</text>
+<text x="536" y="255" font-size="11" text-anchor="end" fill="#5F5F73">TEXT · UNIQUE</text>
+<text x="314" y="281" font-size="13" font-weight="normal" fill="#16161D">clave</text>
+<text x="536" y="281" font-size="11" text-anchor="end" fill="#5F5F73">TEXT</text>
+<rect x="300" y="345" width="250" height="114" rx="10" fill="#FFFFFF" stroke="#C3C3D1" stroke-width="1.5"/>
+<path d="M300,381V355a10,10 0 0 1 10,-10H540a10,10 0 0 1 10,10V381z" fill="#6C5CE7"/>
+<text x="314" y="369" font-size="15" font-weight="bold" fill="#FFFFFF">playlists</text>
+<text x="314" y="399" font-size="13" font-weight="bold" fill="#16161D">_id</text>
+<text x="536" y="399" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · PK</text>
+<rect x="301" y="407" width="248" height="26" fill="#F3F3F8"/>
+<text x="314" y="425" font-size="13" font-weight="normal" fill="#16161D">usuario_id</text>
+<text x="536" y="425" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · FK</text>
+<text x="314" y="451" font-size="13" font-weight="normal" fill="#16161D">nombre</text>
+<text x="536" y="451" font-size="11" text-anchor="end" fill="#5F5F73">TEXT</text>
+<rect x="300" y="515" width="250" height="114" rx="10" fill="#FFFFFF" stroke="#C3C3D1" stroke-width="1.5"/>
+<path d="M300,551V525a10,10 0 0 1 10,-10H540a10,10 0 0 1 10,10V551z" fill="#6C5CE7"/>
+<text x="314" y="539" font-size="15" font-weight="bold" fill="#FFFFFF">playlist_canciones</text>
+<text x="314" y="569" font-size="13" font-weight="bold" fill="#16161D">_id</text>
+<text x="536" y="569" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · PK</text>
+<rect x="301" y="577" width="248" height="26" fill="#F3F3F8"/>
+<text x="314" y="595" font-size="13" font-weight="normal" fill="#16161D">playlist_id</text>
+<text x="536" y="595" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · FK</text>
+<text x="314" y="621" font-size="13" font-weight="normal" fill="#16161D">cancion_id</text>
+<text x="536" y="621" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · → Room</text>
+<text x="60" y="680" font-size="12" fill="#5F5F73">UNIQUE(usuario_id, nombre) · UNIQUE(playlist_id, cancion_id)</text>
+<rect x="900" y="170" width="280" height="348" rx="10" fill="#FFFFFF" stroke="#C3C3D1" stroke-width="1.5"/>
+<path d="M900,206V180a10,10 0 0 1 10,-10H1170a10,10 0 0 1 10,10V206z" fill="#C6F135"/>
+<text x="914" y="194" font-size="15" font-weight="bold" fill="#141A05">canciones</text>
+<text x="914" y="224" font-size="13" font-weight="bold" fill="#16161D">id</text>
+<text x="1166" y="224" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · PK</text>
+<rect x="901" y="232" width="278" height="26" fill="#F3F3F8"/>
+<text x="914" y="250" font-size="13" font-weight="normal" fill="#16161D">nombre</text>
+<text x="1166" y="250" font-size="11" text-anchor="end" fill="#5F5F73">TEXT</text>
+<text x="914" y="276" font-size="13" font-weight="normal" fill="#16161D">genero</text>
+<text x="1166" y="276" font-size="11" text-anchor="end" fill="#5F5F73">TEXT</text>
+<rect x="901" y="284" width="278" height="26" fill="#F3F3F8"/>
+<text x="914" y="302" font-size="13" font-weight="normal" fill="#16161D">sello</text>
+<text x="1166" y="302" font-size="11" text-anchor="end" fill="#5F5F73">TEXT</text>
+<text x="914" y="328" font-size="13" font-weight="normal" fill="#16161D">interpretes</text>
+<text x="1166" y="328" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER</text>
+<rect x="901" y="336" width="278" height="26" fill="#F3F3F8"/>
+<text x="914" y="354" font-size="13" font-weight="normal" fill="#16161D">anio</text>
+<text x="1166" y="354" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER</text>
+<text x="914" y="380" font-size="13" font-weight="normal" fill="#16161D">popularidad</text>
+<text x="1166" y="380" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · 1-10</text>
+<rect x="901" y="388" width="278" height="26" fill="#F3F3F8"/>
+<text x="914" y="406" font-size="13" font-weight="normal" fill="#16161D">duracion</text>
+<text x="1166" y="406" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · seg.</text>
+<text x="914" y="432" font-size="13" font-weight="normal" fill="#16161D">valoracion</text>
+<text x="1166" y="432" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · 1-9</text>
+<rect x="901" y="440" width="278" height="26" fill="#F3F3F8"/>
+<text x="914" y="458" font-size="13" font-weight="normal" fill="#16161D">estado</text>
+<text x="1166" y="458" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · 0-2</text>
+<text x="914" y="484" font-size="13" font-weight="normal" fill="#16161D">favorita</text>
+<text x="1166" y="484" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · bool</text>
+<rect x="901" y="492" width="278" height="26" fill="#F3F3F8"/>
+<text x="914" y="510" font-size="13" font-weight="normal" fill="#16161D">explicita</text>
+<text x="1166" y="510" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · bool</text>
+<rect x="900" y="530" width="280" height="166" rx="10" fill="#FFFFFF" stroke="#C3C3D1" stroke-width="1.5"/>
+<path d="M900,566V540a10,10 0 0 1 10,-10H1170a10,10 0 0 1 10,10V566z" fill="#C6F135"/>
+<text x="914" y="554" font-size="15" font-weight="bold" fill="#141A05">reproducciones</text>
+<text x="914" y="584" font-size="13" font-weight="bold" fill="#16161D">id</text>
+<text x="1166" y="584" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · PK</text>
+<rect x="901" y="592" width="278" height="26" fill="#F3F3F8"/>
+<text x="914" y="610" font-size="13" font-weight="normal" fill="#16161D">cancionId</text>
+<text x="1166" y="610" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · FK · índice</text>
+<text x="914" y="636" font-size="13" font-weight="normal" fill="#16161D">fecha</text>
+<text x="1166" y="636" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · ms</text>
+<rect x="901" y="644" width="278" height="26" fill="#F3F3F8"/>
+<text x="914" y="662" font-size="13" font-weight="normal" fill="#16161D">puntuacion</text>
+<text x="1166" y="662" font-size="11" text-anchor="end" fill="#5F5F73">INTEGER · 1-9</text>
+<text x="914" y="688" font-size="13" font-weight="normal" fill="#16161D">oyente</text>
+<text x="1166" y="688" font-size="11" text-anchor="end" fill="#5F5F73">TEXT</text>
+<path d="M300,421H170V225H300" fill="none" stroke="#3A3A4C" stroke-width="1.8" marker-end="url(#f)"/>
+<text x="164" y="323.0" font-size="12" font-style="italic" text-anchor="end" fill="#5B4BD6">ON DELETE</text>
+<text x="164" y="338.0" font-size="12" font-style="italic" text-anchor="end" fill="#5B4BD6">CASCADE</text>
+<path d="M300,591H240V395H300" fill="none" stroke="#3A3A4C" stroke-width="1.8" marker-end="url(#f)"/>
+<text x="234" y="493.0" font-size="12" font-style="italic" text-anchor="end" fill="#5B4BD6">ON DELETE</text>
+<text x="234" y="508.0" font-size="12" font-style="italic" text-anchor="end" fill="#5B4BD6">CASCADE</text>
+<path d="M900,606H860V220H900" fill="none" stroke="#3A3A4C" stroke-width="1.8" marker-end="url(#f)"/>
+<text x="854" y="413.0" font-size="12" font-style="italic" text-anchor="end" fill="#5B4BD6">ON DELETE CASCADE</text>
+<text x="854" y="428.0" font-size="12" font-style="italic" text-anchor="end" fill="#5B4BD6">(1 canción → N)</text>
+<path d="M550,617H620V220H900" fill="none" stroke="#3A3A4C" stroke-width="1.8" stroke-dasharray="7 6" marker-end="url(#f)"/>
+<text x="626" y="268.5" font-size="12" font-style="italic" text-anchor="start" fill="#5B4BD6">sin FK: es otra</text>
+<text x="626" y="283.5" font-size="12" font-style="italic" text-anchor="start" fill="#5B4BD6">base de datos</text>
+</svg>

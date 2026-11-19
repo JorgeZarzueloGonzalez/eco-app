@@ -12,7 +12,6 @@
     <!-- ===== MARCA ===== -->
     <color name="primary">#6C5CE7</color>          <!-- violeta de la marca -->
     <color name="primaryDark">#3E32A8</color>
-    <color name="primaryLight">#A29BFE</color>
     <color name="accent">#4E7000</color>           <!-- lima oscuro: títulos y texto destacado (7:1 sobre blanco) -->
     <color name="accent_fill">#C6F135</color>      <!-- lima de la marca: rellenos (nunca texto sobre fondo claro) -->
     <color name="action">#C6F135</color>           <!-- botones principales; texto encima casi negro (15:1) -->
